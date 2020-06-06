@@ -158,10 +158,9 @@ model = t5.models.MtfModel(
 
 # "Pre-training" ==> FineTuning
 def epoch_to_steps(batch_size,epochs, total_examples=7361359):
-    return (epochs * total_examples) // batch_size
+    return int((epochs * total_examples) // batch_size)
 
 FINETUNE_STEPS =  epoch_to_steps(train_batch_size, args.nepoch)
-
 model.finetune(
     mixture_or_task_name="train",
     pretrained_model_dir=PRETRAINED_DIR,
