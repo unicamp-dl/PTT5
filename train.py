@@ -153,7 +153,7 @@ model = t5.models.MtfModel(
     save_checkpoints_steps=5000,
    # keep_checkpoint_max=keep_checkpoint_max if ON_CLOUD else None,
     keep_checkpoint_max=keep_checkpoint_max, 
-    iterations_per_loop=100,
+    iterations_per_loop=100, #how many batches of data are sent to TPU in a "training loop"
 )
 
 # "Pre-training" ==> FineTuning
