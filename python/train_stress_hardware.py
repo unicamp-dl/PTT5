@@ -29,7 +29,7 @@ parser.add_argument('-bp', '--pre_trained_dir', type=str, default='gs://t5-data/
 
 args = parser.parse_args()
 
-args_json_dump = f'./argparse_dumps/{args.name}.json'
+args_json_dump = f'../argparse_dumps/{args.name}.json'
 with open(args_json_dump, 'a') as f:
     print(f'Saving args to {args_json_dump} ...')
     json.dump(args.__dict__,f, indent=2)
