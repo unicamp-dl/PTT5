@@ -1,0 +1,9 @@
+{
+  "batch_div": 1,
+  "name": "base_standard_vocab",
+  "txt_file": "brwac_512.txt",
+  "model_size": "base",
+  "nepoch": 1.0,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models"
+}
