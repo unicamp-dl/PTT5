@@ -1,8 +1,8 @@
-python3 train.py \
--bs 1024 \
+python3 ../python/train_stress_hardware.py \
+-bs $1 \
 -n small_standard_vocab_stress_hardware \
 -ms small \
--ns 5000 \
--mp 1 \
--s 512 
-
+-ns 1000 \
+-mp $2 \
+-s 512 \
+-i $3
