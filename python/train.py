@@ -15,6 +15,10 @@ from t5.data import preprocessors
 import argparse
 import json
 
+from t5.models.mtf_model import _get_latest_checkpoint_from_dir 
+from checkpoint_utils import get_checkpoint_step, convert_tf_checkpoint_to_pytorch_gcs
+
+
 # Parse args
 parser = argparse.ArgumentParser()
 parser.add_argument('-b', '--batch_div', type=int, default=1, help='Batch division factor')
@@ -166,3 +170,8 @@ model.finetune(
     pretrained_model_dir=PRETRAINED_DIR,
     finetune_steps=FINETUNE_STEPS
 )
+
+# Saving checkpoint on pytorch format
+tf.io.gfile.makedirs(os.path.join(MODEL_DIR, 'checkpoints_pytorch'))
+
+
