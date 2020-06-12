@@ -39,13 +39,14 @@ CHECKPOINT_PATH = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/P
 # # 6 GB VRAM BS, 32 precision:
 # small- 32
 # base- 2
-hparams = {"name": "assin2_ptt5_small",
-           "model_name": "ptt5-standard-vocab-small",  # which weights to start with
-           "vocab_name": "t5-small",  # which vocab to use
+hparams = {"name": "assin2_ptt5_base",
+           "model_name": "ptt5-standard-vocab-base",  # which weights to start with
+           "vocab_name": "t5-base",  # which vocab to use
            "seq_len": 128,
            "version": 'v2',
-           "lr": 0.0001, "bs": 32, "architecture": "t5",
-           "max_epochs": 20, "precision": 32,
+           "lr": 0.0001, "bs": 2,
+           "architecture": "t5",  # Set to MLP to use a dummy MLP
+           "max_epochs": 15, "precision": 32,
            "overfit_pct": 0, "debug": 0,
            "weight": None, "reg": True}
 
