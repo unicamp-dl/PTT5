@@ -15,7 +15,7 @@ from t5.data import preprocessors
 import argparse
 import json
 
-from t5.models.mtf_model import _get_latest_checkpoint_from_dir 
+from t5.models.mtf_model import _get_latest_checkpoint_from_dir
 from checkpoint_utils import get_checkpoint_step, convert_tf_checkpoint_to_pytorch_gcs
 
 
@@ -31,6 +31,8 @@ parser.add_argument('-e', '--nepoch', type=float, required=True, help='Epochs to
 parser.add_argument('-s', '--seq_len', type=int, default=512, help='Sequence length for training')
 # parser.add_argument('-bd', '--base_dir', type=str, default="gs://t5-data/pretrained_models")
 parser.add_argument('-bp', '--pre_trained_dir', type=str, default='gs://t5-data/pretrained_models',help='GCS directory to load checkpoints from')
+parser.add_argument('-jc', '--json_config_path', type=str, required=True, help='Path for json T5Config (HuggingFace) for converting tensorflow (last) checkpoint to Pytorch') 
+
 
 args = parser.parse_args()
 
@@ -58,7 +60,7 @@ from contextlib import contextmanager
 import logging as py_logging
 
 tf.get_logger().propagate = False
-py_logging.root.setLevel('WARNING')
+py_logging.root.setLevel('INFO')
 
 @contextmanager
 def tf_verbosity_level(level):
@@ -90,13 +92,13 @@ def text_preprocessor(dataset):
   return dataset.map(_to_inputs_and_targets,num_parallel_calls=tf.data.experimental.AUTOTUNE)
 
 def token_noise(dataset, output_features, **unused_kwargs):
-  return preprocessors.denoise(dataset, output_features, 
-                 noise_density=0.15, 
-                 noise_mask_fn=preprocessors.iid_noise_mask, 
-                 inputs_fn=preprocessors.noise_token_to_sentinel, 
+  return preprocessors.denoise(dataset, output_features,
+                 noise_density=0.15,
+                 noise_mask_fn=preprocessors.iid_noise_mask,
+                 inputs_fn=preprocessors.noise_token_to_sentinel,
                  targets_fn=None)
 
-# Task 
+# Task
 t5.data.TaskRegistry.remove("denoise")
 t5.data.TaskRegistry.add(
     "denoise",
@@ -126,7 +128,7 @@ t5.data.MixtureRegistry.add(
 )
 
 # Model
-MODEL_SIZE = args.model_size 
+MODEL_SIZE = args.model_size
 # Public GCS path for T5 pre-trained model checkpoints
 BASE_PRETRAINED_DIR = args.pre_trained_dir
 PRETRAINED_DIR = os.path.join(BASE_PRETRAINED_DIR, MODEL_SIZE)
@@ -156,7 +158,7 @@ model = t5.models.MtfModel(
     learning_rate_schedule=0.003,
     save_checkpoints_steps=5000,
    # keep_checkpoint_max=keep_checkpoint_max if ON_CLOUD else None,
-    keep_checkpoint_max=keep_checkpoint_max, 
+    keep_checkpoint_max=keep_checkpoint_max,
     iterations_per_loop=100, #how many batches of data are sent to TPU in a "training loop"
 )
 
@@ -171,7 +173,26 @@ model.finetune(
     finetune_steps=FINETUNE_STEPS
 )
 
-# Saving checkpoint on pytorch format
+# Saving checkpoints and json config on cloud
+
+# Caution: existing files will be overwritten!
 tf.io.gfile.makedirs(os.path.join(MODEL_DIR, 'checkpoints_pytorch'))
+
+pytorch_dump_gcs = os.path.join(MODEL_DIR, 'checkpoints_pytorch',
+                                f'pt-statedict-{args.name}-%d.pth' \
+                 % get_checkpoint_step(tf.train.latest_checkpoint(MODEL_DIR)))
+
+tf.io.gfile.copy(
+    args.json_config_path,
+    os.path.join(MODEL_DIR,'checkpoints_pytorch'),
+    overwrite=True
+    )
+
+convert_tf_checkpoint_to_pytorch_gcs(
+    tf.train.latest_checkpoint(MODEL_DIR),
+    args.json_config_path,
+    pytorch_dump_gcs
+    )
+
 
 
