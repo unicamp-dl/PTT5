@@ -21,7 +21,7 @@ fixed_args_list = [
 #                '--character_coverage=0.99995',
                 '--character_coverage=1.0',
                 '--model_type=unigram',
-                '--user_defined_symbols=R$'
+#                '--user_defined_symbols=R$'
 
     ]
 
