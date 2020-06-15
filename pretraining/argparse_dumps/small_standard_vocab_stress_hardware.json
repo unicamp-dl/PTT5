@@ -1,0 +1,88 @@
+{
+  "batch_size": 1024,
+  "name": "small_standard_vocab_stress_hardware",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nsteps": 1000,
+  "model_parallelism": 1,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models"
+}{
+  "batch_size": 1024,
+  "name": "small_standard_vocab_stress_hardware",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nsteps": 1000,
+  "model_parallelism": 1,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models"
+}{
+  "batch_size": 1024,
+  "name": "small_standard_vocab_stress_hardware",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nsteps": 1000,
+  "model_parallelism": 1,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models"
+}{
+  "batch_size": 1024,
+  "name": "small_standard_vocab_stress_hardware",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nsteps": 1000,
+  "model_parallelism": 1,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models",
+  "iterations_per_loop": 1000
+}{
+  "batch_size": 1024,
+  "name": "small_standard_vocab_stress_hardware",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nsteps": 1000,
+  "model_parallelism": 1,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models",
+  "iterations_per_loop": 1000
+}{
+  "batch_size": 2048,
+  "name": "small_standard_vocab_stress_hardware",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nsteps": 1000,
+  "model_parallelism": 1,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models",
+  "iterations_per_loop": 100
+}{
+  "batch_size": 2048,
+  "name": "small_standard_vocab_stress_hardware",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nsteps": 1000,
+  "model_parallelism": 2,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models",
+  "iterations_per_loop": 100
+}{
+  "batch_size": 2048,
+  "name": "small_standard_vocab_stress_hardware",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nsteps": 1000,
+  "model_parallelism": 2,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models",
+  "iterations_per_loop": 100
+}{
+  "batch_size": 2048,
+  "name": "small_standard_vocab_stress_hardware",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nsteps": 1000,
+  "model_parallelism": 2,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models",
+  "iterations_per_loop": 100
+}

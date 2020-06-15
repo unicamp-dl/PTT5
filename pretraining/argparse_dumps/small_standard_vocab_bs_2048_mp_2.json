@@ -1,0 +1,11 @@
+{
+  "batch_size": 2048,
+  "name": "small_standard_vocab_bs_2048_mp_2",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nsteps": 10783,
+  "model_parallelism": 2,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models",
+  "iterations_per_loop": 100
+}
