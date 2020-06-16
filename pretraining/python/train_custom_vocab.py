@@ -19,7 +19,7 @@ from t5.models.mtf_model import _get_latest_checkpoint_from_dir
 from checkpoint_utils import get_checkpoint_step, convert_tf_checkpoint_to_pytorch_gcs
 
 # Custom vocab
-from t5.data import sentencepiece_vocabulary
+from t5.data import sentencepiece_vocabulary, Feature
 
 # Parse args
 parser = argparse.ArgumentParser()
@@ -34,8 +34,8 @@ parser.add_argument('-s', '--seq_len', type=int, default=512, help='Sequence len
 # parser.add_argument('-bd', '--base_dir', type=str, default="gs://t5-data/pretrained_models")
 parser.add_argument('-bp', '--pre_trained_dir', type=str, default='gs://t5-data/pretrained_models',help='GCS directory to load checkpoints from')
 parser.add_argument('-jc', '--json_config_path', type=str, required=True, help='Path for json T5Config (HuggingFace) for converting tensorflow (last) checkpoint to Pytorch') 
-parser.add_argument('-pm', '--spiece_model_path', type=str, required=True,
-        help='SentencePiece model path' 
+parser.add_argument('-spm', '--spiece_model_path', type=str, required=True,
+        help='SentencePiece model path') 
 
 args = parser.parse_args()
 
