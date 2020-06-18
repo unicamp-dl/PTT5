@@ -267,7 +267,7 @@ if __name__ == "__main__":
     # small- 32
     # base- 2
     parser = argparse.ArgumentParser()
-    parser.add_argument('--name', type=str, required=True)
+    parser.add_argument('name', type=str)
     parser.add_argument('--model_name', type=str, required=True)
     parser.add_argument('--vocab_name', type=str, required=True)
     parser.add_argument('--bs', type=int, required=True)
