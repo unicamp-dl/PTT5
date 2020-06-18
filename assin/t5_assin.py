@@ -29,7 +29,7 @@ TODO:
 # Standard Libraries
 import os
 from glob import glob
-from argparse import Namespace
+import argparse
 from multiprocessing import cpu_count
 
 # External Libraries
@@ -41,7 +41,7 @@ from assin_dataset import ASSIN
 # PyTorch Lightning and Transformer
 import pytorch_lightning as pl
 from transformers import T5Model, PretrainedConfig, T5ForConditionalGeneration, T5Tokenizer
-from pytorch_lightning.callbacks import ModelCheckpoint
+from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from pytorch_lightning.loggers import TensorBoardLogger
 from pytorch_lightning import Trainer
 
@@ -56,20 +56,6 @@ print(f"\nImports loaded succesfully. Number of CPU cores: {cpu_count()}")
 
 CONFIG_PATH = "T5_configs_json"
 CHECKPOINT_PATH = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/checkpoints"
-
-# # 6 GB VRAM BS, 32 precision:
-# small- 32
-# base- 2
-hparams = {"name": "assin2_t5_small_gen",
-           "model_name": "t5-small",  # which weights to start with
-           "vocab_name": "t5-small",  # which vocab to use
-           "seq_len": 128,
-           "version": 'v2',
-           "lr": 0.0001, "bs": 32,
-           "architecture": "gen",  # Set to MLP to use a dummy MLP
-           "max_epochs": 50, "precision": 32,
-           "overfit_pct": 0, "debug": 0
-           }
 
 
 class NONLinearInput(nn.Module):
@@ -94,9 +80,10 @@ class T5ASSIN(pl.LightningModule):
             print("Initializing from PTT5 checkpoint")
             config, state_dict = self.get_ptt5()
             if hparams.architecture == "gen":
-                self.t5 = T5ForConditionalGeneration(pretrained_model_name_or_path=None,
+                raise NotImplementedError("TODO, how to implement loading for conditional generation?")
+                '''self.t5 = T5ForConditionalGeneration(pretrained_model_name_or_path=None,
                                                      config=config,
-                                                     state_dict=state_dict)
+                                                     state_dict=state_dict)'''
             else:
                 self.t5 = T5Model.from_pretrained(pretrained_model_name_or_path=None,
                                                   config=config,
@@ -278,17 +265,33 @@ class T5ASSIN(pl.LightningModule):
 
 
 if __name__ == "__main__":
-    for key, parameter in hparams.items():
-        print("{}: {}".format(key, parameter))
+    # # 6 GB VRAM BS, 32 precision:
+    # small- 32
+    # base- 2
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--name', type=str, required=True)
+    parser.add_argument('--model_name', type=str, required=True)
+    parser.add_argument('--vocab_name', type=str, required=True)
+    parser.add_argument('--bs', type=int, required=True)
+    parser.add_argument('--architecture', type=str, required=True)
+    parser.add_argument('--max_epochs', type=int, required=True)
+
+    parser.add_argument('--seq_len', type=int, default=128)
+    parser.add_argument('--version', type=str, default='v2')
+    parser.add_argument('--lr', type=float, default=0.0001)
+    parser.add_argument('--precision', type=int, default=32)
+    parser.add_argument('--overfit_pct', type=float, default=0)
+    parser.add_argument('--debug', type=float, default=0)
+    hparams = parser.parse_args()
 
     # Instantiate model
-    model = T5ASSIN(Namespace(**hparams))
+    model = T5ASSIN(hparams)
 
     log_path = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs"
     model_path = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models"
 
     # Folder/path management, for logs and checkpoints
-    experiment_name = hparams["name"]
+    experiment_name = hparams.name
     model_folder = os.path.join(model_path, experiment_name)
     os.makedirs(model_folder, exist_ok=True)
 
@@ -302,31 +305,26 @@ if __name__ == "__main__":
 
     logger = TensorBoardLogger(log_path, experiment_name)
 
-    early_stop_callback = pl.EarlyStopping(monitor='val_loss', patience=5, mode='min')
+    early_stop_callback = EarlyStopping(monitor='val_loss', patience=5, mode='min')
 
     # PL Trainer initialization
     trainer = Trainer(gpus=1,
-                      precision=hparams["precision"],
+                      precision=hparams.precision,
                       checkpoint_callback=checkpoint_callback,
                       early_stop_callback=early_stop_callback,
                       logger=logger,
-                      max_epochs=hparams["max_epochs"],
-                      fast_dev_run=bool(hparams["debug"]),
-                      overfit_pct=hparams["overfit_pct"],
+                      max_epochs=hparams.max_epochs,
+                      fast_dev_run=bool(hparams.debug),
+                      overfit_pct=hparams.overfit_pct,
                       progress_bar_refresh_rate=1
                       )
 
-    try:
-        input("Press anything to continue.")
-    except KeyboardInterrupt:
-        print("Graciously shutting down...")
-    else:
-        trainer.fit(model)
+    trainer.fit(model)
 
-        models = glob(os.path.join(model_path, experiment_name, "*.ckpt"))
-        print(f"Loading {models}")
-        assert len(models) == 1
+    models = glob(os.path.join(model_path, experiment_name, "*.ckpt"))
+    print(f"Loading {models}")
+    assert len(models) == 1
 
-        best_model = T5ASSIN.load_from_checkpoint(models[0])
+    best_model = T5ASSIN.load_from_checkpoint(models[0])
 
-        trainer.test(best_model)
+    trainer.test(best_model)
