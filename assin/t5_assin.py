@@ -284,6 +284,8 @@ if __name__ == "__main__":
     parser.add_argument('--debug', type=float, default=0)
     hparams = parser.parse_args()
 
+    print(f"Detected parameters: {hparams}")
+
     # Instantiate model
     model = T5ASSIN(hparams)
 
