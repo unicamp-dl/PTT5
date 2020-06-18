@@ -80,10 +80,9 @@ class T5ASSIN(pl.LightningModule):
             print("Initializing from PTT5 checkpoint")
             config, state_dict = self.get_ptt5()
             if hparams.architecture == "gen":
-                raise NotImplementedError("TODO, how to implement loading for conditional generation?")
-                '''self.t5 = T5ForConditionalGeneration(pretrained_model_name_or_path=None,
-                                                     config=config,
-                                                     state_dict=state_dict)'''
+                self.t5 = T5ForConditionalGeneration.from_pretrained(pretrained_model_name_or_path=None,
+                                                                     config=config,
+                                                                     state_dict=state_dict)
             else:
                 self.t5 = T5Model.from_pretrained(pretrained_model_name_or_path=None,
                                                   config=config,
