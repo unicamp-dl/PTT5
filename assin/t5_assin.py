@@ -156,8 +156,7 @@ class T5ASSIN(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         input_ids, attention_mask, y, original_number = batch
         if self.hparams.architecture != "gen":
-            x = (input_ids, attention_mask)
-            y_hat = self(x).squeeze()
+            y_hat = self(batch).squeeze()
             loss = self.loss(y_hat, original_number)
         else:
             pred_tokens = self(batch)
@@ -186,8 +185,7 @@ class T5ASSIN(pl.LightningModule):
     def test_step(self, batch, batch_idx):
         input_ids, attention_mask, y, original_number = batch
         if self.hparams.architecture != "gen":
-            x = (input_ids, attention_mask)
-            y_hat = self(x).squeeze()
+            y_hat = self(batch).squeeze()
             loss = self.loss(y_hat, original_number)
         else:
             pred_tokens = self(batch)
@@ -297,7 +295,7 @@ if __name__ == "__main__":
     model_folder = os.path.join(model_path, experiment_name)
     os.makedirs(model_folder, exist_ok=True)
 
-    ckpt_path = os.path.join(model_folder, "-{epoch}-{val_loss:.2f}")
+    ckpt_path = os.path.join(model_folder, "-{epoch}-{val_loss:.4f}")
 
     # Callback initialization
     checkpoint_callback = ModelCheckpoint(prefix=experiment_name,
@@ -307,7 +305,7 @@ if __name__ == "__main__":
 
     logger = TensorBoardLogger(log_path, experiment_name)
 
-    early_stop_callback = EarlyStopping(monitor='val_loss', patience=5, mode='min')
+    early_stop_callback = EarlyStopping(monitor='val_loss', patience=10, mode='min')  # 0.7.6 bug requires double patience
 
     # PL Trainer initialization
     trainer = Trainer(gpus=1,
