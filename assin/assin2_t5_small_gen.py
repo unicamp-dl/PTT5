@@ -67,7 +67,7 @@ hparams = {"name": "assin2_t5_small_gen",
            "version": 'v2',
            "lr": 0.0001, "bs": 32,
            "architecture": "gen",  # Set to MLP to use a dummy MLP
-           "max_epochs": 20, "precision": 32,
+           "max_epochs": 50, "precision": 32,
            "overfit_pct": 0, "debug": 0
            }
 
@@ -302,11 +302,13 @@ if __name__ == "__main__":
 
     logger = TensorBoardLogger(log_path, experiment_name)
 
+    early_stop_callback = pl.EarlyStopping(monitor='val_loss', patience=5, mode='min')
+
     # PL Trainer initialization
     trainer = Trainer(gpus=1,
                       precision=hparams["precision"],
                       checkpoint_callback=checkpoint_callback,
-                      early_stop_callback=False,
+                      early_stop_callback=early_stop_callback,
                       logger=logger,
                       max_epochs=hparams["max_epochs"],
                       fast_dev_run=bool(hparams["debug"]),

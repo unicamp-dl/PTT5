@@ -1,0 +1,4 @@
+python3 assin2_t5_small_long.py
+python3 assin2_t5_small_gen.py
+python3 assin2_t5_base_long.py
+python3 assin2_t5_base_gen.py
