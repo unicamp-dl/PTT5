@@ -1,3 +1,8 @@
+'''
+Definitions and tests managing the ASSIN dataset.
+
+TODO: Return appropriate target to generate mode.
+'''
 import os
 import pickle
 import random
@@ -56,19 +61,24 @@ class ASSIN(Dataset):
     TOKENIZER = None
     DATA, VALID_MODES = prepare_data("processed_data.pkl")
 
-    def __init__(self, version, mode, seq_len, reg, vocab_name):
+    def __init__(self, version, mode, seq_len, vocab_name):
         '''
         verison: v1 or v2
         mode: One of train, validation or test
         seq_len: limit to returned encoded tokens
+        vocab_name: name of the vocabulary
+        str_output: wether train will operate in string generation mode or not
         '''
-        ASSIN.TOKENIZER = T5Tokenizer.from_pretrained(vocab_name)
+        if ASSIN.TOKENIZER is None:
+            ASSIN.TOKENIZER = T5Tokenizer.from_pretrained(vocab_name)
+        else:
+            print("Tokenizer already initialized.")
+
         super().__init__()
         assert mode in ASSIN.VALID_MODES
 
         self.seq_len = seq_len
         self.data = ASSIN.DATA[version][mode]
-        self.reg = reg
 
     def __len__(self):
         return len(self.data)
@@ -81,10 +91,13 @@ class ASSIN(Dataset):
         '''
         data = self.data[i]
         pair = data["pair"]
-        if self.reg:
-            target = torch.Tensor([data["similarity"]]).float().squeeze()
-        else:
-            target = torch.Tensor([ASSIN.CLASSES.index(data["entailment"])]).long().squeeze()
+
+        target = ASSIN.TOKENIZER.encode(text=str(data["similarity"]),
+                                        max_length=5,
+                                        pad_to_max_length=True,
+                                        return_tensors='pt').squeeze()
+
+        original_number = torch.Tensor([data["similarity"]]).float().squeeze()
 
         eos_token = ASSIN.TOKENIZER.eos_token
 
@@ -94,7 +107,7 @@ class ASSIN(Dataset):
                                              pad_to_max_length=True,
                                              return_tensors='pt')
 
-        return source["input_ids"].squeeze(), source["attention_mask"].squeeze(), target
+        return source["input_ids"].squeeze(), source["attention_mask"].squeeze(), target, original_number
 
     def get_dataloader(self, batch_size: int, shuffle: bool):
         return DataLoader(self, batch_size=batch_size, shuffle=shuffle,
@@ -105,17 +118,17 @@ if __name__ == "__main__":
     print("Testing ASSIN dataset.")
 
     hparams = {"model_name": "ptt5-standard-vocab-small", "vocab_name": "t5-small", "seq_len": 128, "bs": 10,
-               "reg": True, "version": 'v2'}
+               "architecture": "gen", "version": 'v2'}
 
-    datasets = {m: ASSIN(version=hparams["version"], mode=m, seq_len=hparams["seq_len"], reg=hparams["reg"],
+    datasets = {m: ASSIN(version=hparams["version"], mode=m, seq_len=hparams["seq_len"],
                          vocab_name=hparams["vocab_name"]) for m in ASSIN.VALID_MODES}
 
     # Testing datasets
     for mode, dataset in datasets.items():
         print(f"\n{mode} dataset length: {len(dataset)}\n")
         print("Random sample")
-        input_ids, attention_mask, target = random.choice(dataset)
-        print(input_ids, attention_mask, target)
+        input_ids, attention_mask, target, original_number = random.choice(dataset)
+        print(input_ids, attention_mask, target, original_number)
 
     # Testing dataloaders
     shuffle = {"train": True, "validation": False, "test": False}
