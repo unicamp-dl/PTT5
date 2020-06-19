@@ -76,6 +76,13 @@ class T5ASSIN(pl.LightningModule):
         self.hparams = hparams
         self.tokenizer = T5Tokenizer.from_pretrained(hparams.vocab_name)
 
+        if "small" in self.hparams.model_name.split('-'):
+            self.size = "small"
+        elif "base" in self.hparams.model_name.split('-'):
+            self.size = "base"
+        else:
+            raise ValueError("Couldn't detect model size from model_name.")
+
         if self.hparams.model_name[:2] == "pt":
             print("Initializing from PTT5 checkpoint")
             config, state_dict = self.get_ptt5()
@@ -105,14 +112,16 @@ class T5ASSIN(pl.LightningModule):
         self.loss = nn.MSELoss()
 
     def get_ptt5(self):
-        # TODO adapt to new name configuration
         ckpt_paths = glob(os.path.join(CHECKPOINT_PATH, self.hparams.model_name + "*"))
-        config_paths = glob(os.path.join(CONFIG_PATH, self.hparams.model_name + "*"))
+        config_paths = glob(os.path.join(CONFIG_PATH, "ptt5*" + self.size + "*"))
 
         assert len(ckpt_paths) == 1 and len(config_paths) == 1, "Are the config/ckpts on the correct path?"
 
         config_path = config_paths[0]
         ckpt_path = ckpt_paths[0]
+
+        print(f"Loading initial ckpt from {ckpt_path}")
+        print(f"Loading config from {config_path}")
 
         config = PretrainedConfig.from_json_file(config_path)
         state_dict = torch.load(ckpt_path)
@@ -304,7 +313,7 @@ if __name__ == "__main__":
 
     logger = TensorBoardLogger(log_path, experiment_name)
 
-    early_stop_callback = EarlyStopping(monitor='val_loss', patience=10, mode='min')  # 0.7.6 bug requires double patience
+    early_stop_callback = EarlyStopping(monitor='val_loss', patience=5, mode='min')
 
     # PL Trainer initialization
     trainer = Trainer(gpus=1,
