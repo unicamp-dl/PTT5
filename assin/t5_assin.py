@@ -314,7 +314,7 @@ if __name__ == "__main__":
                       logger=logger,
                       max_epochs=hparams.max_epochs,
                       fast_dev_run=bool(hparams.debug),
-                      overfit_pct=hparams.overfit_pct,
+                      overfit_batches=hparams.overfit_pct,
                       progress_bar_refresh_rate=1,
                       deterministic=True
                       )
