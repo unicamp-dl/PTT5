@@ -43,7 +43,7 @@ import pytorch_lightning as pl
 from transformers import T5Model, PretrainedConfig, T5ForConditionalGeneration, T5Tokenizer
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from pytorch_lightning.loggers import TensorBoardLogger
-from pytorch_lightning import Trainer
+from pytorch_lightning import Trainer, seed_everything
 
 # Suppress some of the logging
 import logging
@@ -318,6 +318,10 @@ if __name__ == "__main__":
                       progress_bar_refresh_rate=1,
                       deterministic=True
                       )
+
+    seed_everything(4321)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
     trainer.fit(model)
 
