@@ -30,7 +30,7 @@ python3 ./python/train_sentencepiece.py -i ./data/wikidump_clean_shuffle_merge.t
 ```
 **Usando o tokenizer treinado**
 
-Os arquivos com os modelo treinados podem ser encontrados na pasta ./saved_models. Abaixo temos exemplos de códigos de como fazer uso desse tokenizer.
+Os arquivos com os tokenizers treinados podem ser encontrado na pasta ./saved_models. Abaixo temos exemplos de códigos de como fazer uso desse tokenizer.
 
 ```
 import sentencepiece as spm         
