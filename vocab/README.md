@@ -18,14 +18,13 @@ INFO: total of page: 1608355, total of articl page: 1034123; total of used artic
 
 Como resultado do script acima, temos pastas com arquivos de tamanhos similares, com os arquivos processados. O script ./bash/clean_shuffle_merge.sh realiza a limpeza final em cada arquivo (remoção de tags HTML, remoção de linhas vazias shuffle para deixar a ordem de cada sentença aleatória) e os concatena num arquivo único.
 
-Esse arquivo é então usado pra treinar o vocabulário através da biblioteca SentencePiece (https://github.com/google/sentencepiece):
 ```bash
 ./clean_shuffle_merge.sh ptwiki-parsed-full wikidump_clean_shuffle_merge.txt
 ```
 
 **Treinamento do tokenizer**
 
-Para treinar o sentencepiece, usamos o comando abaixo: 
+Para treinar o tokenizer, usamos o comando abaixo: 
 ```
 python3 ./python/train_sentencepiece.py -i ./data/wikidump_clean_shuffle_merge.txt -m spm_32000_pt > ./log_chamada_comando.log 2>&2
 ```
