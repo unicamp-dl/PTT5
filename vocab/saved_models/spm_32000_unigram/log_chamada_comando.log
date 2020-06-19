@@ -1,0 +1,103 @@
+sentencepiece_trainer.cc(170) LOG(INFO) Running command: --input=./data/wikidump_clean_shuffle_merge.txt --model_prefix=./saved_models/spm_32000_unigram/spm_32000_pt --vocab_size=32000 --input_sentence_size=2000000 --shuffle_input_sentence=true --pad_id=0 --eos_id=1 --unk_id=2 --bos_id=-1 --character_coverage=1.0 --model_type=unigram
+sentencepiece_trainer.cc(75) LOG(INFO) Starts training with : 
+trainer_spec {
+  input: ./data/wikidump_clean_shuffle_merge.txt
+  input_format: 
+  model_prefix: ./saved_models/spm_32000_unigram/spm_32000_pt
+  model_type: UNIGRAM
+  vocab_size: 32000
+  self_test_sample_size: 0
+  character_coverage: 1
+  input_sentence_size: 2000000
+  shuffle_input_sentence: 1
+  seed_sentencepiece_size: 1000000
+  shrinking_factor: 0.75
+  max_sentence_length: 4192
+  num_threads: 16
+  num_sub_iterations: 2
+  max_sentencepiece_length: 16
+  split_by_unicode_script: 1
+  split_by_number: 1
+  split_by_whitespace: 1
+  split_digits: 0
+  treat_whitespace_as_suffix: 0
+  required_chars: 
+  byte_fallback: 0
+  vocabulary_output_piece_score: 1
+  train_extremely_large_corpus: 0
+  hard_vocab_limit: 1
+  use_all_vocab: 0
+  unk_id: 2
+  bos_id: -1
+  eos_id: 1
+  pad_id: 0
+  unk_piece: <unk>
+  bos_piece: <s>
+  eos_piece: </s>
+  pad_piece: <pad>
+  unk_surface:  ⁇ 
+}
+normalizer_spec {
+  name: nmt_nfkc
+  add_dummy_prefix: 1
+  remove_extra_whitespaces: 1
+  escape_whitespaces: 1
+  normalization_rule_tsv: 
+}
+denormalizer_spec {}
+trainer_interface.cc(330) LOG(INFO) SentenceIterator is not specified. Using MultiFileSentenceIterator.
+trainer_interface.cc(185) LOG(INFO) Loading corpus: ./data/wikidump_clean_shuffle_merge.txt
+trainer_interface.cc(357) LOG(WARNING) Found too long line (7492 > 4192).
+trainer_interface.cc(359) LOG(WARNING) Too long lines are skipped in the training.
+trainer_interface.cc(360) LOG(WARNING) The maximum length can be changed with --max_sentence_length=<size> flag.
+trainer_interface.cc(147) LOG(INFO) Loaded 1000000 lines
+trainer_interface.cc(147) LOG(INFO) Loaded 2000000 lines
+trainer_interface.cc(147) LOG(INFO) Loaded 3000000 lines
+trainer_interface.cc(147) LOG(INFO) Loaded 4000000 lines
+trainer_interface.cc(147) LOG(INFO) Loaded 5000000 lines
+trainer_interface.cc(147) LOG(INFO) Loaded 6000000 lines
+trainer_interface.cc(122) LOG(WARNING) Too many sentences are loaded! (2000000), which may slow down training.
+trainer_interface.cc(124) LOG(WARNING) Consider using --input_sentence_size=<size> and --shuffle_input_sentence=true.
+trainer_interface.cc(127) LOG(WARNING) They allow to randomly sample <size> sentences from the entire corpus.
+trainer_interface.cc(388) LOG(INFO) Sampled 2000000 sentences from 6165897 sentences.
+trainer_interface.cc(392) LOG(INFO) Skipped 196 too long sentences.
+trainer_interface.cc(401) LOG(INFO) Adding meta_piece: <pad>
+trainer_interface.cc(401) LOG(INFO) Adding meta_piece: </s>
+trainer_interface.cc(401) LOG(INFO) Adding meta_piece: <unk>
+trainer_interface.cc(406) LOG(INFO) Normalizing sentences...
+trainer_interface.cc(467) LOG(INFO) all chars count=517375529
+trainer_interface.cc(478) LOG(INFO) Done: 100% characters are covered.
+trainer_interface.cc(488) LOG(INFO) Alphabet size=8985
+trainer_interface.cc(489) LOG(INFO) Final character coverage=1
+trainer_interface.cc(521) LOG(INFO) Done! preprocessed 1999940 sentences.
+unigram_model_trainer.cc(134) LOG(INFO) Making suffix array...
+unigram_model_trainer.cc(138) LOG(INFO) Extracting frequent sub strings...
+unigram_model_trainer.cc(189) LOG(INFO) Initialized 1000000 seed sentencepieces
+trainer_interface.cc(527) LOG(INFO) Tokenizing input sentences with whitespace: 1999940
+trainer_interface.cc(537) LOG(INFO) Done! 2796412
+unigram_model_trainer.cc(484) LOG(INFO) Using 2796412 sentences for EM training
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=598255 obj=12.1876 num_tokens=7488423 num_tokens/piece=12.5171
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=514521 obj=9.58937 num_tokens=7483513 num_tokens/piece=14.5446
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=385868 obj=9.55323 num_tokens=7583511 num_tokens/piece=19.6531
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=385667 obj=9.54876 num_tokens=7593791 num_tokens/piece=19.69
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=289248 obj=9.57167 num_tokens=7814891 num_tokens/piece=27.018
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=289245 obj=9.56622 num_tokens=7815426 num_tokens/piece=27.0201
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=216933 obj=9.61983 num_tokens=8155967 num_tokens/piece=37.5967
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=216933 obj=9.60674 num_tokens=8156469 num_tokens/piece=37.599
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=162699 obj=9.6895 num_tokens=8524380 num_tokens/piece=52.3936
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=162699 obj=9.67179 num_tokens=8524520 num_tokens/piece=52.3944
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=122024 obj=9.77836 num_tokens=8907002 num_tokens/piece=72.9939
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=122024 obj=9.75793 num_tokens=8907017 num_tokens/piece=72.994
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=91518 obj=9.89218 num_tokens=9306654 num_tokens/piece=101.692
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=91518 obj=9.867 num_tokens=9307326 num_tokens/piece=101.699
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=68638 obj=10.0342 num_tokens=9739338 num_tokens/piece=141.894
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=68638 obj=10.0023 num_tokens=9742664 num_tokens/piece=141.943
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=51478 obj=10.215 num_tokens=10197577 num_tokens/piece=198.096
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=51478 obj=10.1734 num_tokens=10199913 num_tokens/piece=198.141
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=38608 obj=10.4435 num_tokens=10714746 num_tokens/piece=277.527
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=38608 obj=10.3889 num_tokens=10717579 num_tokens/piece=277.6
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=0 size=35200 obj=10.4828 num_tokens=10889344 num_tokens/piece=309.356
+unigram_model_trainer.cc(500) LOG(INFO) EM sub_iter=1 size=35200 obj=10.4639 num_tokens=10891281 num_tokens/piece=309.411
+trainer_interface.cc(615) LOG(INFO) Saving model: ./saved_models/spm_32000_unigram/spm_32000_pt.model
+trainer_interface.cc(626) LOG(INFO) Saving vocabs: ./saved_models/spm_32000_unigram/spm_32000_pt.vocab
+--input=./data/wikidump_clean_shuffle_merge.txt --model_prefix=./saved_models/spm_32000_unigram/spm_32000_pt --vocab_size=32000 --input_sentence_size=2000000 --shuffle_input_sentence=true --pad_id=0 --eos_id=1 --unk_id=2 --bos_id=-1 --character_coverage=1.0 --model_type=unigram
