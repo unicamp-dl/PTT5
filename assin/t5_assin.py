@@ -315,7 +315,8 @@ if __name__ == "__main__":
                       max_epochs=hparams.max_epochs,
                       fast_dev_run=bool(hparams.debug),
                       overfit_pct=hparams.overfit_pct,
-                      progress_bar_refresh_rate=1
+                      progress_bar_refresh_rate=1,
+                      deterministic=True
                       )
 
     trainer.fit(model)
