@@ -1,7 +1,9 @@
 **Download dos dados** 
+
 Para o treinamento do tokenizer em português, utilizamos artigos da Wikipedia em Português, na versão mais recente disponível na época, que pode ser baixada no link https://dumps.wikimedia.org/ptwiki/20200601/ptwiki-20200601-pages-articles.xml.bz2.
 
 **Pré-processamento dos dados**
+
 Para o tratamento do dos dados brutos, foi utilizado o script WikiExtractor(https://github.com/attardi/wikiextractor.git). Abaixo podemos ver um exemplo de uso do script com o output esperado (parte final do output). 
 
 ```
@@ -20,5 +22,26 @@ Esse arquivo é então usado pra treinar o vocabulário através da biblioteca S
 ./clean_shuffle_merge.sh ptwiki-parsed-full wikidump_clean_shuffle_merge.txt
 
 **Treinamento do tokenizer**
-Para treinar o sentencepiece, usamos o comando abaixo.
+
+Para treinar o sentencepiece, usamos o comando abaixo: 
+```
 python3 ./python/train_sentencepiece.py -i ./data/wikidump_clean_shuffle_merge.txt -m spm_32000_pt > ./log_chamada_comando.log 2>&2
+```
+**Usando o tokenizer treinado**
+
+Os arquivos com os modelo treinados podem ser encontrados na pasta ./saved_models. Abaixo temos exemplos de códigos de como fazer uso desse tokenizer.
+
+```
+import sentencepiece as spm         
+from transformers import T5Tokenizer
+
+# Path to SentencePiece model
+SP_MODEL_PATH = './saved_models/spm_32000_unigram/spm_32000_pt.model'
+
+# Loading on sentencepiece
+sp = spm.SentencePieceProcessor()
+sp.load(SP_MODEL_PATH)
+
+# Loading o HuggingFace
+tokenizer = T5Tokenizer.from_pretrained(SP_MODEL_PATH)
+```
