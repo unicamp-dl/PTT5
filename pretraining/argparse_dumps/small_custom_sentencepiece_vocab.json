@@ -1,0 +1,11 @@
+{
+  "batch_div": 1,
+  "name": "small_custom_sentencepiece_vocab",
+  "txt_file": "brwac_512.txt",
+  "model_size": "small",
+  "nepoch": 4.0,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models",
+  "json_config_path": "../../assin/T5_configs_json/ptt5-standard-vocab-small-config.json",
+  "spiece_model_path": "gs://ptt5-1/vocabs/spm_32000_unigram/spm_32000_pt.model"
+}
