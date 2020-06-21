@@ -28,12 +28,14 @@ TODO:
 '''
 # Standard Libraries
 import os
-from glob import glob
 import argparse
+import time
+from glob import glob
 from multiprocessing import cpu_count
 
 # External Libraries
 import torch
+from tqdm import tqdm
 from torch import nn
 from RAdam.radam import RAdam
 from assin_dataset import ASSIN
@@ -86,7 +88,7 @@ class T5ASSIN(pl.LightningModule):
         if self.hparams.model_name[:2] == "pt":
             print("Initializing from PTT5 checkpoint")
             config, state_dict = self.get_ptt5()
-            if hparams.architecture == "gen":
+            if self.hparams.architecture == "gen":
                 self.t5 = T5ForConditionalGeneration.from_pretrained(pretrained_model_name_or_path=None,
                                                                      config=config,
                                                                      state_dict=state_dict)
@@ -95,18 +97,18 @@ class T5ASSIN(pl.LightningModule):
                                                   config=config,
                                                   state_dict=state_dict)
         else:
-            if hparams.architecture == "gen":
+            if self.hparams.architecture == "gen":
                 self.t5 = T5ForConditionalGeneration.from_pretrained(self.hparams.model_name)
             else:
                 self.t5 = T5Model.from_pretrained(self.hparams.model_name)
 
         D = self.t5.config.d_model
 
-        if hparams.architecture == "mlp":
+        if self.hparams.architecture == "mlp":
             # Replace T5 with a simple nonlinear input
             self.t5 = NONLinearInput(self.hparams.seq_len, D)
 
-        if hparams.architecture != "gen":
+        if self.hparams.architecture != "gen":
             self.linear = nn.Linear(D, 1)
 
         self.loss = nn.MSELoss()
@@ -333,6 +335,13 @@ if __name__ == "__main__":
         seed_everything(4321)
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
+
+        print("Training will start in 10 seconds! CTRL-C to cancel.")
+        try:
+            for _ in tqdm(range(10), desc='s'):
+                time.sleep(1)
+        except KeyboardInterrupt:
+            quit()
 
         trainer.fit(model)
 
