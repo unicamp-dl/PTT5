@@ -74,7 +74,7 @@ class T5ASSIN(pl.LightningModule):
         super().__init__()
 
         self.hparams = hparams
-        self.tokenizer = T5Tokenizer.from_pretrained(hparams.vocab_name)
+        self.tokenizer = T5Tokenizer.from_pretrained(self.hparams.vocab_name)
 
         if "small" in self.hparams.model_name.split('-'):
             self.size = "small"
@@ -96,15 +96,15 @@ class T5ASSIN(pl.LightningModule):
                                                   state_dict=state_dict)
         else:
             if hparams.architecture == "gen":
-                self.t5 = T5ForConditionalGeneration.from_pretrained(hparams.model_name)
+                self.t5 = T5ForConditionalGeneration.from_pretrained(self.hparams.model_name)
             else:
-                self.t5 = T5Model.from_pretrained(hparams.model_name)
+                self.t5 = T5Model.from_pretrained(self.hparams.model_name)
 
         D = self.t5.config.d_model
 
         if hparams.architecture == "mlp":
             # Replace T5 with a simple nonlinear input
-            self.t5 = NONLinearInput(hparams.seq_len, D)
+            self.t5 = NONLinearInput(self.hparams.seq_len, D)
 
         if hparams.architecture != "gen":
             self.linear = nn.Linear(D, 1)
@@ -288,56 +288,68 @@ if __name__ == "__main__":
     parser.add_argument('--precision', type=int, default=32)
     parser.add_argument('--overfit_pct', type=float, default=0)
     parser.add_argument('--debug', type=float, default=0)
+    parser.add_argument('--test_only', action="store_true")
     hparams = parser.parse_args()
 
     print(f"Detected parameters: {hparams}")
 
-    # Instantiate model
-    model = T5ASSIN(hparams)
-
     log_path = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs"
     model_path = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models"
 
-    # Folder/path management, for logs and checkpoints
     experiment_name = hparams.name
+    logger = TensorBoardLogger(log_path, experiment_name)
+
+    # Folder/path management, for logs and checkpoints
     model_folder = os.path.join(model_path, experiment_name)
     os.makedirs(model_folder, exist_ok=True)
 
-    ckpt_path = os.path.join(model_folder, "-{epoch}-{val_loss:.4f}")
+    if not hparams.test_only:
+        # Instantiate model
+        model = T5ASSIN(hparams)
 
-    # Callback initialization
-    checkpoint_callback = ModelCheckpoint(prefix=experiment_name,
-                                          filepath=ckpt_path,
-                                          monitor="val_loss",
-                                          mode="min")
+        ckpt_path = os.path.join(model_folder, "-{epoch}-{val_loss:.4f}")
 
-    logger = TensorBoardLogger(log_path, experiment_name)
+        # Callback initialization
+        checkpoint_callback = ModelCheckpoint(prefix=experiment_name,
+                                              filepath=ckpt_path,
+                                              monitor="val_loss",
+                                              mode="min")
 
-    early_stop_callback = EarlyStopping(monitor='val_loss', patience=5, mode='min')
+        early_stop_callback = EarlyStopping(monitor='val_loss', patience=5, mode='min')
 
-    # PL Trainer initialization
-    trainer = Trainer(gpus=1,
-                      precision=hparams.precision,
-                      checkpoint_callback=checkpoint_callback,
-                      early_stop_callback=early_stop_callback,
-                      logger=logger,
-                      max_epochs=hparams.max_epochs,
-                      fast_dev_run=bool(hparams.debug),
-                      overfit_batches=hparams.overfit_pct,
-                      progress_bar_refresh_rate=1,
-                      deterministic=True
-                      )
+        # PL Trainer initialization
+        trainer = Trainer(gpus=1,
+                          precision=hparams.precision,
+                          checkpoint_callback=checkpoint_callback,
+                          early_stop_callback=early_stop_callback,
+                          logger=logger,
+                          max_epochs=hparams.max_epochs,
+                          fast_dev_run=bool(hparams.debug),
+                          overfit_batches=hparams.overfit_pct,
+                          progress_bar_refresh_rate=1,
+                          deterministic=True
+                          )
 
-    seed_everything(4321)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
+        seed_everything(4321)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
 
-    trainer.fit(model)
+        trainer.fit(model)
 
-    models = glob(os.path.join(model_path, experiment_name, "*.ckpt"))
+    models = glob(os.path.join(model_folder, "*.ckpt"))
     print(f"Loading {models}")
     assert len(models) == 1
 
+    if hparams.test_only:
+        tester = Trainer(gpus=1,
+                         precision=hparams.precision,
+                         logger=logger,
+                         progress_bar_refresh_rate=1,
+                         deterministic=True
+                         )
+    else:
+        tester = trainer
+
     best_model = T5ASSIN.load_from_checkpoint(models[0])
 
-    trainer.test(best_model)
+    tester.test(best_model)
