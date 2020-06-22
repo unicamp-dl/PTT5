@@ -38,7 +38,7 @@ import torch
 from tqdm import tqdm
 from torch import nn
 from RAdam.radam import RAdam
-from assin_dataset import ASSIN
+from assin_dataset import ASSIN, get_custom_vocab
 
 # PyTorch Lightning and Transformer
 import pytorch_lightning as pl
@@ -76,7 +76,10 @@ class T5ASSIN(pl.LightningModule):
         super().__init__()
 
         self.hparams = hparams
-        self.tokenizer = T5Tokenizer.from_pretrained(self.hparams.vocab_name)
+        if self.hparams.vocab_name == "custom":
+            self.tokenizer = get_custom_vocab()
+        else:
+            self.tokenizer = T5Tokenizer.from_pretrained(self.hparams.vocab_name)
 
         if "small" in self.hparams.model_name.split('-'):
             self.size = "small"

@@ -11,6 +11,7 @@ from collections import Counter
 import xmltodict
 import numpy as np
 import torch
+import sentencepiece as spm
 from matplotlib import pyplot as plt
 from torch.utils.data import Dataset, DataLoader
 from transformers import T5Tokenizer
@@ -53,6 +54,18 @@ def prepare_data(file_name):
     return processed_data, valid_modes
 
 
+def get_custom_vocab():
+    # Path to SentencePiece model
+    SP_MODEL_PATH = 'custom_vocab/spm_32000_unigram/spm_32000_pt.model'
+
+    # Loading on sentencepiece
+    sp = spm.SentencePieceProcessor()
+    sp.load(SP_MODEL_PATH)
+
+    # Loading o HuggingFace
+    return T5Tokenizer.from_pretrained(SP_MODEL_PATH)
+
+
 class ASSIN(Dataset):
     '''
     Loads data from preprocessed file and manages them.
@@ -70,7 +83,10 @@ class ASSIN(Dataset):
         str_output: wether train will operate in string generation mode or not
         '''
         if ASSIN.TOKENIZER is None:
-            ASSIN.TOKENIZER = T5Tokenizer.from_pretrained(vocab_name)
+            if vocab_name == "custom":
+                ASSIN.TOKENIZER = get_custom_vocab()
+            else:
+                ASSIN.TOKENIZER = T5Tokenizer.from_pretrained(vocab_name)
         else:
             print("Tokenizer already initialized.")
 
@@ -117,7 +133,7 @@ class ASSIN(Dataset):
 if __name__ == "__main__":
     print("Testing ASSIN dataset.")
 
-    hparams = {"model_name": "ptt5-standard-vocab-small", "vocab_name": "t5-small", "seq_len": 128, "bs": 10,
+    hparams = {"model_name": "ptt5-standard-vocab-small", "vocab_name": "custom", "seq_len": 128, "bs": 10,
                "architecture": "gen", "version": 'v2'}
 
     datasets = {m: ASSIN(version=hparams["version"], mode=m, seq_len=hparams["seq_len"],
