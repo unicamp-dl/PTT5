@@ -37,7 +37,7 @@ from multiprocessing import cpu_count
 import torch
 from tqdm import tqdm
 from torch import nn
-from RAdam.radam import RAdam
+from radam import RAdam
 from assin_dataset import ASSIN, get_custom_vocab
 
 # PyTorch Lightning and Transformer
