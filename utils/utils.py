@@ -4,14 +4,16 @@ import pandas as pd
 from t5.evaluation import eval_utils
 
 # Same from pretraing code
-# "Pre-training" ==> FineTuning
 DICT_BATCH_SIZE_PRETRAIN = {
         'small': 256,
         'base': 128,
         'large': 64
         }
+
+# Same from pretraing code
 BRWAC_TXT_LEN = 7361359
 
+# Same from pretraing code
 def epoch_to_steps(batch_size,epochs, total_examples=BRWAC_TXT_LEN):
     """Calculates number of steps
 
