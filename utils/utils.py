@@ -81,3 +81,18 @@ def step_to_epoch(steps, batch_size, total_examples=BRWAC_TXT_LEN):
     """
 
     return steps / epoch_to_steps(batch_size,1,total_examples=total_examples)
+
+
+def smooth_array(input, smooth):
+    """Smooth array using exponential moving average
+
+    Args:
+        input: input data
+        smooth: smooth factor, 0<=smooth<1
+
+    Returns:
+        Smoothed array
+    """
+    return input.ewm(alpha = (1-smooth)).mean()
+
+
