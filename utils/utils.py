@@ -53,4 +53,5 @@ def tf_events_to_pandas(tb_summary_dir, tag='loss'):
         'step': [x.step for x in events[tag]],
         tag: [x.value for x in events[tag]]
         })
+    return df
 
