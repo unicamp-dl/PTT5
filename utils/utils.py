@@ -1,20 +1,16 @@
-import tensorflow.compat.v1 as tf
+from t5.evaluation import eval_utils
 import os
 import pandas as pd
-from t5.evaluation import eval_utils
 
 # Same from pretraing code
-DICT_BATCH_SIZE_PRETRAIN = {
-        'small': 256,
-        'base': 128,
-        'large': 64
-        }
+DICT_BATCH_SIZE_PRETRAIN = {'small': 256, 'base': 128, 'large': 64}
 
 # Same from pretraing code
 BRWAC_TXT_LEN = 7361359
 
+
 # Same from pretraing code
-def epoch_to_steps(batch_size,epochs, total_examples=BRWAC_TXT_LEN):
+def epoch_to_steps(batch_size, epochs, total_examples=BRWAC_TXT_LEN):
     """Calculates number of steps
 
     Args:
@@ -26,6 +22,7 @@ def epoch_to_steps(batch_size,epochs, total_examples=BRWAC_TXT_LEN):
         Number of steps
     """
     return int((epochs * total_examples) // batch_size)
+
 
 def get_model_size_from_dir(tb_summary_dir):
     """Return model size from dir
@@ -39,6 +36,7 @@ def get_model_size_from_dir(tb_summary_dir):
 
     """
     return os.path.basename(os.path.normpath(tb_summary_dir)).split('_')[0]
+
 
 def tf_events_to_pandas(tb_summary_dir, tag='loss'):
     """Parse tensorboard logs into a padas dataframe
@@ -54,8 +52,9 @@ def tf_events_to_pandas(tb_summary_dir, tag='loss'):
     df = pd.DataFrame({
         'step': [x.step for x in events[tag]],
         tag: [x.value for x in events[tag]]
-        })
+    }).sort_values(by='step')
     return df
+
 
 def fix_step_offset(steps):
     """Fix steps offset, returning array starting from zero
@@ -67,6 +66,7 @@ def fix_step_offset(steps):
         steps array starting from zero
     """
     return steps - steps.min()
+
 
 def step_to_epoch(steps, batch_size, total_examples=BRWAC_TXT_LEN):
     """Convert array with step values to array of epoch values
@@ -80,7 +80,7 @@ def step_to_epoch(steps, batch_size, total_examples=BRWAC_TXT_LEN):
         Array with epoch values
     """
 
-    return steps / epoch_to_steps(batch_size,1,total_examples=total_examples)
+    return steps / epoch_to_steps(batch_size, 1, total_examples=total_examples)
 
 
 def smooth_array(input, smooth):
@@ -93,6 +93,4 @@ def smooth_array(input, smooth):
     Returns:
         Smoothed array
     """
-    return input.ewm(alpha = (1-smooth)).mean()
-
-
+    return input.ewm(alpha=(1 - smooth)).mean()
