@@ -1,30 +1,6 @@
 '''
 T5 ASSIN
-Tentando aplicar o T5 sobre o ASSIN.
-
-Completed Experiments (describes starting point):
-
-Completed:
--T5 small
--T5 base
--PTT5 small 1 epoch
--PTT5 base 1 epoch
-
-TODO:
--Implement generate mode OK?
-
--Determine if generate mode is better in:
-    -T5 small
-    -T5 base
-    -PTT5 small 1 epoch
-    -PTT5 base 1 epoch
-
--Choose one mode and continue to training:
-
--PTT5 small 4 epochs
--PTT5 base 4 epochs
--PTT5 ptvocab small 4 epochs
--PTT5 ptvocab base 4 epochs
+Aplicando o T5 e PTT5 sobre o ASSIN.
 '''
 # Standard Libraries
 import os
