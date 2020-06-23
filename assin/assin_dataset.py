@@ -82,13 +82,10 @@ class ASSIN(Dataset):
         vocab_name: name of the vocabulary
         str_output: wether train will operate in string generation mode or not
         '''
-        if ASSIN.TOKENIZER is None:
-            if vocab_name == "custom":
-                ASSIN.TOKENIZER = get_custom_vocab()
-            else:
-                ASSIN.TOKENIZER = T5Tokenizer.from_pretrained(vocab_name)
+        if vocab_name == "custom":
+            ASSIN.TOKENIZER = get_custom_vocab()
         else:
-            print("Tokenizer already initialized.")
+            ASSIN.TOKENIZER = T5Tokenizer.from_pretrained(vocab_name)
 
         super().__init__()
         assert mode in ASSIN.VALID_MODES
