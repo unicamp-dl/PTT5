@@ -57,3 +57,27 @@ def tf_events_to_pandas(tb_summary_dir, tag='loss'):
         })
     return df
 
+def fix_step_offset(steps):
+    """Fix steps offset, returning array starting from zero
+
+    Args:
+        steps: array with steps
+
+    Returns;
+        steps array starting from zero
+    """
+    return steps - steps.min()
+
+def step_to_epoch(steps, batch_size, total_examples=BRWAC_TXT_LEN):
+    """Convert array with step values to array of epoch values
+
+    Args:
+        steps: pd.Series or np.array containing step values
+        batch_size: batch size
+        total_examples: total data size
+
+    Returns:
+        Array with epoch values
+    """
+
+    return steps / epoch_to_steps(batch_size,1,total_examples=total_examples)
