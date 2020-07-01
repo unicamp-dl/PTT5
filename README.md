@@ -5,6 +5,51 @@ Team:\
 Marcos Piau\
 Diedre Carmo
 
+# Como usar o PTT5:
+
+Download dos pesos:
+
+PTT5 Base (treinado com vocabulário original do T5): https://www.dropbox.com/s/pu18znurr6vqbio/ptt5-4epoch-standard-vocab-base-1229941.pth?dl=0
+
+PTT5 Base (treinado com vocabulário custom em PT): https://www.dropbox.com/s/y0a1ea02bivjt60/ptt5-custom-vocab-base-1229942.pth?dl=0
+
+Esses são pesos exatamente após o pré-treinamento no BrWac por 4 épocas.
+
+
+## Carregar pesos
+Ainda é necessário mais um arquivo de config pra hugging face, nesse link (o mesmo pros dois pesos): https://www.dropbox.com/s/br7szb67ljh5rwg/ptt5-standard-vocab-base-config.json?dl=0 ou aqui GitHub também: **assin/T5_configs_json**
+
+Para carregar os pesos (exemplo com o T5ForConditionalGeneration mas poderia ser outro):
+
+    from transformers import PretrainedConfig, T5ForConditionalGeneration
+
+    config = PretrainedConfig.from_json_file(config_path)
+    state_dict = torch.load(ckpt_path)
+
+    self.t5 = T5ForConditionalGeneration.from_pretrained(pretrained_model_name_or_path=None,
+                                                     config=config,
+                                                     state_dict=state_dict)
+
+## Carregar Vocab custom em PT
+
+Para carregar o Vocab custom, use o .model em: **assin/custom_vocab/spm_32000_unigram**
+
+E rode o código dessa função:
+
+    import sentencepiece as spm
+    from transformers import T5Tokenizer
+    
+    def get_custom_vocab():
+        # Path to SentencePiece model
+        SP_MODEL_PATH = 'custom_vocab/spm_32000_unigram/spm_32000_pt.model'
+
+        # Loading on sentencepiece
+        sp = spm.SentencePieceProcessor()
+        sp.load(SP_MODEL_PATH)
+
+        # Loading o HuggingFace
+        return T5Tokenizer.from_pretrained(SP_MODEL_PATH)
+
 # Folders
 
 ## assin
