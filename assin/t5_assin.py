@@ -88,9 +88,15 @@ class T5ASSIN(pl.LightningModule):
             self.t5 = NONLinearInput(self.hparams.seq_len, D)
 
         if self.hparams.architecture != "gen":
-            self.linear = nn.Linear(D, 1)
+            if self.hparams.architecture == "categoric":
+                self.linear = nn.Linear(D, self.hparams.nout)
+            else:
+                self.linear = nn.Linear(D, 1)
 
-        self.loss = nn.MSELoss()
+        if self.hparams.architecture == "categoric":
+            self.loss = nn.CrossEntropyLoss()
+        else:
+            self.loss = nn.MSELoss()
 
     def get_ptt5(self):
         ckpt_paths = glob(os.path.join(CHECKPOINT_PATH, self.hparams.model_name + "*"))

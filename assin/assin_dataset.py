@@ -71,10 +71,11 @@ class ASSIN(Dataset):
     Loads data from preprocessed file and manages them.
     '''
     CLASSES = ["None", "Entailment", "Paraphrase"]
+    CLASSESv2 = ["None", "Entailment"]
     TOKENIZER = None
     DATA, VALID_MODES = prepare_data("processed_data.pkl")
 
-    def __init__(self, version, mode, seq_len, vocab_name):
+    def __init__(self, version, mode, seq_len, vocab_name, categoric=False):
         '''
         verison: v1 or v2
         mode: One of train, validation or test
@@ -92,6 +93,10 @@ class ASSIN(Dataset):
 
         self.seq_len = seq_len
         self.data = ASSIN.DATA[version][mode]
+        self.categoric = categoric
+        self.version = version
+
+        print(f"{mode} ASSINv{version} initialized with categoric: {categoric}, seq_len: {seq_len}")
 
     def __len__(self):
         return len(self.data)
@@ -105,12 +110,21 @@ class ASSIN(Dataset):
         data = self.data[i]
         pair = data["pair"]
 
-        target = ASSIN.TOKENIZER.encode(text=str(data["similarity"]),
-                                        max_length=5,
-                                        pad_to_max_length=True,
-                                        return_tensors='pt').squeeze()
+        if self.categoric:  # generate "Entailment", "None"
+            target = target = ASSIN.TOKENIZER.encode(text=str(data["entailment"]),
+                                                     max_length=3,
+                                                     pad_to_max_length=True,
+                                                     return_tensors='pt').squeeze()
+        else:
+            target = ASSIN.TOKENIZER.encode(text=str(data["similarity"]),
+                                            max_length=5,
+                                            pad_to_max_length=True,
+                                            return_tensors='pt').squeeze()
 
-        original_number = torch.Tensor([data["similarity"]]).float().squeeze()
+        if self.categoric:
+            original_number = torch.Tensor([ASSIN.CLASSESv2.index(data["entailment"])]).long().squeeze()
+        else:
+            original_number = torch.Tensor([data["similarity"]]).float().squeeze()
 
         eos_token = ASSIN.TOKENIZER.eos_token
 
@@ -130,11 +144,11 @@ class ASSIN(Dataset):
 if __name__ == "__main__":
     print("Testing ASSIN dataset.")
 
-    hparams = {"model_name": "ptt5-standard-vocab-small", "vocab_name": "custom", "seq_len": 128, "bs": 10,
-               "architecture": "gen", "version": 'v2'}
+    hparams = {"model_name": "ptt5-standard-vocab-small", "vocab_name": "custom", "seq_len": 128, "bs": 10, "version": 'v2',
+               "categoric": True}
 
     datasets = {m: ASSIN(version=hparams["version"], mode=m, seq_len=hparams["seq_len"],
-                         vocab_name=hparams["vocab_name"]) for m in ASSIN.VALID_MODES}
+                         vocab_name=hparams["vocab_name"], categoric=hparams["categoric"]) for m in ASSIN.VALID_MODES}
 
     # Testing datasets
     for mode, dataset in datasets.items():
