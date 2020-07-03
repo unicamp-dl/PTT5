@@ -42,9 +42,9 @@ labels_plots = {
          'small_standard_vocab':'Small, T5 vocabulary',
          'base_standard_vocab': 'Base, T5 vocabulary',
          'large_standard_vocab': 'Large, T5 vocabulary',
-         'small_custom_sentencepiece_vocab': 'Small, Portugese vocabulary',
-         'base_custom_sentencepiece_vocab': 'Base, Portugese vocabulary',
-        'large_custom_sentencepiece_vocab': 'Large, Portugese vocabulary'
+         'small_custom_sentencepiece_vocab': 'Small, Portuguese vocabulary',
+         'base_custom_sentencepiece_vocab': 'Base, Portuguese vocabulary',
+        'large_custom_sentencepiece_vocab': 'Large, Portuguese vocabulary'
         }
 
 # Plot with all sizes
