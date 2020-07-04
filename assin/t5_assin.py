@@ -247,17 +247,17 @@ class T5ASSIN(pl.LightningModule):
         else:
             shuffle = True
         dataset = ASSIN(mode="train", version=self.hparams.version, seq_len=self.hparams.seq_len,
-                        vocab_name=self.hparams.vocab_name)
+                        vocab_name=self.hparams.vocab_name, categoric=self.hparams.architecture)
         return dataset.get_dataloader(batch_size=self.hparams.bs, shuffle=shuffle)
 
     def val_dataloader(self):
         dataset = ASSIN(mode="validation", version=self.hparams.version, seq_len=self.hparams.seq_len,
-                        vocab_name=self.hparams.vocab_name)
+                        vocab_name=self.hparams.vocab_name, categoric=self.hparams.architecture)
         return dataset.get_dataloader(batch_size=self.hparams.bs, shuffle=False)
 
     def test_dataloader(self):
         dataset = ASSIN(mode="test", version=self.hparams.version, seq_len=self.hparams.seq_len,
-                        vocab_name=self.hparams.vocab_name)
+                        vocab_name=self.hparams.vocab_name, categoric=self.hparams.architecture)
         return dataset.get_dataloader(batch_size=self.hparams.bs, shuffle=False)
 
 
@@ -280,6 +280,7 @@ if __name__ == "__main__":
     parser.add_argument('--overfit_pct', type=float, default=0)
     parser.add_argument('--debug', type=float, default=0)
     parser.add_argument('--test_only', action="store_true")
+    parser.add_argument('--nout', type=int, default=1)
     hparams = parser.parse_args()
 
     print(f"Detected parameters: {hparams}")
