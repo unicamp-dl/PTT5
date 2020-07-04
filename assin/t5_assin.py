@@ -120,6 +120,10 @@ class T5ASSIN(pl.LightningModule):
         if self.hparams.architecture != "gen":
             if self.hparams.architecture == "mlp":
                 return self.linear(self.t5(input_ids))
+            elif self.hparams.architecture == "categoric":
+                return self.linear(self.t5(input_ids=input_ids,
+                                           decoder_input_ids=input_ids,
+                                           attention_mask=attention_mask)[0].mean(dim=1))
             else:
                 return 1 + self.linear(self.t5(input_ids=input_ids,
                                                decoder_input_ids=input_ids,
