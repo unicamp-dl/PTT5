@@ -281,6 +281,7 @@ if __name__ == "__main__":
     parser.add_argument('--debug', type=float, default=0)
     parser.add_argument('--test_only', action="store_true")
     parser.add_argument('--nout', type=int, default=1)
+    parser.add_argument('--patience', type=int, default=5)
     hparams = parser.parse_args()
 
     print(f"Detected parameters: {hparams}")
@@ -307,7 +308,7 @@ if __name__ == "__main__":
                                               monitor="val_loss",
                                               mode="min")
 
-        early_stop_callback = EarlyStopping(monitor='val_loss', patience=5, mode='min')
+        early_stop_callback = EarlyStopping(monitor='val_loss', patience=hparams.patience, mode='min')
 
         # PL Trainer initialization
         trainer = Trainer(gpus=1,
