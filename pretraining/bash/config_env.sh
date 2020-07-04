@@ -1,4 +1,5 @@
-export PROJECT=ia376-1s2020-ptt5
+#export PROJECT=ia376-1s2020-ptt5
+export PROJECT=ia376-1s2020-ptt5-2-282301
 export ZONE=europe-west4-a
 export BUCKET=gs://ptt5-1/
 export TPU_NAME="$HOSTNAME"
