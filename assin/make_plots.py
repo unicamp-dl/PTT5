@@ -11,7 +11,9 @@ plt.rcParams.update({'font.size': 16})
 EXPERIMENT_SETS = {"small_long_gen": ("assin2_t5_small_long/version_0", "assin2_t5_small_gen/version_0"),
                    "base_long_gen": ("assin2_t5_base_long/version_0", "assin2_t5_base_gen/version_0"),
                    "small_custom_standard": ("assin2_ptt5_small_4pochs_long/version_0", "assin2_ptt5_small_long_custom_vocab/version_0"),
-                   "base_custom_standard": ("assin2_ptt5_base_4epochs_long/version_0", "assin2_ptt5_base_long_custom_vocab/version_0")}
+                   "base_custom_standard": ("assin2_ptt5_base_4epochs_long/version_0", "assin2_ptt5_base_long_custom_vocab/version_0"),
+                   "small_entail_custom_standard": ("assin2_ptt5_small_entail_custom/version_1", "assin2_ptt5_small_entail/version_1"),
+                   "base_entail_custom_standard": ("assin2_ptt5_base_entail_custom/version_1", "assin2_ptt5_base_entail/version_1")}
 
 
 if __name__ == "__main__":
