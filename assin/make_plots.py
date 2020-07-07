@@ -38,7 +38,7 @@ if __name__ == "__main__":
             if "t5" in experiment.split('_'):
                 label = f"{mode} linear layer" if "long/version" in experiment.split('_') else f"{mode} string generation"
             else:
-                label = f"{mode} portuguese vocab" if "custom" in experiment.split('_') else f"{mode} T5 vocab"
+                label = f"{mode} portuguese vocab" if "custom" in experiment else f"{mode} T5 vocab"
 
             experiment_dir = os.path.join(args.log_folder, experiment)
             df = tf_events_to_pandas(experiment_dir, f"{mode}_loss")
