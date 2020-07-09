@@ -107,7 +107,8 @@ from contextlib import contextmanager
 import logging as py_logging
 
 tf.get_logger().propagate = False
-py_logging.root.setLevel('INFO')
+py_logging.root.setLevel('DEBUG')
+# py_logging.root.setLevel('INFO')
 
 
 @contextmanager
@@ -219,7 +220,6 @@ model_parallelism, train_batch_size, keep_checkpoint_max = {
 
 tf.io.gfile.makedirs(MODEL_DIR)
 
-# The models from our paper are based on the Mesh Tensorflow Transformer.
 def fn_is_var_embedding(x):
     """True if x is the variable corresponding to shared embedding,
     shared/embeding
@@ -230,11 +230,12 @@ def fn_is_var_embedding(x):
     Returns:
         Boolean indicating if the variable is the shared embedding
     """
-    if x == 'shared/embedding':
+    if x.name == 'shared/embedding':
         return True
     else:
         return False
 
+# The models from our paper are based on the Mesh Tensorflow Transformer.
 TPU_TOPOLOGY = "2x2"
 model = t5.models.MtfModel(
     model_dir=MODEL_DIR,
@@ -267,7 +268,6 @@ model.finetune(mixture_or_task_name="train",
                finetune_steps=FINETUNE_STEPS)
 
 # Saving checkpoints and json config on cloud
-
 # Caution: existing files will be overwritten!
 tf.io.gfile.makedirs(os.path.join(MODEL_DIR, 'checkpoints_pytorch'))
 
