@@ -1,6 +1,8 @@
 '''
 T5 ASSIN
 Aplicando o T5 e PTT5 sobre o ASSIN.
+
+TODO: Classification text-to-text
 '''
 # Standard Libraries
 import os
@@ -33,7 +35,6 @@ logging.getLogger("lightning").setLevel(logging.WARNING)
 print(f"\nImports loaded succesfully. Number of CPU cores: {cpu_count()}")
 
 CONFIG_PATH = "T5_configs_json"
-CHECKPOINT_PATH = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/checkpoints"
 
 
 class NONLinearInput(nn.Module):
@@ -282,12 +283,19 @@ if __name__ == "__main__":
     parser.add_argument('--test_only', action="store_true")
     parser.add_argument('--nout', type=int, default=1)
     parser.add_argument('--patience', type=int, default=5)
+    parser.add_argument('--checkpoint_path', type=str,
+                        default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/checkpoints")
+    parser.add_argument('--log_path', type=str,
+                        default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs")
+    parser.add_argument('--model_path', type=str,
+                        default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models")
     hparams = parser.parse_args()
 
     print(f"Detected parameters: {hparams}")
 
-    log_path = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs"
-    model_path = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models"
+    CHECKPOINT_PATH = hparams.checkpoint_path
+    log_path = hparams.log_path
+    model_path = hparams.model_path
 
     experiment_name = hparams.name
     logger = TensorBoardLogger(log_path, experiment_name)

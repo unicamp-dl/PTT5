@@ -1,7 +1,7 @@
 '''
 Definitions and tests managing the ASSIN dataset.
 
-TODO: Return appropriate target to generate mode.
+TODO: Return appropriate target to generate mode for classification
 '''
 import os
 import pickle
