@@ -118,18 +118,13 @@ class T5ASSIN(pl.LightningModule):
     def forward(self, x):
         input_ids, attention_mask, y, original_number = x
 
-        if self.hparams.architecture != "gen":
-            if self.hparams.architecture == "mlp":
-                return self.linear(self.t5(input_ids))
-            elif self.hparams.architecture == "categoric":
-                return self.linear(self.t5(input_ids=input_ids,
-                                           decoder_input_ids=input_ids,
-                                           attention_mask=attention_mask)[0].mean(dim=1))
-            else:
-                return 1 + self.linear(self.t5(input_ids=input_ids,
-                                               decoder_input_ids=input_ids,
-                                               attention_mask=attention_mask)[0].mean(dim=1)).sigmoid() * 4
-        else:  # generate number string mode
+        if self.hparams.architecture == "mlp":
+            return self.linear(self.t5(input_ids))
+        elif self.hparams.architecture == "categoric":
+            return self.linear(self.t5(input_ids=input_ids,
+                                       decoder_input_ids=input_ids,
+                                       attention_mask=attention_mask)[0].mean(dim=1))
+        elif self.hparams.architecture == "gen" or self.hparams.architecture == "categoric_gen":
             if self.training:
                 return self.t5(input_ids=input_ids,
                                attention_mask=attention_mask,
@@ -137,17 +132,21 @@ class T5ASSIN(pl.LightningModule):
             else:
                 return self.t5.generate(input_ids=input_ids,
                                         attention_mask=attention_mask,
-                                        max_length=5,  # 5 enough to represent numbers
+                                        max_length=5,  # 5 enough to represent numbers / "Entailment"
                                         do_sample=False)
+        else:  # similarity with linear layer
+            return 1 + self.linear(self.t5(input_ids=input_ids,
+                                           decoder_input_ids=input_ids,
+                                           attention_mask=attention_mask)[0].mean(dim=1)).sigmoid() * 4
 
     def training_step(self, batch, batch_idx):
         input_ids, attention_mask, y, original_number = batch
 
-        if self.hparams.architecture != "gen":
+        if self.hparams.architecture == "gen" or self.hparams.architecture == "categoric_gen":
+            loss = self(batch)
+        else:
             y_hat = self(batch).squeeze()
             loss = self.loss(y_hat, original_number)
-        else:
-            loss = self(batch)
 
         ret_dict = {'loss': loss}
 
@@ -155,10 +154,7 @@ class T5ASSIN(pl.LightningModule):
 
     def validation_step(self, batch, batch_idx):
         input_ids, attention_mask, y, original_number = batch
-        if self.hparams.architecture != "gen":
-            y_hat = self(batch).squeeze()
-            loss = self.loss(y_hat, original_number)
-        else:
+        if self.hparams.architecture == "gen":
             pred_tokens = self(batch)
 
             # Make a [batch, number] representation
@@ -178,16 +174,20 @@ class T5ASSIN(pl.LightningModule):
                         pass
 
             loss = self.loss(y_hat, original_number)
+        elif self.hparams.architecture == "categoric_gen":
+            # TODO compare generated tokens with expected tokens for Entailment/None?
+            pass
+        else:
+            y_hat = self(batch).squeeze()
+            loss = self.loss(y_hat, original_number)
+
         ret_dict = {'loss': loss}
 
         return ret_dict
 
     def test_step(self, batch, batch_idx):
         input_ids, attention_mask, y, original_number = batch
-        if self.hparams.architecture != "gen":
-            y_hat = self(batch).squeeze()
-            loss = self.loss(y_hat, original_number)
-        else:
+        if self.hparams.architecture == "gen":
             pred_tokens = self(batch)
 
             # Make a [batch, number] representation
@@ -207,6 +207,13 @@ class T5ASSIN(pl.LightningModule):
                         pass
 
             loss = self.loss(y_hat, original_number)
+        elif self.hparams.architecture == "categoric_gen":
+            # TODO compare generated tokens with expected tokens for Entailment/None?
+            pass
+        else:
+            y_hat = self(batch).squeeze()
+            loss = self.loss(y_hat, original_number)
+
         ret_dict = {'loss': loss}
 
         return ret_dict

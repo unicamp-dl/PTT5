@@ -112,7 +112,7 @@ class ASSIN(Dataset):
 
         if self.categoric:  # generate "Entailment", "None"
             target = target = ASSIN.TOKENIZER.encode(text=str(data["entailment"]),
-                                                     max_length=3,
+                                                     max_length=5,
                                                      pad_to_max_length=True,
                                                      return_tensors='pt').squeeze()
         else:
