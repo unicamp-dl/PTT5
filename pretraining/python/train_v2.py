@@ -107,8 +107,7 @@ from contextlib import contextmanager
 import logging as py_logging
 
 tf.get_logger().propagate = False
-py_logging.root.setLevel('DEBUG')
-# py_logging.root.setLevel('INFO')
+py_logging.root.setLevel('INFO')
 
 
 @contextmanager
