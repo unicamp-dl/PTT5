@@ -7,17 +7,20 @@ Diedre Carmo
 
 # Como usar o PTT5:
 
-Download dos pesos:
+Download dos pesos PTT5:
 
-PTT5 Base (treinado com vocabulário original do T5): https://www.dropbox.com/s/pu18znurr6vqbio/ptt5-4epoch-standard-vocab-base-1229941.pth?dl=0
-
-PTT5 Base (treinado com vocabulário custom em PT): https://www.dropbox.com/s/y0a1ea02bivjt60/ptt5-custom-vocab-base-1229942.pth?dl=0
+| **Tamanho** | **Vocab** | **Link** |
+| ---         | ---       | ---      |
+| Base        |  T5       |   https://www.dropbox.com/s/pu18znurr6vqbio/ptt5-4epoch-standard-vocab-base-1229941.pth?dl=0   |
+| Base        |  custom PT|   https://www.dropbox.com/s/y0a1ea02bivjt60/ptt5-custom-vocab-base-1229942.pth?dl=0  |
+| Large       |  T5       |   https://www.dropbox.com/s/7btqekm7mfysdeb/ptt5-standard-vocab-large-1461673.pth?dl=0  |
+| Large       |  custom PT|   https://www.dropbox.com/s/20zxpgz7guurn33/ptt5-custom-vocab-large-1460784.pth?dl=0   |
 
 Esses são pesos exatamente após o pré-treinamento no BrWac por 4 épocas.
 
 
 ## Carregar pesos
-Ainda é necessário mais um arquivo de config pra hugging face, nesse link (o mesmo pros dois pesos): https://www.dropbox.com/s/br7szb67ljh5rwg/ptt5-standard-vocab-base-config.json?dl=0 ou aqui GitHub também: **assin/T5_configs_json**
+Ainda é necessário os arquivos de config, presentes no em: **assin/T5_configs_json**
 
 Para carregar os pesos (exemplo com o T5ForConditionalGeneration mas poderia ser outro):
 
@@ -27,8 +30,8 @@ Para carregar os pesos (exemplo com o T5ForConditionalGeneration mas poderia ser
     state_dict = torch.load(ckpt_path)
 
     self.t5 = T5ForConditionalGeneration.from_pretrained(pretrained_model_name_or_path=None,
-                                                     config=config,
-                                                     state_dict=state_dict)
+                                                         config=config,
+                                                         state_dict=state_dict)
 
 ## Carregar Vocab custom em PT
 
