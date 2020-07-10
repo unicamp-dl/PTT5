@@ -105,6 +105,7 @@ class T5ASSIN(pl.LightningModule):
             self.loss = nn.CrossEntropyLoss()
         else:
             self.loss = nn.MSELoss()
+        logging.info("Initialization done.")
 
     def get_ptt5(self):
         ckpt_paths = glob(os.path.join(CHECKPOINT_PATH, self.hparams.model_name + "*"))
@@ -312,9 +313,9 @@ if __name__ == "__main__":
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
-    logging.info("Training will start in 5 seconds! CTRL-C to cancel.")
+    logging.info("Training will start in 3 seconds! CTRL-C to cancel.")
     try:
-        for _ in tqdm(range(5), desc='s'):
+        for _ in tqdm(range(3), desc='s'):
             time.sleep(1)
     except KeyboardInterrupt:
         quit()
