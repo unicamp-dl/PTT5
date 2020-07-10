@@ -1,8 +1,6 @@
 '''
 T5 ASSIN
 Aplicando o T5 e PTT5 sobre o ASSIN.
-
-TODO: Classification text-to-text
 '''
 # Standard Libraries
 import os
@@ -183,14 +181,24 @@ class T5ASSIN(pl.LightningModule):
                         pass
 
             loss = self.loss(y_hat, original_number)
-        elif self.hparams.architecture == "categoric_gen":
+            ret_dict = {'loss': loss}
+        elif self.hparams.architecture == "categoric_gen":  # not able to calculate loss in validation using categoric generation
             pred_tokens = self(batch)
-            loss = torch.stack([torch.eq(pred_token, target_token).all() for pred_token, target_token in zip(pred_tokens, y)]).mean()
-        else:
+            string_y_hat = [self.tokenizer.decode(pred).strip() for pred in pred_tokens]
+            string_y = [self.tokenizer.decode(target_y).strip() for target_y in y]
+
+            acc = torch.Tensor([str_y_hat == str_y for str_y_hat, str_y in zip(string_y_hat, string_y)]).float().mean()
+
+            ret_dict = {'acc': acc}
+        elif self.hparams.architecture == "categoric":  # cross entropy loss and accuracy are returned
+            y_hat = self(batch)
+            loss = self.loss(y_hat, original_number)
+            acc = (y_hat.argmax(dim=1).eq(original_number)).float().mean()
+            ret_dict = {'loss': loss, 'acc': acc}
+        else:  # default, linear layer activation
             y_hat = self(batch).squeeze(-1)
             loss = self.loss(y_hat, original_number)
-
-        ret_dict = {'loss': loss}
+            ret_dict = {'loss': loss}
 
         return ret_dict
 
@@ -206,11 +214,22 @@ class T5ASSIN(pl.LightningModule):
     def validation_epoch_end(self, outputs):
         name = "val_"
 
-        loss = torch.stack([x['loss'] for x in outputs]).mean()
+        if self.hparams.architecture == "categoric":  # acc and loss
+            loss = torch.stack([x['loss'] for x in outputs]).mean()
+            acc = torch.stack([x['acc'] for x in outputs]).mean()
 
-        logs = {name + "loss": loss}
+            logs = {name + "loss": loss, name + "acc": acc}
+            return {name + 'loss': loss, name + 'acc': acc, 'log': logs, 'progress_bar': logs}
+        elif self.hparams.architecture == "categoric_gen":  # only acc
+            acc = torch.stack([x['acc'] for x in outputs]).mean()
 
-        return {name + 'loss': loss, 'log': logs, 'progress_bar': logs}
+            logs = {name + "acc": acc}
+            return {name + 'acc': acc, 'log': logs, 'progress_bar': logs}
+        else:  # only loss
+            loss = torch.stack([x['loss'] for x in outputs]).mean()
+
+            logs = {name + "loss": loss}
+            return {name + 'loss': loss, 'log': logs, 'progress_bar': logs}
 
     def configure_optimizers(self):
         return RAdam(self.parameters(), lr=self.hparams.lr)
@@ -282,21 +301,30 @@ if __name__ == "__main__":
     # Instantiate model
     model = T5ASSIN(hparams)
 
-    ckpt_path = os.path.join(model_folder, "-{epoch}-{val_loss:.4f}")
-
-    assert os.path.isdir(log_path) and os.path.isdir(model_path) and os.path.isdir(model_folder), "Check logs, models or checkpoints folder"
-
     # Callback initialization
-    if hparams.debug:
-        logging.warning("Checkpoint not being saved due to debug mode.")
+    if hparams.debug and hparams.overfit_pct != 0:
+        logging.warning("Checkpoint not being saved due to debug mode or overfit.")
         checkpoint_callback = False
+        early_stop_callback = False
     else:
+        if "categoric" in hparams.architecture:
+            monitor = "val_acc"
+            mode = "max"
+            ckpt_path = os.path.join(model_folder, "-{epoch}-{val_acc:.4f}")
+            logging.info("Selecting best model by max acc")
+        else:
+            monitor = "val_loss"
+            mode = "min"
+            ckpt_path = os.path.join(model_folder, "-{epoch}-{val_loss:.4f}")
+            logging.info("Selecting best model by min loss")
+
+        assert os.path.isdir(log_path) and os.path.isdir(model_path) and os.path.isdir(model_folder), "Check logs, models or checkpoints"
+
         checkpoint_callback = ModelCheckpoint(prefix=experiment_name,
                                               filepath=ckpt_path,
-                                              monitor="val_loss",
-                                              mode="min")
-
-    early_stop_callback = EarlyStopping(monitor='val_loss', patience=hparams.patience, mode='min')
+                                              monitor=monitor,
+                                              mode=mode)
+        early_stop_callback = EarlyStopping(monitor=monitor, patience=hparams.patience, mode=mode)
 
     # PL Trainer initialization
     trainer = Trainer(gpus=hparams.gpu,

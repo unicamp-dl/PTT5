@@ -5,7 +5,6 @@ import os
 import pickle
 import random
 import logging
-logging.basicConfig(level=logging.DEBUG)
 from collections import Counter
 
 import xmltodict
@@ -117,7 +116,7 @@ class ASSIN(Dataset):
                                             pad_to_max_length=True,
                                             return_tensors='pt').squeeze()
         else:
-            target = ASSIN.TOKENIZER.encode(text=f'data["similarity"]{eos_token}',
+            target = ASSIN.TOKENIZER.encode(text=f'{data["similarity"]}{eos_token}',
                                             max_length=5,
                                             pad_to_max_length=True,
                                             return_tensors='pt').squeeze()
@@ -141,9 +140,9 @@ class ASSIN(Dataset):
 
 
 if __name__ == "__main__":
-    logging.debug("Testing ASSIN dataset.")
+    print("Testing ASSIN dataset.")
 
-    hparams = {"model_name": "ptt5-standard-vocab-small", "vocab_name": "custom", "seq_len": 128, "bs": 10, "version": 'v2',
+    hparams = {"model_name": "t5-small", "vocab_name": "t5-small", "seq_len": 128, "bs": 10, "version": 'v2',
                "categoric": True}
 
     datasets = {m: ASSIN(version=hparams["version"], mode=m, seq_len=hparams["seq_len"],
@@ -151,10 +150,10 @@ if __name__ == "__main__":
 
     # Testing datasets
     for mode, dataset in datasets.items():
-        logging.debug(f"\n{mode} dataset length: {len(dataset)}\n")
-        logging.debug("Random sample")
+        print(f"\n{mode} dataset length: {len(dataset)}\n")
+        print("Random sample")
         input_ids, attention_mask, target, original_number = random.choice(dataset)
-        logging.debug(str((input_ids, attention_mask, target, original_number)))
+        print(str((input_ids, attention_mask, target, original_number)))
 
     # Testing dataloaders
     shuffle = {"train": True, "validation": False, "test": False}
@@ -163,7 +162,7 @@ if __name__ == "__main__":
                          for mode in ASSIN.VALID_MODES}
 
     for mode, dataloader in debug_dataloaders.items():
-        logging.debug(f"{mode} number of batches: {len(dataloader)}")
+        print(f"{mode} number of batches: {len(dataloader)}")
         batch = next(iter(dataloader))
 
     # Dataset statistics
@@ -190,11 +189,11 @@ if __name__ == "__main__":
                             "std": wc.std(),
                             "max": wc.max(),
                             "min": wc.min()}
-        logging.debug(f"--------------- {version} stats --------------")
-        logging.debug(f"Class balance: {Counter(classes)}")
-        logging.debug(f"Similarity balance: {Counter(regs)}")
+        print(f"--------------- {version} stats --------------")
+        print(f"Class balance: {Counter(classes)}")
+        print(f"Similarity balance: {Counter(regs)}")
 
-        logging.debug(word_count_stats)
+        print(word_count_stats)
 
         plt.figure()
         plt.xlabel(f"{version} Sentence")
