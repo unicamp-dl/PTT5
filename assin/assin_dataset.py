@@ -109,14 +109,15 @@ class ASSIN(Dataset):
         '''
         data = self.data[i]
         pair = data["pair"]
+        eos_token = ASSIN.TOKENIZER.eos_token
 
         if self.categoric:  # generate "Entailment", "None"
-            target = ASSIN.TOKENIZER.encode(text=str(data["entailment"]),
+            target = ASSIN.TOKENIZER.encode(text=f"{data['entailment']}{eos_token}",
                                             max_length=5,
                                             pad_to_max_length=True,
                                             return_tensors='pt').squeeze()
         else:
-            target = ASSIN.TOKENIZER.encode(text=str(data["similarity"]),
+            target = ASSIN.TOKENIZER.encode(text=f'data["similarity"]{eos_token}',
                                             max_length=5,
                                             pad_to_max_length=True,
                                             return_tensors='pt').squeeze()
@@ -125,8 +126,6 @@ class ASSIN(Dataset):
             original_number = torch.Tensor([ASSIN.CLASSESv2.index(data["entailment"])]).long().squeeze()
         else:
             original_number = torch.Tensor([data["similarity"]]).float().squeeze()
-
-        eos_token = ASSIN.TOKENIZER.eos_token
 
         source = ASSIN.TOKENIZER.encode_plus(text=f"ASSIN sentence1: {pair[0]} {eos_token}",
                                              text_pair=f"sentence2: {pair[1]} {eos_token}",

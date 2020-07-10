@@ -105,6 +105,7 @@ class T5ASSIN(pl.LightningModule):
             self.loss = nn.CrossEntropyLoss()
         else:
             self.loss = nn.MSELoss()
+
         logging.info("Initialization done.")
 
     def get_ptt5(self):
@@ -183,8 +184,8 @@ class T5ASSIN(pl.LightningModule):
 
             loss = self.loss(y_hat, original_number)
         elif self.hparams.architecture == "categoric_gen":
-            # TODO compare generated tokens with expected tokens for Entailment/None?
-            pass
+            pred_tokens = self(batch)
+            loss = torch.stack([torch.eq(pred_token, target_token).all() for pred_token, target_token in zip(pred_tokens, y)]).mean()
         else:
             y_hat = self(batch).squeeze(-1)
             loss = self.loss(y_hat, original_number)
@@ -250,6 +251,7 @@ if __name__ == "__main__":
     parser.add_argument('--debug', action="store_true")
     parser.add_argument('--nout', type=int, default=1)
     parser.add_argument('--patience', type=int, default=5)
+    parser.add_argument('--gpu', type=int, default=1)
     parser.add_argument('--checkpoint_path', type=str,
                         default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/checkpoints")
     parser.add_argument('--log_path', type=str,
@@ -297,7 +299,7 @@ if __name__ == "__main__":
     early_stop_callback = EarlyStopping(monitor='val_loss', patience=hparams.patience, mode='min')
 
     # PL Trainer initialization
-    trainer = Trainer(gpus=1,
+    trainer = Trainer(gpus=hparams.gpu,
                       precision=hparams.precision,
                       checkpoint_callback=checkpoint_callback,
                       early_stop_callback=early_stop_callback,
