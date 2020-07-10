@@ -111,10 +111,10 @@ class ASSIN(Dataset):
         pair = data["pair"]
 
         if self.categoric:  # generate "Entailment", "None"
-            target = target = ASSIN.TOKENIZER.encode(text=str(data["entailment"]),
-                                                     max_length=5,
-                                                     pad_to_max_length=True,
-                                                     return_tensors='pt').squeeze()
+            target = ASSIN.TOKENIZER.encode(text=str(data["entailment"]),
+                                            max_length=5,
+                                            pad_to_max_length=True,
+                                            return_tensors='pt').squeeze()
         else:
             target = ASSIN.TOKENIZER.encode(text=str(data["similarity"]),
                                             max_length=5,

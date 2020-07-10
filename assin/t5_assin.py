@@ -101,7 +101,7 @@ class T5ASSIN(pl.LightningModule):
             else:
                 self.linear = nn.Linear(D, 1)
 
-        if self.hparams.architecture == "categoric":
+        if self.hparams.architecture == "categoric" or self.hparams.architecture == "categoric_gen":
             self.loss = nn.CrossEntropyLoss()
         else:
             self.loss = nn.MSELoss()
@@ -220,12 +220,12 @@ class T5ASSIN(pl.LightningModule):
         else:
             shuffle = True
         dataset = ASSIN(mode="train", version=self.hparams.version, seq_len=self.hparams.seq_len,
-                        vocab_name=self.hparams.vocab_name, categoric=self.hparams.architecture)
+                        vocab_name=self.hparams.vocab_name, categoric="categoric" in self.hparams.architecture)
         return dataset.get_dataloader(batch_size=self.hparams.bs, shuffle=shuffle)
 
     def val_dataloader(self):
         dataset = ASSIN(mode="validation", version=self.hparams.version, seq_len=self.hparams.seq_len,
-                        vocab_name=self.hparams.vocab_name, categoric=self.hparams.architecture)
+                        vocab_name=self.hparams.vocab_name, categoric="categoric" in self.hparams.architecture)
         return dataset.get_dataloader(batch_size=self.hparams.bs, shuffle=False)
 
 
