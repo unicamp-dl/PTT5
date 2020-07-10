@@ -1,11 +1,11 @@
 '''
 Definitions and tests managing the ASSIN dataset.
-
-TODO: Return appropriate target to generate mode for classification
 '''
 import os
 import pickle
 import random
+import logging
+logging.basicConfig(level=logging.DEBUG)
 from collections import Counter
 
 import xmltodict
@@ -27,7 +27,7 @@ def prepare_data(file_name):
 
     file_name = os.path.join(folder, file_name)
     if not os.path.isfile(file_name):
-        print("Preprocessing data...")
+        logging.info("Preprocessing data...")
         filenamesv1 = ['assin-ptbr-train.xml', 'assin-ptbr-dev.xml', 'assin-ptbr-test.xml']
         filenamesv2 = ['assin2-train-only.xml', 'assin2-dev.xml', 'assin2-test.xml']
 
@@ -45,9 +45,9 @@ def prepare_data(file_name):
 
         with open(file_name, 'wb') as processed_file:
             pickle.dump(processed_data, processed_file)
-        print("Done.")
+        logging.info("Done.")
     else:
-        print(f"Processed data found in {file_name}.")
+        logging.info(f"Processed data found in {file_name}.")
         with open(file_name, 'rb') as processed_file:
             processed_data = pickle.load(processed_file)
 
@@ -96,7 +96,7 @@ class ASSIN(Dataset):
         self.categoric = categoric
         self.version = version
 
-        print(f"{mode} ASSINv{version} initialized with categoric: {categoric}, seq_len: {seq_len}")
+        logging.info(f"{mode} ASSINv{version} initialized with categoric: {categoric}, seq_len: {seq_len}")
 
     def __len__(self):
         return len(self.data)
@@ -142,7 +142,7 @@ class ASSIN(Dataset):
 
 
 if __name__ == "__main__":
-    print("Testing ASSIN dataset.")
+    logging.debug("Testing ASSIN dataset.")
 
     hparams = {"model_name": "ptt5-standard-vocab-small", "vocab_name": "custom", "seq_len": 128, "bs": 10, "version": 'v2',
                "categoric": True}
@@ -152,10 +152,10 @@ if __name__ == "__main__":
 
     # Testing datasets
     for mode, dataset in datasets.items():
-        print(f"\n{mode} dataset length: {len(dataset)}\n")
-        print("Random sample")
+        logging.debug(f"\n{mode} dataset length: {len(dataset)}\n")
+        logging.debug("Random sample")
         input_ids, attention_mask, target, original_number = random.choice(dataset)
-        print(input_ids, attention_mask, target, original_number)
+        logging.debug(str((input_ids, attention_mask, target, original_number)))
 
     # Testing dataloaders
     shuffle = {"train": True, "validation": False, "test": False}
@@ -164,7 +164,7 @@ if __name__ == "__main__":
                          for mode in ASSIN.VALID_MODES}
 
     for mode, dataloader in debug_dataloaders.items():
-        print("{} number of batches: {}".format(mode, len(dataloader)))
+        logging.debug(f"{mode} number of batches: {len(dataloader)}")
         batch = next(iter(dataloader))
 
     # Dataset statistics
@@ -191,11 +191,11 @@ if __name__ == "__main__":
                             "std": wc.std(),
                             "max": wc.max(),
                             "min": wc.min()}
-        print(f"--------------- {version} stats --------------")
-        print(f"Class balance: {Counter(classes)}")
-        print(f"Similarity balance: {Counter(regs)}")
+        logging.debug(f"--------------- {version} stats --------------")
+        logging.debug(f"Class balance: {Counter(classes)}")
+        logging.debug(f"Similarity balance: {Counter(regs)}")
 
-        print(word_count_stats)
+        logging.debug(word_count_stats)
 
         plt.figure()
         plt.xlabel(f"{version} Sentence")

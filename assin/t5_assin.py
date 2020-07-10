@@ -8,6 +8,8 @@ TODO: Classification text-to-text
 import os
 import argparse
 import time
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 from glob import glob
 from multiprocessing import cpu_count
 
@@ -24,15 +26,16 @@ from transformers import T5Model, PretrainedConfig, T5ForConditionalGeneration, 
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from pytorch_lightning.loggers import TensorBoardLogger
 from pytorch_lightning import Trainer, seed_everything
+assert pl.__version__ == "0.8.4", "Please use PyTorch Lightning 0.8.4"
 
 # Suppress some of the logging
-import logging
 logging.getLogger("transformers.configuration_utils").setLevel(logging.WARNING)
 logging.getLogger("transformers.modeling_utils").setLevel(logging.WARNING)
 logging.getLogger("transformers.tokenization_utils").setLevel(logging.WARNING)
 logging.getLogger("lightning").setLevel(logging.WARNING)
 
-print(f"\nImports loaded succesfully. Number of CPU cores: {cpu_count()}")
+logging.info(f"PyTorch v{torch.__version__}. Recommended >= 1.5.1.")
+logging.info(f"Imports loaded succesfully. Number of CPU cores: {cpu_count()}. CUDA available: {torch.cuda.is_available()}.")
 
 CONFIG_PATH = "T5_configs_json"
 
@@ -62,13 +65,15 @@ class T5ASSIN(pl.LightningModule):
             self.size = "small"
         elif "base" in self.hparams.model_name.split('-'):
             self.size = "base"
+        elif "large" in self.hparams.model_name.split('-'):
+            self.size = "large"
         else:
             raise ValueError("Couldn't detect model size from model_name.")
 
         if self.hparams.model_name[:2] == "pt":
-            print("Initializing from PTT5 checkpoint")
+            logging.info("Initializing from PTT5 checkpoint...")
             config, state_dict = self.get_ptt5()
-            if self.hparams.architecture == "gen":
+            if self.hparams.architecture == "gen" or self.hparams.architecture == "categoric_gen":
                 self.t5 = T5ForConditionalGeneration.from_pretrained(pretrained_model_name_or_path=None,
                                                                      config=config,
                                                                      state_dict=state_dict)
@@ -77,7 +82,8 @@ class T5ASSIN(pl.LightningModule):
                                                   config=config,
                                                   state_dict=state_dict)
         else:
-            if self.hparams.architecture == "gen":
+            logging.info("Initializing from T5 checkpoint...")
+            if self.hparams.architecture == "gen" or self.hparams.architecture == "categoric_gen":
                 self.t5 = T5ForConditionalGeneration.from_pretrained(self.hparams.model_name)
             else:
                 self.t5 = T5Model.from_pretrained(self.hparams.model_name)
@@ -88,8 +94,9 @@ class T5ASSIN(pl.LightningModule):
             # Replace T5 with a simple nonlinear input
             self.t5 = NONLinearInput(self.hparams.seq_len, D)
 
-        if self.hparams.architecture != "gen":
+        if self.hparams.architecture != "gen" and self.hparams.architecture != "categoric_gen":
             if self.hparams.architecture == "categoric":
+                assert self.hparams.nout != 1, "Categoric mode with 1 nout doesn't work with CrossEntropyLoss"
                 self.linear = nn.Linear(D, self.hparams.nout)
             else:
                 self.linear = nn.Linear(D, 1)
@@ -108,8 +115,8 @@ class T5ASSIN(pl.LightningModule):
         config_path = config_paths[0]
         ckpt_path = ckpt_paths[0]
 
-        print(f"Loading initial ckpt from {ckpt_path}")
-        print(f"Loading config from {config_path}")
+        logging.info(f"Loading initial ckpt from {ckpt_path}")
+        logging.info(f"Loading config from {config_path}")
 
         config = PretrainedConfig.from_json_file(config_path)
         state_dict = torch.load(ckpt_path)
@@ -145,7 +152,7 @@ class T5ASSIN(pl.LightningModule):
         if self.hparams.architecture == "gen" or self.hparams.architecture == "categoric_gen":
             loss = self(batch)
         else:
-            y_hat = self(batch).squeeze()
+            y_hat = self(batch).squeeze(-1)
             loss = self.loss(y_hat, original_number)
 
         ret_dict = {'loss': loss}
@@ -178,40 +185,7 @@ class T5ASSIN(pl.LightningModule):
             # TODO compare generated tokens with expected tokens for Entailment/None?
             pass
         else:
-            y_hat = self(batch).squeeze()
-            loss = self.loss(y_hat, original_number)
-
-        ret_dict = {'loss': loss}
-
-        return ret_dict
-
-    def test_step(self, batch, batch_idx):
-        input_ids, attention_mask, y, original_number = batch
-        if self.hparams.architecture == "gen":
-            pred_tokens = self(batch)
-
-            # Make a [batch, number] representation
-            string_y_hat = [self.tokenizer.decode(pred) for pred in pred_tokens]
-            y_hat = torch.zeros_like(original_number)
-            for n, phrase in enumerate(string_y_hat):
-                for word in phrase.split():
-                    try:
-                        number = float(word)
-                        if number > 5.0:
-                            number = 5.0
-                        elif number < 1.0:
-                            number = 1.0
-                        y_hat[n] = number
-                        break
-                    except ValueError:
-                        pass
-
-            loss = self.loss(y_hat, original_number)
-        elif self.hparams.architecture == "categoric_gen":
-            # TODO compare generated tokens with expected tokens for Entailment/None?
-            pass
-        else:
-            y_hat = self(batch).squeeze()
+            y_hat = self(batch).squeeze(-1)
             loss = self.loss(y_hat, original_number)
 
         ret_dict = {'loss': loss}
@@ -229,15 +203,6 @@ class T5ASSIN(pl.LightningModule):
 
     def validation_epoch_end(self, outputs):
         name = "val_"
-
-        loss = torch.stack([x['loss'] for x in outputs]).mean()
-
-        logs = {name + "loss": loss}
-
-        return {name + 'loss': loss, 'log': logs, 'progress_bar': logs}
-
-    def test_epoch_end(self, outputs):
-        name = "test_"
 
         loss = torch.stack([x['loss'] for x in outputs]).mean()
 
@@ -263,11 +228,6 @@ class T5ASSIN(pl.LightningModule):
                         vocab_name=self.hparams.vocab_name, categoric=self.hparams.architecture)
         return dataset.get_dataloader(batch_size=self.hparams.bs, shuffle=False)
 
-    def test_dataloader(self):
-        dataset = ASSIN(mode="test", version=self.hparams.version, seq_len=self.hparams.seq_len,
-                        vocab_name=self.hparams.vocab_name, categoric=self.hparams.architecture)
-        return dataset.get_dataloader(batch_size=self.hparams.bs, shuffle=False)
-
 
 if __name__ == "__main__":
     # # 6 GB VRAM BS, 32 precision:
@@ -286,8 +246,7 @@ if __name__ == "__main__":
     parser.add_argument('--lr', type=float, default=0.0001)
     parser.add_argument('--precision', type=int, default=32)
     parser.add_argument('--overfit_pct', type=float, default=0)
-    parser.add_argument('--debug', type=float, default=0)
-    parser.add_argument('--test_only', action="store_true")
+    parser.add_argument('--debug', action="store_true")
     parser.add_argument('--nout', type=int, default=1)
     parser.add_argument('--patience', type=int, default=5)
     parser.add_argument('--checkpoint_path', type=str,
@@ -298,73 +257,66 @@ if __name__ == "__main__":
                         default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models")
     hparams = parser.parse_args()
 
-    print(f"Detected parameters: {hparams}")
+    logging.info(f"Detected parameters: {hparams}")
 
     CHECKPOINT_PATH = hparams.checkpoint_path
     log_path = hparams.log_path
     model_path = hparams.model_path
 
     experiment_name = hparams.name
-    logger = TensorBoardLogger(log_path, experiment_name)
+    os.makedirs(log_path, exist_ok=True)
+
+    if hparams.debug:
+        logging.warning("Logger disabled due to debug mode.")
+        logger = False
+    else:
+        logger = TensorBoardLogger(log_path, experiment_name)
 
     # Folder/path management, for logs and checkpoints
     model_folder = os.path.join(model_path, experiment_name)
     os.makedirs(model_folder, exist_ok=True)
 
-    if not hparams.test_only:
-        # Instantiate model
-        model = T5ASSIN(hparams)
+    # Instantiate model
+    model = T5ASSIN(hparams)
 
-        ckpt_path = os.path.join(model_folder, "-{epoch}-{val_loss:.4f}")
+    ckpt_path = os.path.join(model_folder, "-{epoch}-{val_loss:.4f}")
 
-        # Callback initialization
+    assert os.path.isdir(log_path) and os.path.isdir(model_path) and os.path.isdir(model_folder), "Check logs, models or checkpoints folder"
+
+    # Callback initialization
+    if hparams.debug:
+        logging.warning("Checkpoint not being saved due to debug mode.")
+        checkpoint_callback = False
+    else:
         checkpoint_callback = ModelCheckpoint(prefix=experiment_name,
                                               filepath=ckpt_path,
                                               monitor="val_loss",
                                               mode="min")
 
-        early_stop_callback = EarlyStopping(monitor='val_loss', patience=hparams.patience, mode='min')
+    early_stop_callback = EarlyStopping(monitor='val_loss', patience=hparams.patience, mode='min')
 
-        # PL Trainer initialization
-        trainer = Trainer(gpus=1,
-                          precision=hparams.precision,
-                          checkpoint_callback=checkpoint_callback,
-                          early_stop_callback=early_stop_callback,
-                          logger=logger,
-                          max_epochs=hparams.max_epochs,
-                          fast_dev_run=bool(hparams.debug),
-                          overfit_batches=hparams.overfit_pct,
-                          progress_bar_refresh_rate=1,
-                          deterministic=True
-                          )
+    # PL Trainer initialization
+    trainer = Trainer(gpus=1,
+                      precision=hparams.precision,
+                      checkpoint_callback=checkpoint_callback,
+                      early_stop_callback=early_stop_callback,
+                      logger=logger,
+                      max_epochs=hparams.max_epochs,
+                      fast_dev_run=hparams.debug,
+                      overfit_batches=hparams.overfit_pct,
+                      progress_bar_refresh_rate=1,
+                      deterministic=True
+                      )
 
-        seed_everything(4321)
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
+    seed_everything(4321)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
-        print("Training will start in 10 seconds! CTRL-C to cancel.")
-        try:
-            for _ in tqdm(range(10), desc='s'):
-                time.sleep(1)
-        except KeyboardInterrupt:
-            quit()
+    logging.info("Training will start in 5 seconds! CTRL-C to cancel.")
+    try:
+        for _ in tqdm(range(5), desc='s'):
+            time.sleep(1)
+    except KeyboardInterrupt:
+        quit()
 
-        trainer.fit(model)
-
-    models = glob(os.path.join(model_folder, "*.ckpt"))
-    print(f"Loading {models}")
-    assert len(models) == 1
-
-    if hparams.test_only:
-        tester = Trainer(gpus=1,
-                         precision=hparams.precision,
-                         logger=logger,
-                         progress_bar_refresh_rate=1,
-                         deterministic=True
-                         )
-    else:
-        tester = trainer
-
-    best_model = T5ASSIN.load_from_checkpoint(models[0])
-
-    tester.test(best_model)
+    trainer.fit(model)
