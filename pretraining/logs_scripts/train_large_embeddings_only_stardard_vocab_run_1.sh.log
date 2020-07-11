@@ -1,0 +1,1542 @@
+Script started on 2020-07-11 19:59:08+00:00 [TERM="screen" TTY="/dev/pts/1" COLUMNS="152" LINES="55"]
+marcospiau123@ptt5-vm4:~/PTT5/pretraining/bash$ ls -lht
+total 92K
+-rwxr-xr-x 1 marcospiau123 marcospiau123 206 Jul 11 19:58 [0m[01;32mtrain_large_embeddings_only_stardard_vocab_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 280 Jul 11 19:32 [01;32mtrain_base_embeddings_only_custom_vocab_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 283 Jul 11 02:24 [01;32mtrain_small_embeddings_only_custom_vocab_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 203 Jul 10 12:06 [01;32mtrain_base_embeddings_only_stardard_vocab_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 271 Jul 10 12:00 [01;32mtrain_small_embeddings_only_stardard_vocab_run_2.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 206 Jul 10 01:39 [01;32mtrain_small_embeddings_only_stardard_vocab_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 311 Jul  7 01:42 [01;32mtrain_large_custom_vocab_run_2.sh[0m
+-rw-r--r-- 1 marcospiau123 marcospiau123 452 Jul  7 01:12 config_env.sh
+-rw-r--r-- 1 marcospiau123 marcospiau123 113 Jul  7 01:12 create_tpu.sh
+-rwxr-xr-x 1 marcospiau123 marcospiau123 157 Jul  7 01:12 [01;32mtest_small_continue_training.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 249 Jul  7 01:12 [01;32mtrain_base_custom_vocab_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123  78 Jul  7 01:12 [01;32mtrain_base_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 205 Jul  7 01:12 [01;32mtrain_base_run_2.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 252 Jul  7 01:12 [01;32mtrain_large_custom_vocab_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123  80 Jul  7 01:12 [01;32mtrain_large_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 209 Jul  7 01:12 [01;32mtrain_large_run_2.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 212 Jul  7 01:12 [01;32mtrain_large_run_3.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 215 Jul  7 01:12 [01;32mtrain_large_run_4.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 212 Jul  7 01:12 [01;32mtrain_large_run_5.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 252 Jul  7 01:12 [01;32mtrain_small_custom_vocab_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123  80 Jul  7 01:12 [01;32mtrain_small_run_1.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 209 Jul  7 01:12 [01;32mtrain_small_run_2.sh[0m
+-rwxr-xr-x 1 marcospiau123 marcospiau123 143 Jul  7 01:12 [01;32mtrain_small_stress_hardware.sh[0m
+marcospiau123@ptt5-vm4:~/PTT5/pretraining/bash$ cat train_large_embeddings_only_stardard_vocab_run_1.sh
+python3 ../python/train_v2.py \
+-b 1 \
+-n large_embeddings_only_standard_vocab \
+-ms large \
+-e 1 \
+-s 512 \
+-jc '../../assin/T5_configs_json/ptt5-standard-vocab-large-config.json' \
+--train_embedding_only
+marcospiau123@ptt5-vm4:~/PTT5/pretraining/bash$ ./train_large_embeddings_only_stardard_vocab_run_1.sh
+Arguments read from input: {'batch_div': 1, 'name': 'large_embeddings_only_standard_vocab', 'txt_file': 'brwac_512.txt', 'model_size': 'large', 'nepoch': 1.0, 'seq_len': 512, 'pre_trained_dir': 'gs://t5-data/pretrained_models', 'json_config_path': '../../assin/T5_configs_json/ptt5-standard-vocab-large-config.json', 'spiece_model_path': None, 'train_embedding_only': True}
+Saving args to ../argparse_dumps/large_embeddings_only_standard_vocab.json ...
+INFO:googleapiclient.discovery:URL being requested: GET https://www.googleapis.com/discovery/v1/apis/tpu/v1/rest
+INFO:googleapiclient.discovery:URL being requested: GET https://tpu.googleapis.com/v1/projects/ia376-1s2020-ptt5-2-282301/locations/europe-west4-a/nodes/ptt5-vm4?alt=json
+INFO:oauth2client.transport:Attempting refresh to obtain initial access_token
+WARNING:tensorflow:From /home/marcospiau123/.local/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+WARNING:tensorflow:From /home/marcospiau123/.local/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+Added task.
+2020-07-11 19:59:43.123322: W tensorflow/stream_executor/platform/default/dso_loader.cc:55] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2020-07-11 19:59:43.123419: E tensorflow/stream_executor/cuda/cuda_driver.cc:313] failed call to cuInit: UNKNOWN ERROR (303)
+2020-07-11 19:59:43.123566: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (ptt5-vm4): /proc/driver/nvidia/version does not exist
+A few preprocessed validation examples...
+2020-07-11 19:59:43.293277: I tensorflow/core/platform/cpu_feature_guard.cc:143] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2020-07-11 19:59:43.302309: I tensorflow/core/platform/profile_utils/cpu_utils.cc:102] CPU Frequency: 2000179999 Hz
+2020-07-11 19:59:43.302837: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x7fdf6c000b20 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-07-11 19:59:43.302874: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+0.859375
+INFO:tensorflow:Using config: {'_model_dir': 'gs://ptt5-1/large_embeddings_only_standard_vocab/models/large', '_tf_random_seed': None, '_save_summary_steps': 100, '_save_checkpoints_steps': None, '_save_checkpoints_secs': None, '_session_config': allow_soft_placement: true
+cluster_def {
+  job {
+    name: "worker"
+    tasks {
+      key: 0
+      value: "10.240.1.10:8470"
+    }
+  }
+}
+isolate_session_state: true
+, '_keep_checkpoint_max': 5, '_keep_checkpoint_every_n_hours': 10000, '_log_step_count_steps': None, '_train_distribute': None, '_device_fn': None, '_protocol': None, '_eval_distribute': None, '_experimental_distribute': None, '_experimental_max_worker_delay_secs': None, '_session_creation_timeout_secs': 7200, '_service': None, '_cluster_spec': ClusterSpec({'worker': ['10.240.1.10:8470']}), '_task_type': 'worker', '_task_id': 0, '_global_id_in_cluster': 0, '_master': 'grpc://10.240.1.10:8470', '_evaluation_master': 'grpc://10.240.1.10:8470', '_is_chief': True, '_num_ps_replicas': 0, '_num_worker_replicas': 1, '_tpu_config': TPUConfig(iterations_per_loop=100, num_shards=None, num_cores_per_replica=1, per_host_input_for_training=4, tpu_job_name=None, initial_infeed_sleep_secs=None, input_partition_dims=None, eval_training_input_configuration=2, experimental_host_call_every_n_steps=1), '_cluster': <tensorflow.python.distribute.cluster_resolver.tpu_cluster_resolver.TPUClusterResolver object at 0x7fdf89338780>}
+INFO:tensorflow:_TPUContext: eval_on_tpu True
+INFO:tensorflow:Querying Tensorflow master (grpc://10.240.1.10:8470) for TPU system metadata.
+2020-07-11 19:59:48.713512: W tensorflow/core/distributed_runtime/rpc/grpc_session.cc:373] GrpcSession::ListDevices will initialize the session with an empty graph and other defaults because the session has not yet been created.
+INFO:tensorflow:Initializing TPU system (master: grpc://10.240.1.10:8470) to fetch topology for model parallelism. This might take a while.
+INFO:tensorflow:Found TPU system:
+INFO:tensorflow:*** Num TPU Cores: 8
+INFO:tensorflow:*** Num TPU Workers: 1
+INFO:tensorflow:*** Num TPU Cores Per Worker: 8
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:CPU:0, CPU, -1, -1411838667018405809)
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:TPU:0, TPU, 17179869184, -4894765830916696581)
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:TPU:1, TPU, 17179869184, 8883982649469389264)
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:TPU:2, TPU, 17179869184, 5311339085072930993)
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:TPU:3, TPU, 17179869184, -3059677189686259691)
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:TPU:4, TPU, 17179869184, 9146193668575961086)
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:TPU:5, TPU, 17179869184, -6140164238006406827)
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:TPU:6, TPU, 17179869184, -7597247919024650246)
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:TPU:7, TPU, 17179869184, 8123932690105724352)
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:TPU_SYSTEM:0, TPU_SYSTEM, 17179869184, 6631641204099772222)
+INFO:tensorflow:*** Available Device: _DeviceAttributes(/job:worker/replica:0/task:0/device:XLA_CPU:0, XLA_CPU, 17179869184, -4972711514359703362)
+WARNING:tensorflow:From /home/marcospiau123/.local/lib/python3.7/site-packages/tensorflow/python/ops/resource_variable_ops.py:1666: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+WARNING:tensorflow:From /home/marcospiau123/.local/lib/python3.7/site-packages/tensorflow/python/training/training_util.py:236: Variable.initialized_value (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use Variable.read_value. Variables in 2.X are initialized automatically both in eager and graph (inside tf.defun) contexts.
+INFO:tensorflow:Calling model_fn.
+INFO:tensorflow:enable_2d_tiling: False
+INFO:tensorflow:num_cores_per_replica: 1
+INFO:tensorflow:computation_shape: [1, 1, 1]
+INFO:tensorflow:num_replicas: 8
+INFO:tensorflow:device_assignment.topology.device_coordinates: [[[0 0 0]
+  [0 0 1]
+  [0 1 0]
+  [0 1 1]
+  [1 0 0]
+  [1 0 1]
+  [1 1 0]
+  [1 1 1]]]
+INFO:tensorflow:device_assignment.core_assignment: [[[0 0 0]]
+
+ [[0 0 1]]
+
+ [[0 1 0]]
+
+ [[0 1 1]]
+
+ [[1 0 0]]
+
+ [[1 0 1]]
+
+ [[1 1 0]]
+
+ [[1 1 1]]]
+WARNING:tensorflow:SimdMeshImpl ignoring devices ['', '', '', '', '', '', '', '']
+INFO:tensorflow:SimdMeshImpl init: Shape[model=8] LayoutRules{('experts', 'batch'), ('heads', 'model'), ('batch', 'batch'), ('ensemble', 'ensemble'), ('vocab', 'model'), ('d_ff', 'model')}
+INFO:tensorflow:Device Assignment: <tensorflow.python.tpu.device_assignment.DeviceAssignment object at 0x7fdf897a6c50>
+INFO:tensorflow:serialize_num_microbatches: tokens_per_microbatch_per_replica=8192 batch_dim=Dimension(name='batch', size=64) sequence_length={'inputs': 512, 'targets': 512} batch_per_replica=64 num_microbatches=4
+WARNING:tensorflow:Using default tf glorot_uniform_initializer for variable encoder/block_000/layer_000/SelfAttention/relative_attention_bias  The initialzer will guess the input and output dimensions  based on dimension order.
+WARNING:tensorflow:Using default tf glorot_uniform_initializer for variable decoder/block_000/layer_000/SelfAttention/relative_attention_bias  The initialzer will guess the input and output dimensions  based on dimension order.
+INFO:tensorflow:Variables being trained:
+INFO:tensorflow:['shared/embedding']
+INFO:tensorflow:Variables not being trained:
+INFO:tensorflow:['encoder/block_000/layer_000/layer_norm/scale', 'encoder/block_000/layer_000/SelfAttention/q', 'encoder/block_000/layer_000/SelfAttention/k', 'encoder/block_000/layer_000/SelfAttention/v', 'encoder/block_000/layer_000/SelfAttention/o', 'encoder/block_000/layer_000/SelfAttention/relative_attention_bias', 'encoder/block_000/layer_001/layer_norm/scale', 'encoder/block_000/layer_001/DenseReluDense/wi/kernel', 'encoder/block_000/layer_001/DenseReluDense/wo/kernel', 'encoder/block_001/layer_000/layer_norm/scale', 'encoder/block_001/layer_000/SelfAttention/q', 'encoder/block_001/layer_000/SelfAttention/k', 'encoder/block_001/layer_000/SelfAttention/v', 'encoder/block_001/layer_000/SelfAttention/o', 'encoder/block_001/layer_001/layer_norm/scale', 'encoder/block_001/layer_001/DenseReluDense/wi/kernel', 'encoder/block_001/layer_001/DenseReluDense/wo/kernel', 'encoder/block_002/layer_000/layer_norm/scale', 'encoder/block_002/layer_000/SelfAttention/q', 'encoder/block_002/layer_000/SelfAttention/k', 'encoder/block_002/layer_000/SelfAttention/v', 'encoder/block_002/layer_000/SelfAttention/o', 'encoder/block_002/layer_001/layer_norm/scale', 'encoder/block_002/layer_001/DenseReluDense/wi/kernel', 'encoder/block_002/layer_001/DenseReluDense/wo/kernel', 'encoder/block_003/layer_000/layer_norm/scale', 'encoder/block_003/layer_000/SelfAttention/q', 'encoder/block_003/layer_000/SelfAttention/k', 'encoder/block_003/layer_000/SelfAttention/v', 'encoder/block_003/layer_000/SelfAttention/o', 'encoder/block_003/layer_001/layer_norm/scale', 'encoder/block_003/layer_001/DenseReluDense/wi/kernel', 'encoder/block_003/layer_001/DenseReluDense/wo/kernel', 'encoder/block_004/layer_000/layer_norm/scale', 'encoder/block_004/layer_000/SelfAttention/q', 'encoder/block_004/layer_000/SelfAttention/k', 'encoder/block_004/layer_000/SelfAttention/v', 'encoder/block_004/layer_000/SelfAttention/o', 'encoder/block_004/layer_001/layer_norm/scale', 'encoder/block_004/layer_001/DenseReluDense/wi/kernel', 'encoder/block_004/layer_001/DenseReluDense/wo/kernel', 'encoder/block_005/layer_000/layer_norm/scale', 'encoder/block_005/layer_000/SelfAttention/q', 'encoder/block_005/layer_000/SelfAttention/k', 'encoder/block_005/layer_000/SelfAttention/v', 'encoder/block_005/layer_000/SelfAttention/o', 'encoder/block_005/layer_001/layer_norm/scale', 'encoder/block_005/layer_001/DenseReluDense/wi/kernel', 'encoder/block_005/layer_001/DenseReluDense/wo/kernel', 'encoder/block_006/layer_000/layer_norm/scale', 'encoder/block_006/layer_000/SelfAttention/q', 'encoder/block_006/layer_000/SelfAttention/k', 'encoder/block_006/layer_000/SelfAttention/v', 'encoder/block_006/layer_000/SelfAttention/o', 'encoder/block_006/layer_001/layer_norm/scale', 'encoder/block_006/layer_001/DenseReluDense/wi/kernel', 'encoder/block_006/layer_001/DenseReluDense/wo/kernel', 'encoder/block_007/layer_000/layer_norm/scale', 'encoder/block_007/layer_000/SelfAttention/q', 'encoder/block_007/layer_000/SelfAttention/k', 'encoder/block_007/layer_000/SelfAttention/v', 'encoder/block_007/layer_000/SelfAttention/o', 'encoder/block_007/layer_001/layer_norm/scale', 'encoder/block_007/layer_001/DenseReluDense/wi/kernel', 'encoder/block_007/layer_001/DenseReluDense/wo/kernel', 'encoder/block_008/layer_000/layer_norm/scale', 'encoder/block_008/layer_000/SelfAttention/q', 'encoder/block_008/layer_000/SelfAttention/k', 'encoder/block_008/layer_000/SelfAttention/v', 'encoder/block_008/layer_000/SelfAttention/o', 'encoder/block_008/layer_001/layer_norm/scale', 'encoder/block_008/layer_001/DenseReluDense/wi/kernel', 'encoder/block_008/layer_001/DenseReluDense/wo/kernel', 'encoder/block_009/layer_000/layer_norm/scale', 'encoder/block_009/layer_000/SelfAttention/q', 'encoder/block_009/layer_000/SelfAttention/k', 'encoder/block_009/layer_000/SelfAttention/v', 'encoder/block_009/layer_000/SelfAttention/o', 'encoder/block_009/layer_001/layer_norm/scale', 'encoder/block_009/layer_001/DenseReluDense/wi/kernel', 'encoder/block_009/layer_001/DenseReluDense/wo/kernel', 'encoder/block_010/layer_000/layer_norm/scale', 'encoder/block_010/layer_000/SelfAttention/q', 'encoder/block_010/layer_000/SelfAttention/k', 'encoder/block_010/layer_000/SelfAttention/v', 'encoder/block_010/layer_000/SelfAttention/o', 'encoder/block_010/layer_001/layer_norm/scale', 'encoder/block_010/layer_001/DenseReluDense/wi/kernel', 'encoder/block_010/layer_001/DenseReluDense/wo/kernel', 'encoder/block_011/layer_000/layer_norm/scale', 'encoder/block_011/layer_000/SelfAttention/q', 'encoder/block_011/layer_000/SelfAttention/k', 'encoder/block_011/layer_000/SelfAttention/v', 'encoder/block_011/layer_000/SelfAttention/o', 'encoder/block_011/layer_001/layer_norm/scale', 'encoder/block_011/layer_001/DenseReluDense/wi/kernel', 'encoder/block_011/layer_001/DenseReluDense/wo/kernel', 'encoder/block_012/layer_000/layer_norm/scale', 'encoder/block_012/layer_000/SelfAttention/q', 'encoder/block_012/layer_000/SelfAttention/k', 'encoder/block_012/layer_000/SelfAttention/v', 'encoder/block_012/layer_000/SelfAttention/o', 'encoder/block_012/layer_001/layer_norm/scale', 'encoder/block_012/layer_001/DenseReluDense/wi/kernel', 'encoder/block_012/layer_001/DenseReluDense/wo/kernel', 'encoder/block_013/layer_000/layer_norm/scale', 'encoder/block_013/layer_000/SelfAttention/q', 'encoder/block_013/layer_000/SelfAttention/k', 'encoder/block_013/layer_000/SelfAttention/v', 'encoder/block_013/layer_000/SelfAttention/o', 'encoder/block_013/layer_001/layer_norm/scale', 'encoder/block_013/layer_001/DenseReluDense/wi/kernel', 'encoder/block_013/layer_001/DenseReluDense/wo/kernel', 'encoder/block_014/layer_000/layer_norm/scale', 'encoder/block_014/layer_000/SelfAttention/q', 'encoder/block_014/layer_000/SelfAttention/k', 'encoder/block_014/layer_000/SelfAttention/v', 'encoder/block_014/layer_000/SelfAttention/o', 'encoder/block_014/layer_001/layer_norm/scale', 'encoder/block_014/layer_001/DenseReluDense/wi/kernel', 'encoder/block_014/layer_001/DenseReluDense/wo/kernel', 'encoder/block_015/layer_000/layer_norm/scale', 'encoder/block_015/layer_000/SelfAttention/q', 'encoder/block_015/layer_000/SelfAttention/k', 'encoder/block_015/layer_000/SelfAttention/v', 'encoder/block_015/layer_000/SelfAttention/o', 'encoder/block_015/layer_001/layer_norm/scale', 'encoder/block_015/layer_001/DenseReluDense/wi/kernel', 'encoder/block_015/layer_001/DenseReluDense/wo/kernel', 'encoder/block_016/layer_000/layer_norm/scale', 'encoder/block_016/layer_000/SelfAttention/q', 'encoder/block_016/layer_000/SelfAttention/k', 'encoder/block_016/layer_000/SelfAttention/v', 'encoder/block_016/layer_000/SelfAttention/o', 'encoder/block_016/layer_001/layer_norm/scale', 'encoder/block_016/layer_001/DenseReluDense/wi/kernel', 'encoder/block_016/layer_001/DenseReluDense/wo/kernel', 'encoder/block_017/layer_000/layer_norm/scale', 'encoder/block_017/layer_000/SelfAttention/q', 'encoder/block_017/layer_000/SelfAttention/k', 'encoder/block_017/layer_000/SelfAttention/v', 'encoder/block_017/layer_000/SelfAttention/o', 'encoder/block_017/layer_001/layer_norm/scale', 'encoder/block_017/layer_001/DenseReluDense/wi/kernel', 'encoder/block_017/layer_001/DenseReluDense/wo/kernel', 'encoder/block_018/layer_000/layer_norm/scale', 'encoder/block_018/layer_000/SelfAttention/q', 'encoder/block_018/layer_000/SelfAttention/k', 'encoder/block_018/layer_000/SelfAttention/v', 'encoder/block_018/layer_000/SelfAttention/o', 'encoder/block_018/layer_001/layer_norm/scale', 'encoder/block_018/layer_001/DenseReluDense/wi/kernel', 'encoder/block_018/layer_001/DenseReluDense/wo/kernel', 'encoder/block_019/layer_000/layer_norm/scale', 'encoder/block_019/layer_000/SelfAttention/q', 'encoder/block_019/layer_000/SelfAttention/k', 'encoder/block_019/layer_000/SelfAttention/v', 'encoder/block_019/layer_000/SelfAttention/o', 'encoder/block_019/layer_001/layer_norm/scale', 'encoder/block_019/layer_001/DenseReluDense/wi/kernel', 'encoder/block_019/layer_001/DenseReluDense/wo/kernel', 'encoder/block_020/layer_000/layer_norm/scale', 'encoder/block_020/layer_000/SelfAttention/q', 'encoder/block_020/layer_000/SelfAttention/k', 'encoder/block_020/layer_000/SelfAttention/v', 'encoder/block_020/layer_000/SelfAttention/o', 'encoder/block_020/layer_001/layer_norm/scale', 'encoder/block_020/layer_001/DenseReluDense/wi/kernel', 'encoder/block_020/layer_001/DenseReluDense/wo/kernel', 'encoder/block_021/layer_000/layer_norm/scale', 'encoder/block_021/layer_000/SelfAttention/q', 'encoder/block_021/layer_000/SelfAttention/k', 'encoder/block_021/layer_000/SelfAttention/v', 'encoder/block_021/layer_000/SelfAttention/o', 'encoder/block_021/layer_001/layer_norm/scale', 'encoder/block_021/layer_001/DenseReluDense/wi/kernel', 'encoder/block_021/layer_001/DenseReluDense/wo/kernel', 'encoder/block_022/layer_000/layer_norm/scale', 'encoder/block_022/layer_000/SelfAttention/q', 'encoder/block_022/layer_000/SelfAttention/k', 'encoder/block_022/layer_000/SelfAttention/v', 'encoder/block_022/layer_000/SelfAttention/o', 'encoder/block_022/layer_001/layer_norm/scale', 'encoder/block_022/layer_001/DenseReluDense/wi/kernel', 'encoder/block_022/layer_001/DenseReluDense/wo/kernel', 'encoder/block_023/layer_000/layer_norm/scale', 'encoder/block_023/layer_000/SelfAttention/q', 'encoder/block_023/layer_000/SelfAttention/k', 'encoder/block_023/layer_000/SelfAttention/v', 'encoder/block_023/layer_000/SelfAttention/o', 'encoder/block_023/layer_001/layer_norm/scale', 'encoder/block_023/layer_001/DenseReluDense/wi/kernel', 'encoder/block_023/layer_001/DenseReluDense/wo/kernel', 'encoder/final_layer_norm/scale', 'decoder/block_000/layer_000/layer_norm/scale', 'decoder/block_000/layer_000/SelfAttention/q', 'decoder/block_000/layer_000/SelfAttention/k', 'decoder/block_000/layer_000/SelfAttention/v', 'decoder/block_000/layer_000/SelfAttention/o', 'decoder/block_000/layer_000/SelfAttention/relative_attention_bias', 'decoder/block_000/layer_001/layer_norm/scale', 'decoder/block_000/layer_001/EncDecAttention/q', 'decoder/block_000/layer_001/EncDecAttention/k', 'decoder/block_000/layer_001/EncDecAttention/v', 'decoder/block_000/layer_001/EncDecAttention/o', 'decoder/block_000/layer_002/layer_norm/scale', 'decoder/block_000/layer_002/DenseReluDense/wi/kernel', 'decoder/block_000/layer_002/DenseReluDense/wo/kernel', 'decoder/block_001/layer_000/layer_norm/scale', 'decoder/block_001/layer_000/SelfAttention/q', 'decoder/block_001/layer_000/SelfAttention/k', 'decoder/block_001/layer_000/SelfAttention/v', 'decoder/block_001/layer_000/SelfAttention/o', 'decoder/block_001/layer_001/layer_norm/scale', 'decoder/block_001/layer_001/EncDecAttention/q', 'decoder/block_001/layer_001/EncDecAttention/k', 'decoder/block_001/layer_001/EncDecAttention/v', 'decoder/block_001/layer_001/EncDecAttention/o', 'decoder/block_001/layer_002/layer_norm/scale', 'decoder/block_001/layer_002/DenseReluDense/wi/kernel', 'decoder/block_001/layer_002/DenseReluDense/wo/kernel', 'decoder/block_002/layer_000/layer_norm/scale', 'decoder/block_002/layer_000/SelfAttention/q', 'decoder/block_002/layer_000/SelfAttention/k', 'decoder/block_002/layer_000/SelfAttention/v', 'decoder/block_002/layer_000/SelfAttention/o', 'decoder/block_002/layer_001/layer_norm/scale', 'decoder/block_002/layer_001/EncDecAttention/q', 'decoder/block_002/layer_001/EncDecAttention/k', 'decoder/block_002/layer_001/EncDecAttention/v', 'decoder/block_002/layer_001/EncDecAttention/o', 'decoder/block_002/layer_002/layer_norm/scale', 'decoder/block_002/layer_002/DenseReluDense/wi/kernel', 'decoder/block_002/layer_002/DenseReluDense/wo/kernel', 'decoder/block_003/layer_000/layer_norm/scale', 'decoder/block_003/layer_000/SelfAttention/q', 'decoder/block_003/layer_000/SelfAttention/k', 'decoder/block_003/layer_000/SelfAttention/v', 'decoder/block_003/layer_000/SelfAttention/o', 'decoder/block_003/layer_001/layer_norm/scale', 'decoder/block_003/layer_001/EncDecAttention/q', 'decoder/block_003/layer_001/EncDecAttention/k', 'decoder/block_003/layer_001/EncDecAttention/v', 'decoder/block_003/layer_001/EncDecAttention/o', 'decoder/block_003/layer_002/layer_norm/scale', 'decoder/block_003/layer_002/DenseReluDense/wi/kernel', 'decoder/block_003/layer_002/DenseReluDense/wo/kernel', 'decoder/block_004/layer_000/layer_norm/scale', 'decoder/block_004/layer_000/SelfAttention/q', 'decoder/block_004/layer_000/SelfAttention/k', 'decoder/block_004/layer_000/SelfAttention/v', 'decoder/block_004/layer_000/SelfAttention/o', 'decoder/block_004/layer_001/layer_norm/scale', 'decoder/block_004/layer_001/EncDecAttention/q', 'decoder/block_004/layer_001/EncDecAttention/k', 'decoder/block_004/layer_001/EncDecAttention/v', 'decoder/block_004/layer_001/EncDecAttention/o', 'decoder/block_004/layer_002/layer_norm/scale', 'decoder/block_004/layer_002/DenseReluDense/wi/kernel', 'decoder/block_004/layer_002/DenseReluDense/wo/kernel', 'decoder/block_005/layer_000/layer_norm/scale', 'decoder/block_005/layer_000/SelfAttention/q', 'decoder/block_005/layer_000/SelfAttention/k', 'decoder/block_005/layer_000/SelfAttention/v', 'decoder/block_005/layer_000/SelfAttention/o', 'decoder/block_005/layer_001/layer_norm/scale', 'decoder/block_005/layer_001/EncDecAttention/q', 'decoder/block_005/layer_001/EncDecAttention/k', 'decoder/block_005/layer_001/EncDecAttention/v', 'decoder/block_005/layer_001/EncDecAttention/o', 'decoder/block_005/layer_002/layer_norm/scale', 'decoder/block_005/layer_002/DenseReluDense/wi/kernel', 'decoder/block_005/layer_002/DenseReluDense/wo/kernel', 'decoder/block_006/layer_000/layer_norm/scale', 'decoder/block_006/layer_000/SelfAttention/q', 'decoder/block_006/layer_000/SelfAttention/k', 'decoder/block_006/layer_000/SelfAttention/v', 'decoder/block_006/layer_000/SelfAttention/o', 'decoder/block_006/layer_001/layer_norm/scale', 'decoder/block_006/layer_001/EncDecAttention/q', 'decoder/block_006/layer_001/EncDecAttention/k', 'decoder/block_006/layer_001/EncDecAttention/v', 'decoder/block_006/layer_001/EncDecAttention/o', 'decoder/block_006/layer_002/layer_norm/scale', 'decoder/block_006/layer_002/DenseReluDense/wi/kernel', 'decoder/block_006/layer_002/DenseReluDense/wo/kernel', 'decoder/block_007/layer_000/layer_norm/scale', 'decoder/block_007/layer_000/SelfAttention/q', 'decoder/block_007/layer_000/SelfAttention/k', 'decoder/block_007/layer_000/SelfAttention/v', 'decoder/block_007/layer_000/SelfAttention/o', 'decoder/block_007/layer_001/layer_norm/scale', 'decoder/block_007/layer_001/EncDecAttention/q', 'decoder/block_007/layer_001/EncDecAttention/k', 'decoder/block_007/layer_001/EncDecAttention/v', 'decoder/block_007/layer_001/EncDecAttention/o', 'decoder/block_007/layer_002/layer_norm/scale', 'decoder/block_007/layer_002/DenseReluDense/wi/kernel', 'decoder/block_007/layer_002/DenseReluDense/wo/kernel', 'decoder/block_008/layer_000/layer_norm/scale', 'decoder/block_008/layer_000/SelfAttention/q', 'decoder/block_008/layer_000/SelfAttention/k', 'decoder/block_008/layer_000/SelfAttention/v', 'decoder/block_008/layer_000/SelfAttention/o', 'decoder/block_008/layer_001/layer_norm/scale', 'decoder/block_008/layer_001/EncDecAttention/q', 'decoder/block_008/layer_001/EncDecAttention/k', 'decoder/block_008/layer_001/EncDecAttention/v', 'decoder/block_008/layer_001/EncDecAttention/o', 'decoder/block_008/layer_002/layer_norm/scale', 'decoder/block_008/layer_002/DenseReluDense/wi/kernel', 'decoder/block_008/layer_002/DenseReluDense/wo/kernel', 'decoder/block_009/layer_000/layer_norm/scale', 'decoder/block_009/layer_000/SelfAttention/q', 'decoder/block_009/layer_000/SelfAttention/k', 'decoder/block_009/layer_000/SelfAttention/v', 'decoder/block_009/layer_000/SelfAttention/o', 'decoder/block_009/layer_001/layer_norm/scale', 'decoder/block_009/layer_001/EncDecAttention/q', 'decoder/block_009/layer_001/EncDecAttention/k', 'decoder/block_009/layer_001/EncDecAttention/v', 'decoder/block_009/layer_001/EncDecAttention/o', 'decoder/block_009/layer_002/layer_norm/scale', 'decoder/block_009/layer_002/DenseReluDense/wi/kernel', 'decoder/block_009/layer_002/DenseReluDense/wo/kernel', 'decoder/block_010/layer_000/layer_norm/scale', 'decoder/block_010/layer_000/SelfAttention/q', 'decoder/block_010/layer_000/SelfAttention/k', 'decoder/block_010/layer_000/SelfAttention/v', 'decoder/block_010/layer_000/SelfAttention/o', 'decoder/block_010/layer_001/layer_norm/scale', 'decoder/block_010/layer_001/EncDecAttention/q', 'decoder/block_010/layer_001/EncDecAttention/k', 'decoder/block_010/layer_001/EncDecAttention/v', 'decoder/block_010/layer_001/EncDecAttention/o', 'decoder/block_010/layer_002/layer_norm/scale', 'decoder/block_010/layer_002/DenseReluDense/wi/kernel', 'decoder/block_010/layer_002/DenseReluDense/wo/kernel', 'decoder/block_011/layer_000/layer_norm/scale', 'decoder/block_011/layer_000/SelfAttention/q', 'decoder/block_011/layer_000/SelfAttention/k', 'decoder/block_011/layer_000/SelfAttention/v', 'decoder/block_011/layer_000/SelfAttention/o', 'decoder/block_011/layer_001/layer_norm/scale', 'decoder/block_011/layer_001/EncDecAttention/q', 'decoder/block_011/layer_001/EncDecAttention/k', 'decoder/block_011/layer_001/EncDecAttention/v', 'decoder/block_011/layer_001/EncDecAttention/o', 'decoder/block_011/layer_002/layer_norm/scale', 'decoder/block_011/layer_002/DenseReluDense/wi/kernel', 'decoder/block_011/layer_002/DenseReluDense/wo/kernel', 'decoder/block_012/layer_000/layer_norm/scale', 'decoder/block_012/layer_000/SelfAttention/q', 'decoder/block_012/layer_000/SelfAttention/k', 'decoder/block_012/layer_000/SelfAttention/v', 'decoder/block_012/layer_000/SelfAttention/o', 'decoder/block_012/layer_001/layer_norm/scale', 'decoder/block_012/layer_001/EncDecAttention/q', 'decoder/block_012/layer_001/EncDecAttention/k', 'decoder/block_012/layer_001/EncDecAttention/v', 'decoder/block_012/layer_001/EncDecAttention/o', 'decoder/block_012/layer_002/layer_norm/scale', 'decoder/block_012/layer_002/DenseReluDense/wi/kernel', 'decoder/block_012/layer_002/DenseReluDense/wo/kernel', 'decoder/block_013/layer_000/layer_norm/scale', 'decoder/block_013/layer_000/SelfAttention/q', 'decoder/block_013/layer_000/SelfAttention/k', 'decoder/block_013/layer_000/SelfAttention/v', 'decoder/block_013/layer_000/SelfAttention/o', 'decoder/block_013/layer_001/layer_norm/scale', 'decoder/block_013/layer_001/EncDecAttention/q', 'decoder/block_013/layer_001/EncDecAttention/k', 'decoder/block_013/layer_001/EncDecAttention/v', 'decoder/block_013/layer_001/EncDecAttention/o', 'decoder/block_013/layer_002/layer_norm/scale', 'decoder/block_013/layer_002/DenseReluDense/wi/kernel', 'decoder/block_013/layer_002/DenseReluDense/wo/kernel', 'decoder/block_014/layer_000/layer_norm/scale', 'decoder/block_014/layer_000/SelfAttention/q', 'decoder/block_014/layer_000/SelfAttention/k', 'decoder/block_014/layer_000/SelfAttention/v', 'decoder/block_014/layer_000/SelfAttention/o', 'decoder/block_014/layer_001/layer_norm/scale', 'decoder/block_014/layer_001/EncDecAttention/q', 'decoder/block_014/layer_001/EncDecAttention/k', 'decoder/block_014/layer_001/EncDecAttention/v', 'decoder/block_014/layer_001/EncDecAttention/o', 'decoder/block_014/layer_002/layer_norm/scale', 'decoder/block_014/layer_002/DenseReluDense/wi/kernel', 'decoder/block_014/layer_002/DenseReluDense/wo/kernel', 'decoder/block_015/layer_000/layer_norm/scale', 'decoder/block_015/layer_000/SelfAttention/q', 'decoder/block_015/layer_000/SelfAttention/k', 'decoder/block_015/layer_000/SelfAttention/v', 'decoder/block_015/layer_000/SelfAttention/o', 'decoder/block_015/layer_001/layer_norm/scale', 'decoder/block_015/layer_001/EncDecAttention/q', 'decoder/block_015/layer_001/EncDecAttention/k', 'decoder/block_015/layer_001/EncDecAttention/v', 'decoder/block_015/layer_001/EncDecAttention/o', 'decoder/block_015/layer_002/layer_norm/scale', 'decoder/block_015/layer_002/DenseReluDense/wi/kernel', 'decoder/block_015/layer_002/DenseReluDense/wo/kernel', 'decoder/block_016/layer_000/layer_norm/scale', 'decoder/block_016/layer_000/SelfAttention/q', 'decoder/block_016/layer_000/SelfAttention/k', 'decoder/block_016/layer_000/SelfAttention/v', 'decoder/block_016/layer_000/SelfAttention/o', 'decoder/block_016/layer_001/layer_norm/scale', 'decoder/block_016/layer_001/EncDecAttention/q', 'decoder/block_016/layer_001/EncDecAttention/k', 'decoder/block_016/layer_001/EncDecAttention/v', 'decoder/block_016/layer_001/EncDecAttention/o', 'decoder/block_016/layer_002/layer_norm/scale', 'decoder/block_016/layer_002/DenseReluDense/wi/kernel', 'decoder/block_016/layer_002/DenseReluDense/wo/kernel', 'decoder/block_017/layer_000/layer_norm/scale', 'decoder/block_017/layer_000/SelfAttention/q', 'decoder/block_017/layer_000/SelfAttention/k', 'decoder/block_017/layer_000/SelfAttention/v', 'decoder/block_017/layer_000/SelfAttention/o', 'decoder/block_017/layer_001/layer_norm/scale', 'decoder/block_017/layer_001/EncDecAttention/q', 'decoder/block_017/layer_001/EncDecAttention/k', 'decoder/block_017/layer_001/EncDecAttention/v', 'decoder/block_017/layer_001/EncDecAttention/o', 'decoder/block_017/layer_002/layer_norm/scale', 'decoder/block_017/layer_002/DenseReluDense/wi/kernel', 'decoder/block_017/layer_002/DenseReluDense/wo/kernel', 'decoder/block_018/layer_000/layer_norm/scale', 'decoder/block_018/layer_000/SelfAttention/q', 'decoder/block_018/layer_000/SelfAttention/k', 'decoder/block_018/layer_000/SelfAttention/v', 'decoder/block_018/layer_000/SelfAttention/o', 'decoder/block_018/layer_001/layer_norm/scale', 'decoder/block_018/layer_001/EncDecAttention/q', 'decoder/block_018/layer_001/EncDecAttention/k', 'decoder/block_018/layer_001/EncDecAttention/v', 'decoder/block_018/layer_001/EncDecAttention/o', 'decoder/block_018/layer_002/layer_norm/scale', 'decoder/block_018/layer_002/DenseReluDense/wi/kernel', 'decoder/block_018/layer_002/DenseReluDense/wo/kernel', 'decoder/block_019/layer_000/layer_norm/scale', 'decoder/block_019/layer_000/SelfAttention/q', 'decoder/block_019/layer_000/SelfAttention/k', 'decoder/block_019/layer_000/SelfAttention/v', 'decoder/block_019/layer_000/SelfAttention/o', 'decoder/block_019/layer_001/layer_norm/scale', 'decoder/block_019/layer_001/EncDecAttention/q', 'decoder/block_019/layer_001/EncDecAttention/k', 'decoder/block_019/layer_001/EncDecAttention/v', 'decoder/block_019/layer_001/EncDecAttention/o', 'decoder/block_019/layer_002/layer_norm/scale', 'decoder/block_019/layer_002/DenseReluDense/wi/kernel', 'decoder/block_019/layer_002/DenseReluDense/wo/kernel', 'decoder/block_020/layer_000/layer_norm/scale', 'decoder/block_020/layer_000/SelfAttention/q', 'decoder/block_020/layer_000/SelfAttention/k', 'decoder/block_020/layer_000/SelfAttention/v', 'decoder/block_020/layer_000/SelfAttention/o', 'decoder/block_020/layer_001/layer_norm/scale', 'decoder/block_020/layer_001/EncDecAttention/q', 'decoder/block_020/layer_001/EncDecAttention/k', 'decoder/block_020/layer_001/EncDecAttention/v', 'decoder/block_020/layer_001/EncDecAttention/o', 'decoder/block_020/layer_002/layer_norm/scale', 'decoder/block_020/layer_002/DenseReluDense/wi/kernel', 'decoder/block_020/layer_002/DenseReluDense/wo/kernel', 'decoder/block_021/layer_000/layer_norm/scale', 'decoder/block_021/layer_000/SelfAttention/q', 'decoder/block_021/layer_000/SelfAttention/k', 'decoder/block_021/layer_000/SelfAttention/v', 'decoder/block_021/layer_000/SelfAttention/o', 'decoder/block_021/layer_001/layer_norm/scale', 'decoder/block_021/layer_001/EncDecAttention/q', 'decoder/block_021/layer_001/EncDecAttention/k', 'decoder/block_021/layer_001/EncDecAttention/v', 'decoder/block_021/layer_001/EncDecAttention/o', 'decoder/block_021/layer_002/layer_norm/scale', 'decoder/block_021/layer_002/DenseReluDense/wi/kernel', 'decoder/block_021/layer_002/DenseReluDense/wo/kernel', 'decoder/block_022/layer_000/layer_norm/scale', 'decoder/block_022/layer_000/SelfAttention/q', 'decoder/block_022/layer_000/SelfAttention/k', 'decoder/block_022/layer_000/SelfAttention/v', 'decoder/block_022/layer_000/SelfAttention/o', 'decoder/block_022/layer_001/layer_norm/scale', 'decoder/block_022/layer_001/EncDecAttention/q', 'decoder/block_022/layer_001/EncDecAttention/k', 'decoder/block_022/layer_001/EncDecAttention/v', 'decoder/block_022/layer_001/EncDecAttention/o', 'decoder/block_022/layer_002/layer_norm/scale', 'decoder/block_022/layer_002/DenseReluDense/wi/kernel', 'decoder/block_022/layer_002/DenseReluDense/wo/kernel', 'decoder/block_023/layer_000/layer_norm/scale', 'decoder/block_023/layer_000/SelfAttention/q', 'decoder/block_023/layer_000/SelfAttention/k', 'decoder/block_023/layer_000/SelfAttention/v', 'decoder/block_023/layer_000/SelfAttention/o', 'decoder/block_023/layer_001/layer_norm/scale', 'decoder/block_023/layer_001/EncDecAttention/q', 'decoder/block_023/layer_001/EncDecAttention/k', 'decoder/block_023/layer_001/EncDecAttention/v', 'decoder/block_023/layer_001/EncDecAttention/o', 'decoder/block_023/layer_002/layer_norm/scale', 'decoder/block_023/layer_002/DenseReluDense/wi/kernel', 'decoder/block_023/layer_002/DenseReluDense/wo/kernel', 'decoder/final_layer_norm/scale']
+INFO:tensorflow:Create pnum_tensor
+INFO:tensorflow:Variable decoder/block_000/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_000/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_000/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_000/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_000/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_000/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_000/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_000/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_000/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_000/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_001/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_001/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_001/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_001/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_001/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_001/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_001/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_001/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_001/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_001/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_002/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_002/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_002/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_002/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_002/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_002/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_002/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_002/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_002/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_002/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_003/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_003/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_003/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_003/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_003/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_003/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_003/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_003/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_003/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_003/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_004/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_004/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_004/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_004/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_004/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_004/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_004/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_004/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_004/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_004/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_005/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_005/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_005/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_005/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_005/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_005/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_005/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_005/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_005/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_005/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_006/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_006/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_006/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_006/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_006/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_006/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_006/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_006/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_006/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_006/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_007/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_007/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_007/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_007/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_007/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_007/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_007/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_007/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_007/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_007/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_008/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_008/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_008/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_008/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_008/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_008/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_008/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_008/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_008/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_008/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_009/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_009/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_009/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_009/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_009/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_009/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_009/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_009/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_009/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_009/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_010/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_010/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_010/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_010/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_010/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_010/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_010/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_010/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_010/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_010/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_011/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_011/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_011/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_011/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_011/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_011/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_011/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_011/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_011/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_011/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_012/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_012/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_012/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_012/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_012/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_012/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_012/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_012/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_012/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_012/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_013/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_013/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_013/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_013/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_013/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_013/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_013/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_013/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_013/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_013/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_014/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_014/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_014/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_014/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_014/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_014/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_014/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_014/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_014/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_014/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_015/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_015/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_015/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_015/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_015/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_015/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_015/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_015/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_015/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_015/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_016/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_016/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_016/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_016/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_016/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_016/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_016/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_016/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_016/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_016/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_017/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_017/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_017/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_017/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_017/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_017/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_017/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_017/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_017/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_017/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_018/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_018/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_018/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_018/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_018/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_018/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_018/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_018/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_018/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_018/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_019/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_019/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_019/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_019/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_019/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_019/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_019/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_019/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_019/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_019/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_020/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_020/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_020/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_020/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_020/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_020/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_020/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_020/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_020/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_020/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_021/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_021/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_021/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_021/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_021/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_021/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_021/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_021/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_021/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_021/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_022/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_022/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_022/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_022/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_022/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_022/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_022/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_022/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_022/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_022/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable decoder/block_023/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_023/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_023/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_023/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_023/layer_001/EncDecAttention/k                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_023/layer_001/EncDecAttention/o                size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable decoder/block_023/layer_001/EncDecAttention/q                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_023/layer_001/EncDecAttention/v                size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable decoder/block_023/layer_002/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable decoder/block_023/layer_002/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_000/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_000/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_000/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_000/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_000/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_000/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_001/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_001/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_001/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_001/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_001/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_001/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_002/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_002/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_002/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_002/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_002/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_002/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_003/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_003/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_003/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_003/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_003/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_003/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_004/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_004/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_004/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_004/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_004/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_004/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_005/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_005/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_005/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_005/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_005/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_005/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_006/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_006/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_006/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_006/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_006/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_006/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_007/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_007/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_007/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_007/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_007/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_007/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_008/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_008/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_008/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_008/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_008/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_008/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_009/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_009/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_009/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_009/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_009/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_009/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_010/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_010/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_010/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_010/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_010/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_010/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_011/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_011/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_011/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_011/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_011/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_011/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_012/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_012/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_012/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_012/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_012/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_012/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_013/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_013/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_013/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_013/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_013/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_013/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_014/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_014/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_014/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_014/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_014/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_014/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_015/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_015/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_015/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_015/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_015/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_015/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_016/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_016/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_016/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_016/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_016/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_016/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_017/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_017/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_017/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_017/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_017/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_017/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_018/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_018/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_018/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_018/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_018/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_018/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_019/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_019/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_019/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_019/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_019/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_019/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_020/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_020/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_020/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_020/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_020/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_020/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_021/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_021/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_021/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_021/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_021/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_021/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_022/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_022/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_022/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_022/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_022/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_022/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable encoder/block_023/layer_000/SelfAttention/k                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_023/layer_000/SelfAttention/o                  size 1048576      slice_size 131072       Shape[heads=1024, d_model=1024]                             
+INFO:tensorflow:Variable encoder/block_023/layer_000/SelfAttention/q                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_023/layer_000/SelfAttention/v                  size 1048576      slice_size 131072       Shape[d_model=1024, heads=1024]                             
+INFO:tensorflow:Variable encoder/block_023/layer_001/DenseReluDense/wi/kernel         size 4194304      slice_size 524288       Shape[d_model=1024, d_ff=4096]                              
+INFO:tensorflow:Variable encoder/block_023/layer_001/DenseReluDense/wo/kernel         size 4194304      slice_size 524288       Shape[d_ff=4096, d_model=1024]                              
+INFO:tensorflow:Variable shared/embedding                                             size 32899072     slice_size 4112384      Shape[vocab=32128, d_model=1024]                            
+INFO:tensorflow:Variable stacked/decoder/block_005/layer_000/layer_norm/scale         size 59392        slice_size 59392        Shape[stacked=58, d_model=1024]                             
+INFO:tensorflow:    decoder/block_005/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_005/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_005/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_006/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_006/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_006/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_007/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_007/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_007/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_008/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_008/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_008/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_009/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_009/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_009/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_010/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_010/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_010/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_011/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_011/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_011/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_012/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_012/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_012/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_013/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_013/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_013/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_014/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_014/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_014/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_015/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_015/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_015/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_016/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_016/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_016/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_017/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_017/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_017/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_018/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_018/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_018/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_019/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_019/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_019/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_020/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_020/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_020/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_021/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_021/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_021/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_022/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_022/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_022/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_023/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_023/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_023/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/final_layer_norm/scale
+INFO:tensorflow:Variable stacked/encoder/block_000/layer_000/SelfAttention/relative_attention_bias size 1024         slice_size 128          Shape[stacked=2, heads=16, buckets=32]                      
+INFO:tensorflow:    encoder/block_000/layer_000/SelfAttention/relative_attention_bias
+INFO:tensorflow:    decoder/block_000/layer_000/SelfAttention/relative_attention_bias
+INFO:tensorflow:Variable stacked/encoder/block_000/layer_000/layer_norm/scale         size 65536        slice_size 65536        Shape[stacked=64, d_model=1024]                             
+INFO:tensorflow:    encoder/block_000/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_000/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_001/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_001/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_002/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_002/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_003/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_003/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_004/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_004/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_005/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_005/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_006/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_006/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_007/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_007/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_008/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_008/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_009/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_009/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_010/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_010/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_011/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_011/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_012/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_012/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_013/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_013/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_014/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_014/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_015/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_015/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_016/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_016/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_017/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_017/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_018/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_018/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_019/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_019/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_020/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_020/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_021/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_021/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_022/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_022/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/block_023/layer_000/layer_norm/scale
+INFO:tensorflow:    encoder/block_023/layer_001/layer_norm/scale
+INFO:tensorflow:    encoder/final_layer_norm/scale
+INFO:tensorflow:    decoder/block_000/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_000/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_000/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_001/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_001/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_001/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_002/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_002/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_002/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_003/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_003/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_003/layer_002/layer_norm/scale
+INFO:tensorflow:    decoder/block_004/layer_000/layer_norm/scale
+INFO:tensorflow:    decoder/block_004/layer_001/layer_norm/scale
+INFO:tensorflow:    decoder/block_004/layer_002/layer_norm/scale
+INFO:tensorflow:Trainable Variables            count: 388     Total size: 737668096        Total slice_size: 92317824       
+INFO:tensorflow:All Variables                  count: 390     Total size: 737701248        Total slice_size: 92322864       
+INFO:tensorflow:Counters:
+allreduce: 1.64e+10
+ allreduce/[0]: 1.64e+10
+  allreduce/[0]/einsum_op: 1.64e+10
+  allreduce/[0]/reduce_op: 2.7e+05
+einsum: 2.18e+13
+einsum_unique: 2.17e+13
+output: 1.81e+09
+ output/AddOperation: 4.03e+04
+ output/Constant: 8
+ output/EinsumOperation: 1.32e+08
+ output/ImportOperation: 1.57e+06
+ output/MinMaxOperation: 16
+ output/ReduceOperation: 4.03e+04
+ output/ReshapeOperation: 1.84e+06
+ output/ScalarAddOperation: 3.29e+07
+ output/ScalarMultiplyOperation: 1.21e+05
+ output/SlicewiseOperation: 1.65e+08
+ output/StackedVariable: 1e+06
+ output/UnstackOperation: 1e+06
+ output/Variable: 7.38e+08
+ output/WhileLoopOperation: 7.39e+08
+output_unique: 1.81e+09
+ output_unique/AddOperation: 3.32e+04
+ output_unique/Constant: 1
+ output_unique/EinsumOperation: 1.32e+08
+ output_unique/ImportOperation: 1.97e+05
+ output_unique/MinMaxOperation: 2
+ output_unique/ReduceOperation: 3.32e+04
+ output_unique/ReshapeOperation: 2.29e+05
+ output_unique/ScalarAddOperation: 3.29e+07
+ output_unique/ScalarMultiplyOperation: 9.95e+04
+ output_unique/SlicewiseOperation: 1.65e+08
+ output_unique/StackedVariable: 1.26e+05
+ output_unique/UnstackOperation: 1.26e+05
+ output_unique/Variable: 7.38e+08
+ output_unique/WhileLoopOperation: 7.38e+08
+variables: 7.38e+08
+ variables/trainable: 7.38e+08
+ variables/untrainable: 3.32e+04
+INFO:tensorflow:Initializing variables from gs://t5-data/pretrained_models/large/model.ckpt-1000700:
+INFO:tensorflow:Variables in gs://t5-data/pretrained_models/large/model.ckpt-1000700 but not in graph:
+INFO:tensorflow:decoder/block_000/layer_000/SelfAttention/k_slot_vc
+decoder/block_000/layer_000/SelfAttention/k_slot_vr
+decoder/block_000/layer_000/SelfAttention/o_slot_vc
+decoder/block_000/layer_000/SelfAttention/o_slot_vr
+decoder/block_000/layer_000/SelfAttention/q_slot_vc
+decoder/block_000/layer_000/SelfAttention/q_slot_vr
+decoder/block_000/layer_000/SelfAttention/relative_attention_bias_slot_v
+decoder/block_000/layer_000/SelfAttention/v_slot_vc
+decoder/block_000/layer_000/SelfAttention/v_slot_vr
+decoder/block_000/layer_000/layer_norm/scale_slot_v
+decoder/block_000/layer_001/EncDecAttention/k_slot_vc
+decoder/block_000/layer_001/EncDecAttention/k_slot_vr
+decoder/block_000/layer_001/EncDecAttention/o_slot_vc
+decoder/block_000/layer_001/EncDecAttention/o_slot_vr
+decoder/block_000/layer_001/EncDecAttention/q_slot_vc
+decoder/block_000/layer_001/EncDecAttention/q_slot_vr
+decoder/block_000/layer_001/EncDecAttention/v_slot_vc
+decoder/block_000/layer_001/EncDecAttention/v_slot_vr
+decoder/block_000/layer_001/layer_norm/scale_slot_v
+decoder/block_000/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_000/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_000/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_000/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_000/layer_002/layer_norm/scale_slot_v
+decoder/block_001/layer_000/SelfAttention/k_slot_vc
+decoder/block_001/layer_000/SelfAttention/k_slot_vr
+decoder/block_001/layer_000/SelfAttention/o_slot_vc
+decoder/block_001/layer_000/SelfAttention/o_slot_vr
+decoder/block_001/layer_000/SelfAttention/q_slot_vc
+decoder/block_001/layer_000/SelfAttention/q_slot_vr
+decoder/block_001/layer_000/SelfAttention/v_slot_vc
+decoder/block_001/layer_000/SelfAttention/v_slot_vr
+decoder/block_001/layer_000/layer_norm/scale_slot_v
+decoder/block_001/layer_001/EncDecAttention/k_slot_vc
+decoder/block_001/layer_001/EncDecAttention/k_slot_vr
+decoder/block_001/layer_001/EncDecAttention/o_slot_vc
+decoder/block_001/layer_001/EncDecAttention/o_slot_vr
+decoder/block_001/layer_001/EncDecAttention/q_slot_vc
+decoder/block_001/layer_001/EncDecAttention/q_slot_vr
+decoder/block_001/layer_001/EncDecAttention/v_slot_vc
+decoder/block_001/layer_001/EncDecAttention/v_slot_vr
+decoder/block_001/layer_001/layer_norm/scale_slot_v
+decoder/block_001/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_001/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_001/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_001/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_001/layer_002/layer_norm/scale_slot_v
+decoder/block_002/layer_000/SelfAttention/k_slot_vc
+decoder/block_002/layer_000/SelfAttention/k_slot_vr
+decoder/block_002/layer_000/SelfAttention/o_slot_vc
+decoder/block_002/layer_000/SelfAttention/o_slot_vr
+decoder/block_002/layer_000/SelfAttention/q_slot_vc
+decoder/block_002/layer_000/SelfAttention/q_slot_vr
+decoder/block_002/layer_000/SelfAttention/v_slot_vc
+decoder/block_002/layer_000/SelfAttention/v_slot_vr
+decoder/block_002/layer_000/layer_norm/scale_slot_v
+decoder/block_002/layer_001/EncDecAttention/k_slot_vc
+decoder/block_002/layer_001/EncDecAttention/k_slot_vr
+decoder/block_002/layer_001/EncDecAttention/o_slot_vc
+decoder/block_002/layer_001/EncDecAttention/o_slot_vr
+decoder/block_002/layer_001/EncDecAttention/q_slot_vc
+decoder/block_002/layer_001/EncDecAttention/q_slot_vr
+decoder/block_002/layer_001/EncDecAttention/v_slot_vc
+decoder/block_002/layer_001/EncDecAttention/v_slot_vr
+decoder/block_002/layer_001/layer_norm/scale_slot_v
+decoder/block_002/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_002/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_002/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_002/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_002/layer_002/layer_norm/scale_slot_v
+decoder/block_003/layer_000/SelfAttention/k_slot_vc
+decoder/block_003/layer_000/SelfAttention/k_slot_vr
+decoder/block_003/layer_000/SelfAttention/o_slot_vc
+decoder/block_003/layer_000/SelfAttention/o_slot_vr
+decoder/block_003/layer_000/SelfAttention/q_slot_vc
+decoder/block_003/layer_000/SelfAttention/q_slot_vr
+decoder/block_003/layer_000/SelfAttention/v_slot_vc
+decoder/block_003/layer_000/SelfAttention/v_slot_vr
+decoder/block_003/layer_000/layer_norm/scale_slot_v
+decoder/block_003/layer_001/EncDecAttention/k_slot_vc
+decoder/block_003/layer_001/EncDecAttention/k_slot_vr
+decoder/block_003/layer_001/EncDecAttention/o_slot_vc
+decoder/block_003/layer_001/EncDecAttention/o_slot_vr
+decoder/block_003/layer_001/EncDecAttention/q_slot_vc
+decoder/block_003/layer_001/EncDecAttention/q_slot_vr
+decoder/block_003/layer_001/EncDecAttention/v_slot_vc
+decoder/block_003/layer_001/EncDecAttention/v_slot_vr
+decoder/block_003/layer_001/layer_norm/scale_slot_v
+decoder/block_003/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_003/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_003/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_003/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_003/layer_002/layer_norm/scale_slot_v
+decoder/block_004/layer_000/SelfAttention/k_slot_vc
+decoder/block_004/layer_000/SelfAttention/k_slot_vr
+decoder/block_004/layer_000/SelfAttention/o_slot_vc
+decoder/block_004/layer_000/SelfAttention/o_slot_vr
+decoder/block_004/layer_000/SelfAttention/q_slot_vc
+decoder/block_004/layer_000/SelfAttention/q_slot_vr
+decoder/block_004/layer_000/SelfAttention/v_slot_vc
+decoder/block_004/layer_000/SelfAttention/v_slot_vr
+decoder/block_004/layer_000/layer_norm/scale_slot_v
+decoder/block_004/layer_001/EncDecAttention/k_slot_vc
+decoder/block_004/layer_001/EncDecAttention/k_slot_vr
+decoder/block_004/layer_001/EncDecAttention/o_slot_vc
+decoder/block_004/layer_001/EncDecAttention/o_slot_vr
+decoder/block_004/layer_001/EncDecAttention/q_slot_vc
+decoder/block_004/layer_001/EncDecAttention/q_slot_vr
+decoder/block_004/layer_001/EncDecAttention/v_slot_vc
+decoder/block_004/layer_001/EncDecAttention/v_slot_vr
+decoder/block_004/layer_001/layer_norm/scale_slot_v
+decoder/block_004/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_004/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_004/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_004/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_004/layer_002/layer_norm/scale_slot_v
+decoder/block_005/layer_000/SelfAttention/k_slot_vc
+decoder/block_005/layer_000/SelfAttention/k_slot_vr
+decoder/block_005/layer_000/SelfAttention/o_slot_vc
+decoder/block_005/layer_000/SelfAttention/o_slot_vr
+decoder/block_005/layer_000/SelfAttention/q_slot_vc
+decoder/block_005/layer_000/SelfAttention/q_slot_vr
+decoder/block_005/layer_000/SelfAttention/v_slot_vc
+decoder/block_005/layer_000/SelfAttention/v_slot_vr
+decoder/block_005/layer_000/layer_norm/scale_slot_v
+decoder/block_005/layer_001/EncDecAttention/k_slot_vc
+decoder/block_005/layer_001/EncDecAttention/k_slot_vr
+decoder/block_005/layer_001/EncDecAttention/o_slot_vc
+decoder/block_005/layer_001/EncDecAttention/o_slot_vr
+decoder/block_005/layer_001/EncDecAttention/q_slot_vc
+decoder/block_005/layer_001/EncDecAttention/q_slot_vr
+decoder/block_005/layer_001/EncDecAttention/v_slot_vc
+decoder/block_005/layer_001/EncDecAttention/v_slot_vr
+decoder/block_005/layer_001/layer_norm/scale_slot_v
+decoder/block_005/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_005/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_005/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_005/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_005/layer_002/layer_norm/scale_slot_v
+decoder/block_006/layer_000/SelfAttention/k_slot_vc
+decoder/block_006/layer_000/SelfAttention/k_slot_vr
+decoder/block_006/layer_000/SelfAttention/o_slot_vc
+decoder/block_006/layer_000/SelfAttention/o_slot_vr
+decoder/block_006/layer_000/SelfAttention/q_slot_vc
+decoder/block_006/layer_000/SelfAttention/q_slot_vr
+decoder/block_006/layer_000/SelfAttention/v_slot_vc
+decoder/block_006/layer_000/SelfAttention/v_slot_vr
+decoder/block_006/layer_000/layer_norm/scale_slot_v
+decoder/block_006/layer_001/EncDecAttention/k_slot_vc
+decoder/block_006/layer_001/EncDecAttention/k_slot_vr
+decoder/block_006/layer_001/EncDecAttention/o_slot_vc
+decoder/block_006/layer_001/EncDecAttention/o_slot_vr
+decoder/block_006/layer_001/EncDecAttention/q_slot_vc
+decoder/block_006/layer_001/EncDecAttention/q_slot_vr
+decoder/block_006/layer_001/EncDecAttention/v_slot_vc
+decoder/block_006/layer_001/EncDecAttention/v_slot_vr
+decoder/block_006/layer_001/layer_norm/scale_slot_v
+decoder/block_006/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_006/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_006/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_006/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_006/layer_002/layer_norm/scale_slot_v
+decoder/block_007/layer_000/SelfAttention/k_slot_vc
+decoder/block_007/layer_000/SelfAttention/k_slot_vr
+decoder/block_007/layer_000/SelfAttention/o_slot_vc
+decoder/block_007/layer_000/SelfAttention/o_slot_vr
+decoder/block_007/layer_000/SelfAttention/q_slot_vc
+decoder/block_007/layer_000/SelfAttention/q_slot_vr
+decoder/block_007/layer_000/SelfAttention/v_slot_vc
+decoder/block_007/layer_000/SelfAttention/v_slot_vr
+decoder/block_007/layer_000/layer_norm/scale_slot_v
+decoder/block_007/layer_001/EncDecAttention/k_slot_vc
+decoder/block_007/layer_001/EncDecAttention/k_slot_vr
+decoder/block_007/layer_001/EncDecAttention/o_slot_vc
+decoder/block_007/layer_001/EncDecAttention/o_slot_vr
+decoder/block_007/layer_001/EncDecAttention/q_slot_vc
+decoder/block_007/layer_001/EncDecAttention/q_slot_vr
+decoder/block_007/layer_001/EncDecAttention/v_slot_vc
+decoder/block_007/layer_001/EncDecAttention/v_slot_vr
+decoder/block_007/layer_001/layer_norm/scale_slot_v
+decoder/block_007/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_007/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_007/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_007/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_007/layer_002/layer_norm/scale_slot_v
+decoder/block_008/layer_000/SelfAttention/k_slot_vc
+decoder/block_008/layer_000/SelfAttention/k_slot_vr
+decoder/block_008/layer_000/SelfAttention/o_slot_vc
+decoder/block_008/layer_000/SelfAttention/o_slot_vr
+decoder/block_008/layer_000/SelfAttention/q_slot_vc
+decoder/block_008/layer_000/SelfAttention/q_slot_vr
+decoder/block_008/layer_000/SelfAttention/v_slot_vc
+decoder/block_008/layer_000/SelfAttention/v_slot_vr
+decoder/block_008/layer_000/layer_norm/scale_slot_v
+decoder/block_008/layer_001/EncDecAttention/k_slot_vc
+decoder/block_008/layer_001/EncDecAttention/k_slot_vr
+decoder/block_008/layer_001/EncDecAttention/o_slot_vc
+decoder/block_008/layer_001/EncDecAttention/o_slot_vr
+decoder/block_008/layer_001/EncDecAttention/q_slot_vc
+decoder/block_008/layer_001/EncDecAttention/q_slot_vr
+decoder/block_008/layer_001/EncDecAttention/v_slot_vc
+decoder/block_008/layer_001/EncDecAttention/v_slot_vr
+decoder/block_008/layer_001/layer_norm/scale_slot_v
+decoder/block_008/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_008/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_008/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_008/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_008/layer_002/layer_norm/scale_slot_v
+decoder/block_009/layer_000/SelfAttention/k_slot_vc
+decoder/block_009/layer_000/SelfAttention/k_slot_vr
+decoder/block_009/layer_000/SelfAttention/o_slot_vc
+decoder/block_009/layer_000/SelfAttention/o_slot_vr
+decoder/block_009/layer_000/SelfAttention/q_slot_vc
+decoder/block_009/layer_000/SelfAttention/q_slot_vr
+decoder/block_009/layer_000/SelfAttention/v_slot_vc
+decoder/block_009/layer_000/SelfAttention/v_slot_vr
+decoder/block_009/layer_000/layer_norm/scale_slot_v
+decoder/block_009/layer_001/EncDecAttention/k_slot_vc
+decoder/block_009/layer_001/EncDecAttention/k_slot_vr
+decoder/block_009/layer_001/EncDecAttention/o_slot_vc
+decoder/block_009/layer_001/EncDecAttention/o_slot_vr
+decoder/block_009/layer_001/EncDecAttention/q_slot_vc
+decoder/block_009/layer_001/EncDecAttention/q_slot_vr
+decoder/block_009/layer_001/EncDecAttention/v_slot_vc
+decoder/block_009/layer_001/EncDecAttention/v_slot_vr
+decoder/block_009/layer_001/layer_norm/scale_slot_v
+decoder/block_009/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_009/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_009/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_009/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_009/layer_002/layer_norm/scale_slot_v
+decoder/block_010/layer_000/SelfAttention/k_slot_vc
+decoder/block_010/layer_000/SelfAttention/k_slot_vr
+decoder/block_010/layer_000/SelfAttention/o_slot_vc
+decoder/block_010/layer_000/SelfAttention/o_slot_vr
+decoder/block_010/layer_000/SelfAttention/q_slot_vc
+decoder/block_010/layer_000/SelfAttention/q_slot_vr
+decoder/block_010/layer_000/SelfAttention/v_slot_vc
+decoder/block_010/layer_000/SelfAttention/v_slot_vr
+decoder/block_010/layer_000/layer_norm/scale_slot_v
+decoder/block_010/layer_001/EncDecAttention/k_slot_vc
+decoder/block_010/layer_001/EncDecAttention/k_slot_vr
+decoder/block_010/layer_001/EncDecAttention/o_slot_vc
+decoder/block_010/layer_001/EncDecAttention/o_slot_vr
+decoder/block_010/layer_001/EncDecAttention/q_slot_vc
+decoder/block_010/layer_001/EncDecAttention/q_slot_vr
+decoder/block_010/layer_001/EncDecAttention/v_slot_vc
+decoder/block_010/layer_001/EncDecAttention/v_slot_vr
+decoder/block_010/layer_001/layer_norm/scale_slot_v
+decoder/block_010/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_010/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_010/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_010/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_010/layer_002/layer_norm/scale_slot_v
+decoder/block_011/layer_000/SelfAttention/k_slot_vc
+decoder/block_011/layer_000/SelfAttention/k_slot_vr
+decoder/block_011/layer_000/SelfAttention/o_slot_vc
+decoder/block_011/layer_000/SelfAttention/o_slot_vr
+decoder/block_011/layer_000/SelfAttention/q_slot_vc
+decoder/block_011/layer_000/SelfAttention/q_slot_vr
+decoder/block_011/layer_000/SelfAttention/v_slot_vc
+decoder/block_011/layer_000/SelfAttention/v_slot_vr
+decoder/block_011/layer_000/layer_norm/scale_slot_v
+decoder/block_011/layer_001/EncDecAttention/k_slot_vc
+decoder/block_011/layer_001/EncDecAttention/k_slot_vr
+decoder/block_011/layer_001/EncDecAttention/o_slot_vc
+decoder/block_011/layer_001/EncDecAttention/o_slot_vr
+decoder/block_011/layer_001/EncDecAttention/q_slot_vc
+decoder/block_011/layer_001/EncDecAttention/q_slot_vr
+decoder/block_011/layer_001/EncDecAttention/v_slot_vc
+decoder/block_011/layer_001/EncDecAttention/v_slot_vr
+decoder/block_011/layer_001/layer_norm/scale_slot_v
+decoder/block_011/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_011/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_011/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_011/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_011/layer_002/layer_norm/scale_slot_v
+decoder/block_012/layer_000/SelfAttention/k_slot_vc
+decoder/block_012/layer_000/SelfAttention/k_slot_vr
+decoder/block_012/layer_000/SelfAttention/o_slot_vc
+decoder/block_012/layer_000/SelfAttention/o_slot_vr
+decoder/block_012/layer_000/SelfAttention/q_slot_vc
+decoder/block_012/layer_000/SelfAttention/q_slot_vr
+decoder/block_012/layer_000/SelfAttention/v_slot_vc
+decoder/block_012/layer_000/SelfAttention/v_slot_vr
+decoder/block_012/layer_000/layer_norm/scale_slot_v
+decoder/block_012/layer_001/EncDecAttention/k_slot_vc
+decoder/block_012/layer_001/EncDecAttention/k_slot_vr
+decoder/block_012/layer_001/EncDecAttention/o_slot_vc
+decoder/block_012/layer_001/EncDecAttention/o_slot_vr
+decoder/block_012/layer_001/EncDecAttention/q_slot_vc
+decoder/block_012/layer_001/EncDecAttention/q_slot_vr
+decoder/block_012/layer_001/EncDecAttention/v_slot_vc
+decoder/block_012/layer_001/EncDecAttention/v_slot_vr
+decoder/block_012/layer_001/layer_norm/scale_slot_v
+decoder/block_012/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_012/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_012/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_012/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_012/layer_002/layer_norm/scale_slot_v
+decoder/block_013/layer_000/SelfAttention/k_slot_vc
+decoder/block_013/layer_000/SelfAttention/k_slot_vr
+decoder/block_013/layer_000/SelfAttention/o_slot_vc
+decoder/block_013/layer_000/SelfAttention/o_slot_vr
+decoder/block_013/layer_000/SelfAttention/q_slot_vc
+decoder/block_013/layer_000/SelfAttention/q_slot_vr
+decoder/block_013/layer_000/SelfAttention/v_slot_vc
+decoder/block_013/layer_000/SelfAttention/v_slot_vr
+decoder/block_013/layer_000/layer_norm/scale_slot_v
+decoder/block_013/layer_001/EncDecAttention/k_slot_vc
+decoder/block_013/layer_001/EncDecAttention/k_slot_vr
+decoder/block_013/layer_001/EncDecAttention/o_slot_vc
+decoder/block_013/layer_001/EncDecAttention/o_slot_vr
+decoder/block_013/layer_001/EncDecAttention/q_slot_vc
+decoder/block_013/layer_001/EncDecAttention/q_slot_vr
+decoder/block_013/layer_001/EncDecAttention/v_slot_vc
+decoder/block_013/layer_001/EncDecAttention/v_slot_vr
+decoder/block_013/layer_001/layer_norm/scale_slot_v
+decoder/block_013/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_013/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_013/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_013/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_013/layer_002/layer_norm/scale_slot_v
+decoder/block_014/layer_000/SelfAttention/k_slot_vc
+decoder/block_014/layer_000/SelfAttention/k_slot_vr
+decoder/block_014/layer_000/SelfAttention/o_slot_vc
+decoder/block_014/layer_000/SelfAttention/o_slot_vr
+decoder/block_014/layer_000/SelfAttention/q_slot_vc
+decoder/block_014/layer_000/SelfAttention/q_slot_vr
+decoder/block_014/layer_000/SelfAttention/v_slot_vc
+decoder/block_014/layer_000/SelfAttention/v_slot_vr
+decoder/block_014/layer_000/layer_norm/scale_slot_v
+decoder/block_014/layer_001/EncDecAttention/k_slot_vc
+decoder/block_014/layer_001/EncDecAttention/k_slot_vr
+decoder/block_014/layer_001/EncDecAttention/o_slot_vc
+decoder/block_014/layer_001/EncDecAttention/o_slot_vr
+decoder/block_014/layer_001/EncDecAttention/q_slot_vc
+decoder/block_014/layer_001/EncDecAttention/q_slot_vr
+decoder/block_014/layer_001/EncDecAttention/v_slot_vc
+decoder/block_014/layer_001/EncDecAttention/v_slot_vr
+decoder/block_014/layer_001/layer_norm/scale_slot_v
+decoder/block_014/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_014/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_014/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_014/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_014/layer_002/layer_norm/scale_slot_v
+decoder/block_015/layer_000/SelfAttention/k_slot_vc
+decoder/block_015/layer_000/SelfAttention/k_slot_vr
+decoder/block_015/layer_000/SelfAttention/o_slot_vc
+decoder/block_015/layer_000/SelfAttention/o_slot_vr
+decoder/block_015/layer_000/SelfAttention/q_slot_vc
+decoder/block_015/layer_000/SelfAttention/q_slot_vr
+decoder/block_015/layer_000/SelfAttention/v_slot_vc
+decoder/block_015/layer_000/SelfAttention/v_slot_vr
+decoder/block_015/layer_000/layer_norm/scale_slot_v
+decoder/block_015/layer_001/EncDecAttention/k_slot_vc
+decoder/block_015/layer_001/EncDecAttention/k_slot_vr
+decoder/block_015/layer_001/EncDecAttention/o_slot_vc
+decoder/block_015/layer_001/EncDecAttention/o_slot_vr
+decoder/block_015/layer_001/EncDecAttention/q_slot_vc
+decoder/block_015/layer_001/EncDecAttention/q_slot_vr
+decoder/block_015/layer_001/EncDecAttention/v_slot_vc
+decoder/block_015/layer_001/EncDecAttention/v_slot_vr
+decoder/block_015/layer_001/layer_norm/scale_slot_v
+decoder/block_015/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_015/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_015/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_015/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_015/layer_002/layer_norm/scale_slot_v
+decoder/block_016/layer_000/SelfAttention/k_slot_vc
+decoder/block_016/layer_000/SelfAttention/k_slot_vr
+decoder/block_016/layer_000/SelfAttention/o_slot_vc
+decoder/block_016/layer_000/SelfAttention/o_slot_vr
+decoder/block_016/layer_000/SelfAttention/q_slot_vc
+decoder/block_016/layer_000/SelfAttention/q_slot_vr
+decoder/block_016/layer_000/SelfAttention/v_slot_vc
+decoder/block_016/layer_000/SelfAttention/v_slot_vr
+decoder/block_016/layer_000/layer_norm/scale_slot_v
+decoder/block_016/layer_001/EncDecAttention/k_slot_vc
+decoder/block_016/layer_001/EncDecAttention/k_slot_vr
+decoder/block_016/layer_001/EncDecAttention/o_slot_vc
+decoder/block_016/layer_001/EncDecAttention/o_slot_vr
+decoder/block_016/layer_001/EncDecAttention/q_slot_vc
+decoder/block_016/layer_001/EncDecAttention/q_slot_vr
+decoder/block_016/layer_001/EncDecAttention/v_slot_vc
+decoder/block_016/layer_001/EncDecAttention/v_slot_vr
+decoder/block_016/layer_001/layer_norm/scale_slot_v
+decoder/block_016/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_016/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_016/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_016/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_016/layer_002/layer_norm/scale_slot_v
+decoder/block_017/layer_000/SelfAttention/k_slot_vc
+decoder/block_017/layer_000/SelfAttention/k_slot_vr
+decoder/block_017/layer_000/SelfAttention/o_slot_vc
+decoder/block_017/layer_000/SelfAttention/o_slot_vr
+decoder/block_017/layer_000/SelfAttention/q_slot_vc
+decoder/block_017/layer_000/SelfAttention/q_slot_vr
+decoder/block_017/layer_000/SelfAttention/v_slot_vc
+decoder/block_017/layer_000/SelfAttention/v_slot_vr
+decoder/block_017/layer_000/layer_norm/scale_slot_v
+decoder/block_017/layer_001/EncDecAttention/k_slot_vc
+decoder/block_017/layer_001/EncDecAttention/k_slot_vr
+decoder/block_017/layer_001/EncDecAttention/o_slot_vc
+decoder/block_017/layer_001/EncDecAttention/o_slot_vr
+decoder/block_017/layer_001/EncDecAttention/q_slot_vc
+decoder/block_017/layer_001/EncDecAttention/q_slot_vr
+decoder/block_017/layer_001/EncDecAttention/v_slot_vc
+decoder/block_017/layer_001/EncDecAttention/v_slot_vr
+decoder/block_017/layer_001/layer_norm/scale_slot_v
+decoder/block_017/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_017/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_017/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_017/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_017/layer_002/layer_norm/scale_slot_v
+decoder/block_018/layer_000/SelfAttention/k_slot_vc
+decoder/block_018/layer_000/SelfAttention/k_slot_vr
+decoder/block_018/layer_000/SelfAttention/o_slot_vc
+decoder/block_018/layer_000/SelfAttention/o_slot_vr
+decoder/block_018/layer_000/SelfAttention/q_slot_vc
+decoder/block_018/layer_000/SelfAttention/q_slot_vr
+decoder/block_018/layer_000/SelfAttention/v_slot_vc
+decoder/block_018/layer_000/SelfAttention/v_slot_vr
+decoder/block_018/layer_000/layer_norm/scale_slot_v
+decoder/block_018/layer_001/EncDecAttention/k_slot_vc
+decoder/block_018/layer_001/EncDecAttention/k_slot_vr
+decoder/block_018/layer_001/EncDecAttention/o_slot_vc
+decoder/block_018/layer_001/EncDecAttention/o_slot_vr
+decoder/block_018/layer_001/EncDecAttention/q_slot_vc
+decoder/block_018/layer_001/EncDecAttention/q_slot_vr
+decoder/block_018/layer_001/EncDecAttention/v_slot_vc
+decoder/block_018/layer_001/EncDecAttention/v_slot_vr
+decoder/block_018/layer_001/layer_norm/scale_slot_v
+decoder/block_018/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_018/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_018/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_018/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_018/layer_002/layer_norm/scale_slot_v
+decoder/block_019/layer_000/SelfAttention/k_slot_vc
+decoder/block_019/layer_000/SelfAttention/k_slot_vr
+decoder/block_019/layer_000/SelfAttention/o_slot_vc
+decoder/block_019/layer_000/SelfAttention/o_slot_vr
+decoder/block_019/layer_000/SelfAttention/q_slot_vc
+decoder/block_019/layer_000/SelfAttention/q_slot_vr
+decoder/block_019/layer_000/SelfAttention/v_slot_vc
+decoder/block_019/layer_000/SelfAttention/v_slot_vr
+decoder/block_019/layer_000/layer_norm/scale_slot_v
+decoder/block_019/layer_001/EncDecAttention/k_slot_vc
+decoder/block_019/layer_001/EncDecAttention/k_slot_vr
+decoder/block_019/layer_001/EncDecAttention/o_slot_vc
+decoder/block_019/layer_001/EncDecAttention/o_slot_vr
+decoder/block_019/layer_001/EncDecAttention/q_slot_vc
+decoder/block_019/layer_001/EncDecAttention/q_slot_vr
+decoder/block_019/layer_001/EncDecAttention/v_slot_vc
+decoder/block_019/layer_001/EncDecAttention/v_slot_vr
+decoder/block_019/layer_001/layer_norm/scale_slot_v
+decoder/block_019/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_019/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_019/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_019/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_019/layer_002/layer_norm/scale_slot_v
+decoder/block_020/layer_000/SelfAttention/k_slot_vc
+decoder/block_020/layer_000/SelfAttention/k_slot_vr
+decoder/block_020/layer_000/SelfAttention/o_slot_vc
+decoder/block_020/layer_000/SelfAttention/o_slot_vr
+decoder/block_020/layer_000/SelfAttention/q_slot_vc
+decoder/block_020/layer_000/SelfAttention/q_slot_vr
+decoder/block_020/layer_000/SelfAttention/v_slot_vc
+decoder/block_020/layer_000/SelfAttention/v_slot_vr
+decoder/block_020/layer_000/layer_norm/scale_slot_v
+decoder/block_020/layer_001/EncDecAttention/k_slot_vc
+decoder/block_020/layer_001/EncDecAttention/k_slot_vr
+decoder/block_020/layer_001/EncDecAttention/o_slot_vc
+decoder/block_020/layer_001/EncDecAttention/o_slot_vr
+decoder/block_020/layer_001/EncDecAttention/q_slot_vc
+decoder/block_020/layer_001/EncDecAttention/q_slot_vr
+decoder/block_020/layer_001/EncDecAttention/v_slot_vc
+decoder/block_020/layer_001/EncDecAttention/v_slot_vr
+decoder/block_020/layer_001/layer_norm/scale_slot_v
+decoder/block_020/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_020/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_020/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_020/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_020/layer_002/layer_norm/scale_slot_v
+decoder/block_021/layer_000/SelfAttention/k_slot_vc
+decoder/block_021/layer_000/SelfAttention/k_slot_vr
+decoder/block_021/layer_000/SelfAttention/o_slot_vc
+decoder/block_021/layer_000/SelfAttention/o_slot_vr
+decoder/block_021/layer_000/SelfAttention/q_slot_vc
+decoder/block_021/layer_000/SelfAttention/q_slot_vr
+decoder/block_021/layer_000/SelfAttention/v_slot_vc
+decoder/block_021/layer_000/SelfAttention/v_slot_vr
+decoder/block_021/layer_000/layer_norm/scale_slot_v
+decoder/block_021/layer_001/EncDecAttention/k_slot_vc
+decoder/block_021/layer_001/EncDecAttention/k_slot_vr
+decoder/block_021/layer_001/EncDecAttention/o_slot_vc
+decoder/block_021/layer_001/EncDecAttention/o_slot_vr
+decoder/block_021/layer_001/EncDecAttention/q_slot_vc
+decoder/block_021/layer_001/EncDecAttention/q_slot_vr
+decoder/block_021/layer_001/EncDecAttention/v_slot_vc
+decoder/block_021/layer_001/EncDecAttention/v_slot_vr
+decoder/block_021/layer_001/layer_norm/scale_slot_v
+decoder/block_021/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_021/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_021/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_021/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_021/layer_002/layer_norm/scale_slot_v
+decoder/block_022/layer_000/SelfAttention/k_slot_vc
+decoder/block_022/layer_000/SelfAttention/k_slot_vr
+decoder/block_022/layer_000/SelfAttention/o_slot_vc
+decoder/block_022/layer_000/SelfAttention/o_slot_vr
+decoder/block_022/layer_000/SelfAttention/q_slot_vc
+decoder/block_022/layer_000/SelfAttention/q_slot_vr
+decoder/block_022/layer_000/SelfAttention/v_slot_vc
+decoder/block_022/layer_000/SelfAttention/v_slot_vr
+decoder/block_022/layer_000/layer_norm/scale_slot_v
+decoder/block_022/layer_001/EncDecAttention/k_slot_vc
+decoder/block_022/layer_001/EncDecAttention/k_slot_vr
+decoder/block_022/layer_001/EncDecAttention/o_slot_vc
+decoder/block_022/layer_001/EncDecAttention/o_slot_vr
+decoder/block_022/layer_001/EncDecAttention/q_slot_vc
+decoder/block_022/layer_001/EncDecAttention/q_slot_vr
+decoder/block_022/layer_001/EncDecAttention/v_slot_vc
+decoder/block_022/layer_001/EncDecAttention/v_slot_vr
+decoder/block_022/layer_001/layer_norm/scale_slot_v
+decoder/block_022/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_022/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_022/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_022/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_022/layer_002/layer_norm/scale_slot_v
+decoder/block_023/layer_000/SelfAttention/k_slot_vc
+decoder/block_023/layer_000/SelfAttention/k_slot_vr
+decoder/block_023/layer_000/SelfAttention/o_slot_vc
+decoder/block_023/layer_000/SelfAttention/o_slot_vr
+decoder/block_023/layer_000/SelfAttention/q_slot_vc
+decoder/block_023/layer_000/SelfAttention/q_slot_vr
+decoder/block_023/layer_000/SelfAttention/v_slot_vc
+decoder/block_023/layer_000/SelfAttention/v_slot_vr
+decoder/block_023/layer_000/layer_norm/scale_slot_v
+decoder/block_023/layer_001/EncDecAttention/k_slot_vc
+decoder/block_023/layer_001/EncDecAttention/k_slot_vr
+decoder/block_023/layer_001/EncDecAttention/o_slot_vc
+decoder/block_023/layer_001/EncDecAttention/o_slot_vr
+decoder/block_023/layer_001/EncDecAttention/q_slot_vc
+decoder/block_023/layer_001/EncDecAttention/q_slot_vr
+decoder/block_023/layer_001/EncDecAttention/v_slot_vc
+decoder/block_023/layer_001/EncDecAttention/v_slot_vr
+decoder/block_023/layer_001/layer_norm/scale_slot_v
+decoder/block_023/layer_002/DenseReluDense/wi/kernel_slot_vc
+decoder/block_023/layer_002/DenseReluDense/wi/kernel_slot_vr
+decoder/block_023/layer_002/DenseReluDense/wo/kernel_slot_vc
+decoder/block_023/layer_002/DenseReluDense/wo/kernel_slot_vr
+decoder/block_023/layer_002/layer_norm/scale_slot_v
+decoder/final_layer_norm/scale_slot_v
+encoder/block_000/layer_000/SelfAttention/k_slot_vc
+encoder/block_000/layer_000/SelfAttention/k_slot_vr
+encoder/block_000/layer_000/SelfAttention/o_slot_vc
+encoder/block_000/layer_000/SelfAttention/o_slot_vr
+encoder/block_000/layer_000/SelfAttention/q_slot_vc
+encoder/block_000/layer_000/SelfAttention/q_slot_vr
+encoder/block_000/layer_000/SelfAttention/relative_attention_bias_slot_v
+encoder/block_000/layer_000/SelfAttention/v_slot_vc
+encoder/block_000/layer_000/SelfAttention/v_slot_vr
+encoder/block_000/layer_000/layer_norm/scale_slot_v
+encoder/block_000/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_000/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_000/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_000/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_000/layer_001/layer_norm/scale_slot_v
+encoder/block_001/layer_000/SelfAttention/k_slot_vc
+encoder/block_001/layer_000/SelfAttention/k_slot_vr
+encoder/block_001/layer_000/SelfAttention/o_slot_vc
+encoder/block_001/layer_000/SelfAttention/o_slot_vr
+encoder/block_001/layer_000/SelfAttention/q_slot_vc
+encoder/block_001/layer_000/SelfAttention/q_slot_vr
+encoder/block_001/layer_000/SelfAttention/v_slot_vc
+encoder/block_001/layer_000/SelfAttention/v_slot_vr
+encoder/block_001/layer_000/layer_norm/scale_slot_v
+encoder/block_001/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_001/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_001/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_001/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_001/layer_001/layer_norm/scale_slot_v
+encoder/block_002/layer_000/SelfAttention/k_slot_vc
+encoder/block_002/layer_000/SelfAttention/k_slot_vr
+encoder/block_002/layer_000/SelfAttention/o_slot_vc
+encoder/block_002/layer_000/SelfAttention/o_slot_vr
+encoder/block_002/layer_000/SelfAttention/q_slot_vc
+encoder/block_002/layer_000/SelfAttention/q_slot_vr
+encoder/block_002/layer_000/SelfAttention/v_slot_vc
+encoder/block_002/layer_000/SelfAttention/v_slot_vr
+encoder/block_002/layer_000/layer_norm/scale_slot_v
+encoder/block_002/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_002/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_002/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_002/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_002/layer_001/layer_norm/scale_slot_v
+encoder/block_003/layer_000/SelfAttention/k_slot_vc
+encoder/block_003/layer_000/SelfAttention/k_slot_vr
+encoder/block_003/layer_000/SelfAttention/o_slot_vc
+encoder/block_003/layer_000/SelfAttention/o_slot_vr
+encoder/block_003/layer_000/SelfAttention/q_slot_vc
+encoder/block_003/layer_000/SelfAttention/q_slot_vr
+encoder/block_003/layer_000/SelfAttention/v_slot_vc
+encoder/block_003/layer_000/SelfAttention/v_slot_vr
+encoder/block_003/layer_000/layer_norm/scale_slot_v
+encoder/block_003/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_003/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_003/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_003/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_003/layer_001/layer_norm/scale_slot_v
+encoder/block_004/layer_000/SelfAttention/k_slot_vc
+encoder/block_004/layer_000/SelfAttention/k_slot_vr
+encoder/block_004/layer_000/SelfAttention/o_slot_vc
+encoder/block_004/layer_000/SelfAttention/o_slot_vr
+encoder/block_004/layer_000/SelfAttention/q_slot_vc
+encoder/block_004/layer_000/SelfAttention/q_slot_vr
+encoder/block_004/layer_000/SelfAttention/v_slot_vc
+encoder/block_004/layer_000/SelfAttention/v_slot_vr
+encoder/block_004/layer_000/layer_norm/scale_slot_v
+encoder/block_004/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_004/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_004/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_004/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_004/layer_001/layer_norm/scale_slot_v
+encoder/block_005/layer_000/SelfAttention/k_slot_vc
+encoder/block_005/layer_000/SelfAttention/k_slot_vr
+encoder/block_005/layer_000/SelfAttention/o_slot_vc
+encoder/block_005/layer_000/SelfAttention/o_slot_vr
+encoder/block_005/layer_000/SelfAttention/q_slot_vc
+encoder/block_005/layer_000/SelfAttention/q_slot_vr
+encoder/block_005/layer_000/SelfAttention/v_slot_vc
+encoder/block_005/layer_000/SelfAttention/v_slot_vr
+encoder/block_005/layer_000/layer_norm/scale_slot_v
+encoder/block_005/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_005/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_005/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_005/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_005/layer_001/layer_norm/scale_slot_v
+encoder/block_006/layer_000/SelfAttention/k_slot_vc
+encoder/block_006/layer_000/SelfAttention/k_slot_vr
+encoder/block_006/layer_000/SelfAttention/o_slot_vc
+encoder/block_006/layer_000/SelfAttention/o_slot_vr
+encoder/block_006/layer_000/SelfAttention/q_slot_vc
+encoder/block_006/layer_000/SelfAttention/q_slot_vr
+encoder/block_006/layer_000/SelfAttention/v_slot_vc
+encoder/block_006/layer_000/SelfAttention/v_slot_vr
+encoder/block_006/layer_000/layer_norm/scale_slot_v
+encoder/block_006/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_006/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_006/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_006/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_006/layer_001/layer_norm/scale_slot_v
+encoder/block_007/layer_000/SelfAttention/k_slot_vc
+encoder/block_007/layer_000/SelfAttention/k_slot_vr
+encoder/block_007/layer_000/SelfAttention/o_slot_vc
+encoder/block_007/layer_000/SelfAttention/o_slot_vr
+encoder/block_007/layer_000/SelfAttention/q_slot_vc
+encoder/block_007/layer_000/SelfAttention/q_slot_vr
+encoder/block_007/layer_000/SelfAttention/v_slot_vc
+encoder/block_007/layer_000/SelfAttention/v_slot_vr
+encoder/block_007/layer_000/layer_norm/scale_slot_v
+encoder/block_007/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_007/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_007/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_007/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_007/layer_001/layer_norm/scale_slot_v
+encoder/block_008/layer_000/SelfAttention/k_slot_vc
+encoder/block_008/layer_000/SelfAttention/k_slot_vr
+encoder/block_008/layer_000/SelfAttention/o_slot_vc
+encoder/block_008/layer_000/SelfAttention/o_slot_vr
+encoder/block_008/layer_000/SelfAttention/q_slot_vc
+encoder/block_008/layer_000/SelfAttention/q_slot_vr
+encoder/block_008/layer_000/SelfAttention/v_slot_vc
+encoder/block_008/layer_000/SelfAttention/v_slot_vr
+encoder/block_008/layer_000/layer_norm/scale_slot_v
+encoder/block_008/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_008/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_008/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_008/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_008/layer_001/layer_norm/scale_slot_v
+encoder/block_009/layer_000/SelfAttention/k_slot_vc
+encoder/block_009/layer_000/SelfAttention/k_slot_vr
+encoder/block_009/layer_000/SelfAttention/o_slot_vc
+encoder/block_009/layer_000/SelfAttention/o_slot_vr
+encoder/block_009/layer_000/SelfAttention/q_slot_vc
+encoder/block_009/layer_000/SelfAttention/q_slot_vr
+encoder/block_009/layer_000/SelfAttention/v_slot_vc
+encoder/block_009/layer_000/SelfAttention/v_slot_vr
+encoder/block_009/layer_000/layer_norm/scale_slot_v
+encoder/block_009/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_009/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_009/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_009/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_009/layer_001/layer_norm/scale_slot_v
+encoder/block_010/layer_000/SelfAttention/k_slot_vc
+encoder/block_010/layer_000/SelfAttention/k_slot_vr
+encoder/block_010/layer_000/SelfAttention/o_slot_vc
+encoder/block_010/layer_000/SelfAttention/o_slot_vr
+encoder/block_010/layer_000/SelfAttention/q_slot_vc
+encoder/block_010/layer_000/SelfAttention/q_slot_vr
+encoder/block_010/layer_000/SelfAttention/v_slot_vc
+encoder/block_010/layer_000/SelfAttention/v_slot_vr
+encoder/block_010/layer_000/layer_norm/scale_slot_v
+encoder/block_010/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_010/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_010/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_010/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_010/layer_001/layer_norm/scale_slot_v
+encoder/block_011/layer_000/SelfAttention/k_slot_vc
+encoder/block_011/layer_000/SelfAttention/k_slot_vr
+encoder/block_011/layer_000/SelfAttention/o_slot_vc
+encoder/block_011/layer_000/SelfAttention/o_slot_vr
+encoder/block_011/layer_000/SelfAttention/q_slot_vc
+encoder/block_011/layer_000/SelfAttention/q_slot_vr
+encoder/block_011/layer_000/SelfAttention/v_slot_vc
+encoder/block_011/layer_000/SelfAttention/v_slot_vr
+encoder/block_011/layer_000/layer_norm/scale_slot_v
+encoder/block_011/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_011/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_011/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_011/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_011/layer_001/layer_norm/scale_slot_v
+encoder/block_012/layer_000/SelfAttention/k_slot_vc
+encoder/block_012/layer_000/SelfAttention/k_slot_vr
+encoder/block_012/layer_000/SelfAttention/o_slot_vc
+encoder/block_012/layer_000/SelfAttention/o_slot_vr
+encoder/block_012/layer_000/SelfAttention/q_slot_vc
+encoder/block_012/layer_000/SelfAttention/q_slot_vr
+encoder/block_012/layer_000/SelfAttention/v_slot_vc
+encoder/block_012/layer_000/SelfAttention/v_slot_vr
+encoder/block_012/layer_000/layer_norm/scale_slot_v
+encoder/block_012/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_012/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_012/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_012/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_012/layer_001/layer_norm/scale_slot_v
+encoder/block_013/layer_000/SelfAttention/k_slot_vc
+encoder/block_013/layer_000/SelfAttention/k_slot_vr
+encoder/block_013/layer_000/SelfAttention/o_slot_vc
+encoder/block_013/layer_000/SelfAttention/o_slot_vr
+encoder/block_013/layer_000/SelfAttention/q_slot_vc
+encoder/block_013/layer_000/SelfAttention/q_slot_vr
+encoder/block_013/layer_000/SelfAttention/v_slot_vc
+encoder/block_013/layer_000/SelfAttention/v_slot_vr
+encoder/block_013/layer_000/layer_norm/scale_slot_v
+encoder/block_013/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_013/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_013/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_013/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_013/layer_001/layer_norm/scale_slot_v
+encoder/block_014/layer_000/SelfAttention/k_slot_vc
+encoder/block_014/layer_000/SelfAttention/k_slot_vr
+encoder/block_014/layer_000/SelfAttention/o_slot_vc
+encoder/block_014/layer_000/SelfAttention/o_slot_vr
+encoder/block_014/layer_000/SelfAttention/q_slot_vc
+encoder/block_014/layer_000/SelfAttention/q_slot_vr
+encoder/block_014/layer_000/SelfAttention/v_slot_vc
+encoder/block_014/layer_000/SelfAttention/v_slot_vr
+encoder/block_014/layer_000/layer_norm/scale_slot_v
+encoder/block_014/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_014/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_014/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_014/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_014/layer_001/layer_norm/scale_slot_v
+encoder/block_015/layer_000/SelfAttention/k_slot_vc
+encoder/block_015/layer_000/SelfAttention/k_slot_vr
+encoder/block_015/layer_000/SelfAttention/o_slot_vc
+encoder/block_015/layer_000/SelfAttention/o_slot_vr
+encoder/block_015/layer_000/SelfAttention/q_slot_vc
+encoder/block_015/layer_000/SelfAttention/q_slot_vr
+encoder/block_015/layer_000/SelfAttention/v_slot_vc
+encoder/block_015/layer_000/SelfAttention/v_slot_vr
+encoder/block_015/layer_000/layer_norm/scale_slot_v
+encoder/block_015/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_015/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_015/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_015/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_015/layer_001/layer_norm/scale_slot_v
+encoder/block_016/layer_000/SelfAttention/k_slot_vc
+encoder/block_016/layer_000/SelfAttention/k_slot_vr
+encoder/block_016/layer_000/SelfAttention/o_slot_vc
+encoder/block_016/layer_000/SelfAttention/o_slot_vr
+encoder/block_016/layer_000/SelfAttention/q_slot_vc
+encoder/block_016/layer_000/SelfAttention/q_slot_vr
+encoder/block_016/layer_000/SelfAttention/v_slot_vc
+encoder/block_016/layer_000/SelfAttention/v_slot_vr
+encoder/block_016/layer_000/layer_norm/scale_slot_v
+encoder/block_016/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_016/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_016/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_016/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_016/layer_001/layer_norm/scale_slot_v
+encoder/block_017/layer_000/SelfAttention/k_slot_vc
+encoder/block_017/layer_000/SelfAttention/k_slot_vr
+encoder/block_017/layer_000/SelfAttention/o_slot_vc
+encoder/block_017/layer_000/SelfAttention/o_slot_vr
+encoder/block_017/layer_000/SelfAttention/q_slot_vc
+encoder/block_017/layer_000/SelfAttention/q_slot_vr
+encoder/block_017/layer_000/SelfAttention/v_slot_vc
+encoder/block_017/layer_000/SelfAttention/v_slot_vr
+encoder/block_017/layer_000/layer_norm/scale_slot_v
+encoder/block_017/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_017/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_017/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_017/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_017/layer_001/layer_norm/scale_slot_v
+encoder/block_018/layer_000/SelfAttention/k_slot_vc
+encoder/block_018/layer_000/SelfAttention/k_slot_vr
+encoder/block_018/layer_000/SelfAttention/o_slot_vc
+encoder/block_018/layer_000/SelfAttention/o_slot_vr
+encoder/block_018/layer_000/SelfAttention/q_slot_vc
+encoder/block_018/layer_000/SelfAttention/q_slot_vr
+encoder/block_018/layer_000/SelfAttention/v_slot_vc
+encoder/block_018/layer_000/SelfAttention/v_slot_vr
+encoder/block_018/layer_000/layer_norm/scale_slot_v
+encoder/block_018/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_018/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_018/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_018/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_018/layer_001/layer_norm/scale_slot_v
+encoder/block_019/layer_000/SelfAttention/k_slot_vc
+encoder/block_019/layer_000/SelfAttention/k_slot_vr
+encoder/block_019/layer_000/SelfAttention/o_slot_vc
+encoder/block_019/layer_000/SelfAttention/o_slot_vr
+encoder/block_019/layer_000/SelfAttention/q_slot_vc
+encoder/block_019/layer_000/SelfAttention/q_slot_vr
+encoder/block_019/layer_000/SelfAttention/v_slot_vc
+encoder/block_019/layer_000/SelfAttention/v_slot_vr
+encoder/block_019/layer_000/layer_norm/scale_slot_v
+encoder/block_019/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_019/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_019/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_019/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_019/layer_001/layer_norm/scale_slot_v
+encoder/block_020/layer_000/SelfAttention/k_slot_vc
+encoder/block_020/layer_000/SelfAttention/k_slot_vr
+encoder/block_020/layer_000/SelfAttention/o_slot_vc
+encoder/block_020/layer_000/SelfAttention/o_slot_vr
+encoder/block_020/layer_000/SelfAttention/q_slot_vc
+encoder/block_020/layer_000/SelfAttention/q_slot_vr
+encoder/block_020/layer_000/SelfAttention/v_slot_vc
+encoder/block_020/layer_000/SelfAttention/v_slot_vr
+encoder/block_020/layer_000/layer_norm/scale_slot_v
+encoder/block_020/layer_001/DenseReluDense/wi/kernel_slot_vc
+encoder/block_020/layer_001/DenseReluDense/wi/kernel_slot_vr
+encoder/block_020/layer_001/DenseReluDense/wo/kernel_slot_vc
+encoder/block_020/layer_001/DenseReluDense/wo/kernel_slot_vr
+encoder/block_020/layer_001/layer_norm/scale_slot_v
+encoder/block_021/layer_000/SelfAttention/k_slot_vc
+encoder/block_021/layer_000/SelfAttention/k_slot_vr
+encoder/block_021/layer_000/SelfAttention/o_slot_vc
+encoder/block_021/layer_000/SelfAttention/o_slo
