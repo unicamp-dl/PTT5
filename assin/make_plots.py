@@ -27,7 +27,13 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("experiment_set")
+    parser.add_argument("title")
+    parser.add_argument("y")
+    parser.add_argument("-x", default="Epoch")
+    parser.add_argument("-ylim", default=None, type=float)
+    parser.add_argument("-xlim", default=None, type=float)
     parser.add_argument("-val_acc", action="store_true")
+
     parser.add_argument('-l', "--log_folder", type=str,
                         default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs")
 
@@ -51,7 +57,7 @@ if __name__ == "__main__":
                 else:
                     label = f"{metric_name} string generation"
             else:
-                label = f"{mode} portuguese vocab" if "custom" in experiment else f"{mode} T5 vocab"
+                label = f"{mode} Portuguese vocab" if "custom" in experiment else f"{mode} T5 vocab"
 
             df = tf_events_to_pandas(experiment_dir, metric_name)
 
@@ -59,8 +65,13 @@ if __name__ == "__main__":
             bs = BS[arch]
             df["epoch"] = step_to_epoch(fix_step_offset(df["step"]), bs, size)
 
-            plt.title(arch)
-            plt.xlabel("epoch")
+            plt.title(args.title)
+            plt.ylabel(args.y)
+            plt.xlabel(args.x)
+            if args.ylim is not None:
+                plt.ylim([0, args.ylim])
+            if args.xlim is not None:
+                plt.xlim([0, args.xlim])
             plt.plot(range(len(df[metric_name])), df[metric_name], label=label)
             plt.legend()
     plt.tight_layout()
