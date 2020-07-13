@@ -43,13 +43,15 @@ if __name__ == "__main__":
                                   "exp1/assin2_t5_large_entail/assin2_t5_large_entail-epoch=6-val_loss=0.1632.ckpt"),
                                  ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
                                   "exp2/assin2_t5_large_long/assin2_t5_large_long-epoch=19-val_loss=0.0617.ckpt")
-                                 )'''
-            # PTT5 Larges
+                                 )
+            # PTT5 Larges Similarity
             BEST_MODELS_PATHS = (("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
                                   "exp3/assin2_ptt5_large_long_custom_vocab/assin2_ptt5_large_long_custom_vocab-epoch=19-val_loss=0.0460.ckpt"),
                                  ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
-                                  "exp4/assin2_ptt5_large_long/assin2_ptt5_large_long-epoch=31-val_loss=0.0413.ckpt"),
-                                 ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
+                                  "exp4/assin2_ptt5_large_long/assin2_ptt5_large_long-epoch=31-val_loss=0.0413.ckpt")
+                                 )'''
+            # PTT5 Larges Entail
+            BEST_MODELS_PATHS = (("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
                                   "exp5/assin2_ptt5_large_entail_custom_vocab/assin2_ptt5_large_entail_custom_vocab-epoch=3-val_loss=0.2523.ckpt"),
                                  ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
                                   "exp6/assin2_ptt5_large_entail/assin2_ptt5_large_entail-epoch=0-val_loss=0.1953.ckpt"))
