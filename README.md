@@ -9,12 +9,13 @@ Diedre Carmo
 
 Download dos pesos PTT5:
 
-| **Tamanho** | **Vocab** | **Link** |
-| ---         | ---       | ---      |
-| Base        |  T5       |   https://www.dropbox.com/s/pu18znurr6vqbio/ptt5-4epoch-standard-vocab-base-1229941.pth?dl=0   |
-| Base        |  custom PT|   https://www.dropbox.com/s/y0a1ea02bivjt60/ptt5-custom-vocab-base-1229942.pth?dl=0  |
-| Large       |  T5       |   https://www.dropbox.com/s/7btqekm7mfysdeb/ptt5-standard-vocab-large-1461673.pth?dl=0  |
-| Large       |  custom PT|   https://www.dropbox.com/s/20zxpgz7guurn33/ptt5-custom-vocab-large-1460784.pth?dl=0   |
+| **Tamanho** | **Vocab** | **Epoch** | **Link** |
+| ---         | ---       | ---       | ---      |
+| Base        |  T5       |   4       | https://www.dropbox.com/s/pu18znurr6vqbio/ptt5-4epoch-standard-vocab-base-1229941.pth?dl=0   |
+| Base        |  custom PT|   4       | https://www.dropbox.com/s/y0a1ea02bivjt60/ptt5-custom-vocab-base-1229942.pth?dl=0  |
+| Large       |  T5       |   4       | https://www.dropbox.com/s/7btqekm7mfysdeb/ptt5-standard-vocab-large-1461673.pth?dl=0  |
+| Large       |  custom PT|   4       | https://www.dropbox.com/s/20zxpgz7guurn33/ptt5-custom-vocab-large-1460784.pth?dl=0   |
+| Large       |  custom PT|   2       | https://www.dropbox.com/s/jchdt8s5iazko8l/ptt5-custom-vocab-large-2poch-1230742.pth?dl=0   |
 
 Esses são pesos exatamente após o pré-treinamento no BrWac por 4 épocas.
 
