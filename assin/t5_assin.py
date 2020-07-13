@@ -37,6 +37,9 @@ logging.info(f"Imports loaded succesfully. Number of CPU cores: {cpu_count()}. C
 
 CONFIG_PATH = "T5_configs_json"
 
+# For external import use
+CHECKPOINT_PATH = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/checkpoints"
+
 
 class NONLinearInput(nn.Module):
     def __init__(self, nin, nout):
@@ -110,7 +113,8 @@ class T5ASSIN(pl.LightningModule):
         ckpt_paths = glob(os.path.join(CHECKPOINT_PATH, self.hparams.model_name + "*"))
         config_paths = glob(os.path.join(CONFIG_PATH, "ptt5*" + self.size + "*"))
 
-        assert len(ckpt_paths) == 1 and len(config_paths) == 1, "Are the config/ckpts on the correct path?"
+        assert len(ckpt_paths) == 1 and len(config_paths) == 1, ("Are the config/ckpts on the correct path?"
+                                                                 f"{ckpt_paths} {config_paths}")
 
         config_path = config_paths[0]
         ckpt_path = ckpt_paths[0]

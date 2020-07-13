@@ -22,7 +22,8 @@ if __name__ == "__main__":
                                  ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models/"
                                   "assin2_ptt5_base_4epochs_long/assin2_ptt5_base_4epochs_long-epoch=21-val_loss=0.0407.ckpt"),
                                  ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models/"
-                                  "assin2_ptt5_base_long_custom_vocab/assin2_ptt5_base_long_custom_vocab-epoch=21-val_loss=0.0387.ckpt"))'''
+                                  "assin2_ptt5_base_long_custom_vocab/assin2_ptt5_base_long_custom_vocab-epoch=21-val_loss=0.0387.ckpt"))
+
             # Categoric models
             BEST_MODELS_PATHS = (("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models/"
                                   "assin2_t5_small_entail/assin2_t5_small_entail-epoch=9-val_loss=0.2697.ckpt"),
@@ -37,6 +38,22 @@ if __name__ == "__main__":
                                  ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models/"
                                   "assin2_ptt5_base_entail_custom/assin2_ptt5_base_entail_custom-epoch=2-val_loss=0.1439.ckpt")
                                  )
+            # T5 Larges
+            BEST_MODELS_PATHS = (("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
+                                  "exp1/assin2_t5_large_entail/assin2_t5_large_entail-epoch=6-val_loss=0.1632.ckpt"),
+                                 ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
+                                  "exp2/assin2_t5_large_long/assin2_t5_large_long-epoch=19-val_loss=0.0617.ckpt")
+                                 )'''
+            # PTT5 Larges
+            BEST_MODELS_PATHS = (("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
+                                  "exp3/assin2_ptt5_large_long_custom_vocab/assin2_ptt5_large_long_custom_vocab-epoch=19-val_loss=0.0460.ckpt"),
+                                 ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
+                                  "exp4/assin2_ptt5_large_long/assin2_ptt5_large_long-epoch=31-val_loss=0.0413.ckpt"),
+                                 ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
+                                  "exp5/assin2_ptt5_large_entail_custom_vocab/assin2_ptt5_large_entail_custom_vocab-epoch=3-val_loss=0.2523.ckpt"),
+                                 ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
+                                  "exp6/assin2_ptt5_large_entail/assin2_ptt5_large_entail-epoch=0-val_loss=0.1953.ckpt"))
+
             for BEST_MODEL_PATH in BEST_MODELS_PATHS:
                 print(f"Best model path: {BEST_MODEL_PATH}")
                 print("Loading best model.")
@@ -60,6 +77,8 @@ if __name__ == "__main__":
                     vocab_name = "t5-base"
                 elif "small" in BEST_MODEL_PATH:
                     vocab_name = "t5-small"
+                elif "large" in BEST_MODEL_PATH:
+                    vocab_name = "t5-large"
 
                 bs = 48
                 total = 2448
@@ -154,8 +173,8 @@ if __name__ == "__main__":
                     print(f"Final test MSE: {mse}")
                     print(f"Final test Pearson: {pearson}")
 
-            with open("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/final_tests.txt", 'w') as final_test_file:
-                final_test_file.write(result_str)
+            with open("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/final_tests_large.txt", 'w') as ftest_file:
+                ftest_file.write(result_str)
 
     except KeyboardInterrupt:
         quit()

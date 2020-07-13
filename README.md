@@ -15,7 +15,7 @@ Download dos pesos PTT5:
 | Base        |  custom PT|   4       | https://www.dropbox.com/s/y0a1ea02bivjt60/ptt5-custom-vocab-base-1229942.pth?dl=0  |
 | Large       |  T5       |   4       | https://www.dropbox.com/s/7btqekm7mfysdeb/ptt5-standard-vocab-large-1461673.pth?dl=0  |
 | Large       |  custom PT|   4       | https://www.dropbox.com/s/20zxpgz7guurn33/ptt5-custom-vocab-large-1460784.pth?dl=0   |
-| Large       |  custom PT|   2       | https://www.dropbox.com/s/jchdt8s5iazko8l/ptt5-custom-vocab-large-2poch-1230742.pth?dl=0   |
+| Large       |  custom PT|   2       | https://www.dropbox.com/s/dm5vb7c4xhlnq0n/ptt5-2poch-standard-vocab-large-1231631.pth?dl=0   |
 
 Esses são pesos exatamente após o pré-treinamento no BrWac por 4 épocas.
 
@@ -42,7 +42,7 @@ E rode o código dessa função:
 
     import sentencepiece as spm
     from transformers import T5Tokenizer
-    
+
     def get_custom_vocab():
         # Path to SentencePiece model
         SP_MODEL_PATH = 'custom_vocab/spm_32000_unigram/spm_32000_pt.model'
