@@ -49,12 +49,25 @@ if __name__ == "__main__":
                                   "exp3/assin2_ptt5_large_long_custom_vocab/assin2_ptt5_large_long_custom_vocab-epoch=19-val_loss=0.0460.ckpt"),
                                  ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
                                   "exp4/assin2_ptt5_large_long/assin2_ptt5_large_long-epoch=31-val_loss=0.0413.ckpt")
-                                 )'''
+                                 )
             # PTT5 Larges Entail
             BEST_MODELS_PATHS = (("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
                                   "exp5/assin2_ptt5_large_entail_custom_vocab/assin2_ptt5_large_entail_custom_vocab-epoch=3-val_loss=0.2523.ckpt"),
                                  ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/large/"
-                                  "exp6/assin2_ptt5_large_entail/assin2_ptt5_large_entail-epoch=0-val_loss=0.1953.ckpt"))
+                                  "exp6/assin2_ptt5_large_entail/assin2_ptt5_large_entail-epoch=0-val_loss=0.1953.ckpt")
+                                 )
+            # Large Entail 10p
+            BEST_MODELS_PATHS = (("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs/"
+                                  "assin2_t5_large_entail_10p/assin2_t5_large_entail_10p-epoch=16-val_acc=0.9520.ckpt"),
+                                 ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs/"
+                                  "assin2_ptt5_large_entail_10p/assin2_ptt5_large_entail_10p-epoch=8-val_acc=0.9520.ckpt")
+                                 )'''
+            # Large Entail 10p
+            BEST_MODELS_PATHS = (("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs/"
+                                  "assin2_ptt5_large_entail_custom_vocab_10p/assin2_ptt5_large_entail_custom_vocab_10p-epoch=6-val_acc=0.9700.ckpt"),
+                                 ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs/"
+                                  "assin2_ptt5_large_entail_custom_vocab_10p_2poch/assin2_ptt5_large_entail_custom_vocab_10p_2poch-epoch=17-val_acc=0.9340.ckpt")
+                                 )
 
             for BEST_MODEL_PATH in BEST_MODELS_PATHS:
                 print(f"Best model path: {BEST_MODEL_PATH}")
