@@ -266,6 +266,7 @@ if __name__ == "__main__":
     parser.add_argument('--architecture', type=str, required=True)
     parser.add_argument('--max_epochs', type=int, required=True)
 
+    parser.add_argument('--acum', type=int, default=1)
     parser.add_argument('--seq_len', type=int, default=128)
     parser.add_argument('--version', type=str, default='v2')
     parser.add_argument('--lr', type=float, default=0.0001)
@@ -336,6 +337,7 @@ if __name__ == "__main__":
                       checkpoint_callback=checkpoint_callback,
                       early_stop_callback=early_stop_callback,
                       logger=logger,
+                      accumulate_grad_batches=hparams.acum,
                       max_epochs=hparams.max_epochs,
                       fast_dev_run=hparams.debug,
                       overfit_batches=hparams.overfit_pct,
