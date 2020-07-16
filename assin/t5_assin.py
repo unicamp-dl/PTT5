@@ -24,7 +24,6 @@ from transformers import T5Model, PretrainedConfig, T5ForConditionalGeneration, 
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from pytorch_lightning.loggers import TensorBoardLogger
 from pytorch_lightning import Trainer, seed_everything
-assert pl.__version__ == "0.8.4", "Please use PyTorch Lightning 0.8.4"
 
 # Suppress some of the logging
 logging.getLogger("transformers.configuration_utils").setLevel(logging.WARNING)
