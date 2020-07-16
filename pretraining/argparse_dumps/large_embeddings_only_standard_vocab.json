@@ -20,4 +20,15 @@
   "json_config_path": "../../assin/T5_configs_json/ptt5-standard-vocab-large-config.json",
   "spiece_model_path": null,
   "train_embedding_only": true
+}{
+  "batch_div": 1,
+  "name": "large_embeddings_only_standard_vocab",
+  "txt_file": "brwac_512.txt",
+  "model_size": "large",
+  "nepoch": 2.0,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://ptt5-1/large_embeddings_only_standard_vocab/models/",
+  "json_config_path": "../../assin/T5_configs_json/ptt5-standard-vocab-large-config.json",
+  "spiece_model_path": null,
+  "train_embedding_only": true
 }
