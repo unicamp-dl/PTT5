@@ -241,7 +241,7 @@ model = t5.models.MtfModel(
     tpu=TPU_ADDRESS,
     tpu_topology=TPU_TOPOLOGY,
     model_parallelism=model_parallelism,
-    batch_size=train_batch_size,
+    batch_size=int(train_batch_size),
     sequence_length={
         "inputs": args.seq_len,
         "targets": args.seq_len
