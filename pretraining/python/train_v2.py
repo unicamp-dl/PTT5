@@ -25,8 +25,8 @@ parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-b',
                     '--batch_div',
-                    type=int,
-                    default=1,
+                    type=float,
+                    default=1.0,
                     help='Batch division factor')
 
 parser.add_argument('-n',
