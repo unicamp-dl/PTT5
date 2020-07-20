@@ -13,9 +13,11 @@ from multiprocessing import cpu_count
 
 # External Libraries
 import torch
+import numpy as np
 from tqdm import tqdm
 from torch import nn
 from radam import RAdam
+from scipy.stats import pearsonr
 from assin_dataset import ASSIN, get_custom_vocab
 
 # PyTorch Lightning and Transformer
@@ -38,6 +40,22 @@ CONFIG_PATH = "T5_configs_json"
 
 # For external import use
 CHECKPOINT_PATH = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/checkpoints"
+
+
+class PearsonCalculator():
+    def __init__(self):
+        self.y_hat = []
+        self.y = []
+
+    def __call__(self, y_hat, y):
+        assert len(y_hat.shape) == 1
+        assert len(y.shape) == 1
+
+        self.y_hat = np.concatenate((self.y_hat, y_hat))
+        self.y = np.concatenate((self.y, y))
+
+    def calculate_pearson(self):
+        return pearsonr(self.y, self.y_hat)[0]
 
 
 class NONLinearInput(nn.Module):
@@ -105,6 +123,8 @@ class T5ASSIN(pl.LightningModule):
             self.loss = nn.CrossEntropyLoss()
         else:
             self.loss = nn.MSELoss()
+
+        self.pearson_calculator = PearsonCalculator()
 
         logging.info("Initialization done.")
 
@@ -201,6 +221,7 @@ class T5ASSIN(pl.LightningModule):
         else:  # default, linear layer activation
             y_hat = self(batch).squeeze(-1)
             loss = self.loss(y_hat, original_number)
+            self.pearson_calculator(y_hat.squeeze().detach().cpu().numpy(), original_number.squeeze().cpu().numpy())
             ret_dict = {'loss': loss}
 
         return ret_dict
@@ -228,10 +249,11 @@ class T5ASSIN(pl.LightningModule):
 
             logs = {name + "acc": acc}
             return {name + 'acc': acc, 'log': logs, 'progress_bar': logs}
-        else:  # only loss
+        else:
             loss = torch.stack([x['loss'] for x in outputs]).mean()
+            pearson = self.pearson_calculator.calculate_pearson()
 
-            logs = {name + "loss": loss}
+            logs = {name + "loss": loss, name + "pearson": pearson}
             return {name + 'loss': loss, 'log': logs, 'progress_bar': logs}
 
     def configure_optimizers(self):
