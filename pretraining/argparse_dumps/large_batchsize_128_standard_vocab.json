@@ -1,0 +1,12 @@
+{
+  "batch_div": 0.5,
+  "name": "large_batchsize_128_standard_vocab",
+  "txt_file": "brwac_512.txt",
+  "model_size": "large",
+  "nepoch": 2.0,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models",
+  "json_config_path": "../../assin/T5_configs_json/ptt5-standard-vocab-large-config.json",
+  "spiece_model_path": null,
+  "train_embedding_only": false
+}
