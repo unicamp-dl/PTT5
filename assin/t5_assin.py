@@ -57,9 +57,14 @@ class PearsonCalculator():
     def calculate_pearson(self):
         if len(self.y) < 2:
             logging.warning("Pearson does not have enough samples, returning nan")
-            return float('nan')
+            ret = float('nan')
         else:
-            return pearsonr(self.y, self.y_hat)[0]
+            ret = pearsonr(self.y, self.y_hat)[0]
+
+        self.y_hat = []
+        self.y = []
+
+        return ret
 
 
 class NONLinearInput(nn.Module):
