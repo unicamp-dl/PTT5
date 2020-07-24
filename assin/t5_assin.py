@@ -221,7 +221,7 @@ class T5ASSIN(pl.LightningModule):
         else:  # default, linear layer activation
             y_hat = self(batch).squeeze(-1)
             loss = self.loss(y_hat, original_number)
-            self.pearson_calculator(y_hat.squeeze().detach().cpu().numpy(), original_number.squeeze().cpu().numpy())
+            self.pearson_calculator(y_hat.detach().cpu().numpy(), original_number.squeeze(-1).cpu().numpy())
             ret_dict = {'loss': loss}
 
         return ret_dict
