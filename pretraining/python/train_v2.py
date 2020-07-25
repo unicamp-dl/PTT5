@@ -84,7 +84,12 @@ parser.add_argument(
         action='store_true',
         help='Flag to keep all checkpoints (Beware of disk usage limits)'
         )
-
+parser.add_argument(
+    '--save_checkpoints_steps',
+    default=5000,
+    type=int,
+    help='Steps per checkpoint'
+)
 args = parser.parse_args()
 
 print(f'Arguments read from input: {args.__dict__}')
@@ -252,7 +257,7 @@ model = t5.models.MtfModel(
         "targets": args.seq_len
     },
     learning_rate_schedule=0.003,
-    save_checkpoints_steps=5000,
+    save_checkpoints_steps=args.save_checkpoints_steps,
     # keep_checkpoint_max=keep_checkpoint_max if ON_CLOUD else None,
     keep_checkpoint_max=None
     if args.keep_all_checkpoints else keep_checkpoint_max,
