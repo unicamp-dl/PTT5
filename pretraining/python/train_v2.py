@@ -79,6 +79,11 @@ parser.add_argument(
         action='store_true',
         help='Flag to train only embeddings and freeze everything else'
         )
+parser.add_argument(
+        '--keep_all_checkpoints',
+        action='store_true',
+        help='Flag to keep all checkpoints (Beware of disk usage limits)'
+        )
 
 args = parser.parse_args()
 
@@ -249,11 +254,11 @@ model = t5.models.MtfModel(
     learning_rate_schedule=0.003,
     save_checkpoints_steps=5000,
     # keep_checkpoint_max=keep_checkpoint_max if ON_CLOUD else None,
-    keep_checkpoint_max=keep_checkpoint_max,
+    keep_checkpoint_max=None
+    if args.keep_all_checkpoints else keep_checkpoint_max,
     #how many batches of data are sent to TPU in a "training loop"
     iterations_per_loop=100,
-    variable_filter=fn_is_var_embedding if args.train_embedding_only else None
-)
+    variable_filter=fn_is_var_embedding if args.train_embedding_only else None)
 
 
 # "Pre-training" ==> FineTuning
