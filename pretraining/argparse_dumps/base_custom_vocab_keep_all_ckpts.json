@@ -1,0 +1,14 @@
+{
+  "batch_div": 1.0,
+  "name": "base_custom_vocab_keep_all_ckpts",
+  "txt_file": "brwac_512.txt",
+  "model_size": "base",
+  "nepoch": 1.0,
+  "seq_len": 512,
+  "pre_trained_dir": "gs://t5-data/pretrained_models",
+  "json_config_path": "../../assin/T5_configs_json/ptt5-standard-vocab-base-config.json",
+  "spiece_model_path": "gs://ptt5-1/vocabs/spm_32000_unigram/spm_32000_pt.model",
+  "train_embedding_only": false,
+  "keep_all_checkpoints": true,
+  "save_checkpoints_steps": 500
+}
