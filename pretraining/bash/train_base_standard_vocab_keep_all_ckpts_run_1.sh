@@ -5,4 +5,5 @@ python3 ../python/train_v2.py \
 -s 512 \
 -jc '../../assin/T5_configs_json/ptt5-standard-vocab-base-config.json' \
 --keep_all_checkpoints \
--n base_standard_vocab_keep_all_ckpts 
+-n base_standard_vocab_keep_all_ckpts \
+--save_checkpoints_steps 500
