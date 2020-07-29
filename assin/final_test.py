@@ -67,10 +67,14 @@ if __name__ == "__main__":
                                   "assin2_ptt5_large_entail_custom_vocab_10p/assin2_ptt5_large_entail_custom_vocab_10p-epoch=6-val_acc=0.9700.ckpt"),
                                  ("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs/"
                                   "assin2_ptt5_large_entail_custom_vocab_10p_2poch/assin2_ptt5_large_entail_custom_vocab_10p_2poch-epoch=17-val_acc=0.9340.ckpt")
-                                 )'''
+                                 )
             # Base acum
             BEST_MODELS_PATHS = (("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models/"
-                                  "assin2_ptt5_base_acum_long_custom_vocab/assin2_ptt5_base_acum_long_custom_vocab-epoch=32-val_loss=0.0514.ckpt"),)
+                                  "assin2_ptt5_base_acum_long_custom_vocab/assin2_ptt5_base_acum_long_custom_vocab-epoch=32-val_loss=0.0514.ckpt"),)'''
+
+            # Emb only better val
+            BEST_MODELS_PATHS = (("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models/"
+                                  "assin2_ptt5_base_emb_long_custom_vocab/assin2_ptt5_base_emb_long_custom_vocab-epoch=28-val_loss=0.0353.ckpt"),)
 
             for BEST_MODEL_PATH in BEST_MODELS_PATHS:
                 print(f"Best model path: {BEST_MODEL_PATH}")
