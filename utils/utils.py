@@ -9,7 +9,6 @@ DICT_BATCH_SIZE_PRETRAIN = {'small': 256, 'base': 128, 'large': 64}
 # Same from pretraing code
 BRWAC_TXT_LEN = 7361359
 
-
 # Same from pretraing code
 def epoch_to_steps(batch_size, epochs, total_examples=BRWAC_TXT_LEN):
     """Calculates number of steps
@@ -46,7 +45,7 @@ def parse_events_files(tb_summary_dir):
         tb_summary_dir: str, path to look for events files in.
     Returns:
         A dict, where each key is a TensorBoard tag and each value is a list of
-        Event tuples with step and value attributes.
+        Event tuples with step, value and wall_time attributes.
   """
     Event = collections.namedtuple("event", ["step", "value", "wall_time"])
     events = collections.defaultdict(list)
