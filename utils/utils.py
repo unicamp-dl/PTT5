@@ -1,6 +1,7 @@
-from t5.evaluation import eval_utils
+import collections
 import os
 import pandas as pd
+import tensorflow.compat.v1 as tf
 
 # Same from pretraing code
 DICT_BATCH_SIZE_PRETRAIN = {'small': 256, 'base': 128, 'large': 64}
@@ -37,6 +38,28 @@ def get_model_size_from_dir(tb_summary_dir):
     """
     return os.path.basename(os.path.normpath(tb_summary_dir)).split('_')[0]
 
+# Extracted from https://github.com/google-research/text-to-text-transfer-transformer/blob/master/t5/evaluation/eval_utils.py
+# slightly modified to also extract wall time from tensorboard events logs
+def parse_events_files(tb_summary_dir):
+    """Parse all TensorBoard events files in tb_summary_dir.
+    Args:
+        tb_summary_dir: str, path to look for events files in.
+    Returns:
+        A dict, where each key is a TensorBoard tag and each value is a list of
+        Event tuples with step and value attributes.
+  """
+    Event = collections.namedtuple("event", ["step", "value", "wall_time"])
+    events = collections.defaultdict(list)
+    for events_file in tf.gfile.Glob(os.path.join(tb_summary_dir, "events.*")):
+        try:
+            for e in tf.train.summary_iterator(events_file):
+                for v in e.summary.value:
+                    events[v.tag].append(
+                        Event(e.step, v.simple_value, e.wall_time))
+        except tf.errors.DataLossError:
+            logging.warning("Skipping %s due to truncated record.", events_file)
+    return events
+
 
 def tf_events_to_pandas(tb_summary_dir, tag='loss'):
     """Parse tensorboard logs into a padas dataframe
@@ -48,9 +71,10 @@ def tf_events_to_pandas(tb_summary_dir, tag='loss'):
     Returns:
         pandas.DataFrame, containing two pandas.Series: steps and tag
     """
-    events = eval_utils.parse_events_files(tb_summary_dir)
+    events = parse_events_files(tb_summary_dir)
     df = pd.DataFrame({
         'step': [x.step for x in events[tag]],
+        'wall_time': [x.wall_time for x in events[tag]],
         tag: [x.value for x in events[tag]]
     }).sort_values(by='step')
     return df
