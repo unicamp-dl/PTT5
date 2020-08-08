@@ -5,9 +5,9 @@ Team:\
 Marcos Piau\
 Diedre Carmo
 
-# Como usar o PTT5:
+# How to use PTT5:
 
-Download dos pesos PTT5:
+Weight downloads:
 
 | **Tamanho** | **Vocab** | **Epoch** | **Link** |
 | ---         | ---       | ---       | ---      |
@@ -17,13 +17,13 @@ Download dos pesos PTT5:
 | Large       |  custom PT|   4       | https://www.dropbox.com/s/20zxpgz7guurn33/ptt5-custom-vocab-large-1460784.pth?dl=0   |
 | Large       |  custom PT|   2       | https://www.dropbox.com/s/jchdt8s5iazko8l/ptt5-2poch-custom-vocab-large-1230742.pth?dl=0   |
 
-Esses são pesos exatamente após o pré-treinamento no BrWac por 4 épocas.
+Soon we will make our model available in HuggingFace.
 
 
-## Carregar pesos
-Ainda é necessário os arquivos de config, presentes no em: **assin/T5_configs_json**
+## Loading weights
+Get the config files in: **assin/T5_configs_json**
 
-Para carregar os pesos (exemplo com o T5ForConditionalGeneration mas poderia ser outro):
+Example loading with T5ForConditionalGeneration, ckpt_path is the path to the .pth weigh.:
 
     from transformers import PretrainedConfig, T5ForConditionalGeneration
 
@@ -36,9 +36,8 @@ Para carregar os pesos (exemplo com o T5ForConditionalGeneration mas poderia ser
 
 ## Carregar Vocab custom em PT
 
-Para carregar o Vocab custom, use o .model em: **assin/custom_vocab/spm_32000_unigram**
-
-E rode o código dessa função:
+To load the custom vocabulary use the .model in: **assin/custom_vocab/spm_32000_unigram**
+Example loading vocabulary:
 
     import sentencepiece as spm
     from transformers import T5Tokenizer
