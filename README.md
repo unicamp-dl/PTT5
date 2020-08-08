@@ -34,7 +34,7 @@ Example loading with T5ForConditionalGeneration, ckpt_path is the path to the .p
                                                          config=config,
                                                          state_dict=state_dict)
 
-## Carregar Vocab custom em PT
+## Load PT custom vocab
 
 To load the custom vocabulary use the .model in: **assin/custom_vocab/spm_32000_unigram**
 Example loading vocabulary:
