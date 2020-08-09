@@ -38,7 +38,7 @@ def get_model_size_from_dir(tb_summary_dir):
     return os.path.basename(os.path.normpath(tb_summary_dir)).split('_')[0]
 
 # Extracted from https://github.com/google-research/text-to-text-transfer-transformer/blob/master/t5/evaluation/eval_utils.py
-# slightly modified to also extract wall time from tensorboard events logs
+# Modified to also extract wall time from tensorboard events logs
 def parse_events_files(tb_summary_dir):
     """Parse all TensorBoard events files in tb_summary_dir.
     Args:
