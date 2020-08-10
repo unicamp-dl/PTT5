@@ -4,14 +4,14 @@ Pre-training and validating the T5 transformer in Brazilian Portuguese data
 # Citation
 We are preparing an arXiv submission. And soon will provide a citation. For now, if you need to cite use:
 
-@misc{ptt5_2020,
-  Author = {Diedre Carmo, Marcos Piau, Israel Campiotti, Rodrigo Nogueira, Roberto Lotufo},
-  Title = {PTT5: Pre-training and validating the T5 transformer in Brazilian Portuguese data},
-  Year = {2020},
-  Publisher = {GitHub},
-  Journal = {GitHub repository},
-  Howpublished = {\url{https://github.com/dl4nlp-rg/PTT5}}
-}
+    @misc{ptt5_2020,
+      Author = {Diedre Carmo, Marcos Piau, Israel Campiotti, Rodrigo Nogueira, Roberto Lotufo},
+      Title = {PTT5: Pre-training and validating the T5 transformer in Brazilian Portuguese data},
+      Year = {2020},
+      Publisher = {GitHub},
+      Journal = {GitHub repository},
+      Howpublished = {\url{https://github.com/dl4nlp-rg/PTT5}}
+    }
 
 # How to use PTT5:
 
