@@ -1,19 +1,9 @@
 # PTT5
 Pre-training and validating the T5 transformer in Brazilian Portuguese data
 
-# Citation
-We are preparing an arXiv submission and soon will provide a citation. For now, if you need to cite use:
-
-    @misc{ptt5_2020,
-      Author = {Diedre Carmo, Marcos Piau, Israel Campiotti, Rodrigo Nogueira, Roberto Lotufo},
-      Title = {PTT5: Pre-training and validating the T5 transformer in Brazilian Portuguese data},
-      Year = {2020},
-      Publisher = {GitHub},
-      Journal = {GitHub repository},
-      Howpublished = {\url{https://github.com/dl4nlp-rg/PTT5}}
-    }
-
 # How to use PTT5:
+
+TO BE UPDATED WITH HUGGINGFACE INSTRUCTIONS
 
 Weight downloads:
 
@@ -80,6 +70,19 @@ Some utility code.
 ## vocab
 Code related to the creation of the custom Portuguese vocabulary.
 
+# Citation
+We are preparing an arXiv submission and soon will provide a citation. For now, if you need to cite use:
+
+    @misc{ptt5_2020,
+      Author = {Diedre Carmo, Marcos Piau, Israel Campiotti, Rodrigo Nogueira, Roberto Lotufo},
+      Title = {PTT5: Pre-training and validating the T5 transformer in Brazilian Portuguese data},
+      Year = {2020},
+      Publisher = {GitHub},
+      Journal = {GitHub repository},
+      Howpublished = {\url{https://github.com/dl4nlp-rg/PTT5}}
+    }
+
+
 # Acknowledgement
 
-This work was developed as the final project for the IA376E course taught by Professors Rodrigo Souza and Roberto Lotufo at the State University of Campinas (UNICAMP).
+This work was developed as the final project for the IA376E graduate course taught by Professors Rodrigo Souza and Roberto Lotufo at the State University of Campinas (UNICAMP).
