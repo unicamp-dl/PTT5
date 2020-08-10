@@ -2,7 +2,7 @@
 Pre-training and validating the T5 transformer in Brazilian Portuguese data
 
 # Citation
-We are preparing an arXiv submission. And soon will provide a citation. For now, if you need to cite use:
+We are preparing an arXiv submission and soon will provide a citation. For now, if you need to cite use:
 
     @misc{ptt5_2020,
       Author = {Diedre Carmo, Marcos Piau, Israel Campiotti, Rodrigo Nogueira, Roberto Lotufo},
