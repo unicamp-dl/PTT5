@@ -3,53 +3,44 @@ Pre-training and validating the T5 transformer in Brazilian Portuguese data
 
 # How to use PTT5:
 
-TO BE UPDATED WITH HUGGINGFACE INSTRUCTIONS
+Our pre-trained models are available for use with the  [🤗Transformers API](https://github.com/huggingface/transformers), both in PyTorch and TensorFlow.
 
-Weight downloads:
-
-| **Tamanho** | **Vocab** | **Epoch** | **Link** |
-| ---         | ---       | ---       | ---      |
-| Base        |  T5       |   4       | https://www.dropbox.com/s/pu18znurr6vqbio/ptt5-4epoch-standard-vocab-base-1229941.pth?dl=0   |
-| Base        |  custom PT|   4       | https://www.dropbox.com/s/y0a1ea02bivjt60/ptt5-custom-vocab-base-1229942.pth?dl=0  |
-| Large       |  T5       |   4       | https://www.dropbox.com/s/7btqekm7mfysdeb/ptt5-standard-vocab-large-1461673.pth?dl=0  |
-| Large       |  custom PT|   4       | https://www.dropbox.com/s/20zxpgz7guurn33/ptt5-custom-vocab-large-1460784.pth?dl=0   |
-| Large       |  custom PT|   2       | https://www.dropbox.com/s/jchdt8s5iazko8l/ptt5-2poch-custom-vocab-large-1230742.pth?dl=0   |
-
-Soon we will make our model available in HuggingFace.
+| **Size** | **Vocab** | **Shortcut name**  |
+| ---         | ---         |  ---          |
+| Small       |  T5         | [ptt5-small-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-small-t5-vocab)                  |
+| Base        |  T5         | [ptt5-base-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-base-t5-vocab)                    |
+| Large       |  T5         | [ptt5-large-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-large-t5-vocab)                  |
+| Small       |  Portuguese | [ptt5-small-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-small-portuguese-vocab)  |
+| Base        |  Portuguese | [ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)    |
+| Large       |  Portuguese | [ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)  |
 
 
-## Loading weights
-Get the config files in: **assin/T5_configs_json**
+## Example usage:
+### Using [AutoModel](https://huggingface.co/transformers/model_doc/auto.html):
+```python
+from transformers import AutoTokenizer, AutoModelWithLMHead, TFAutoModelWithLMHead
 
-Example loading with T5ForConditionalGeneration, ckpt_path is the path to the .pth weigh.:
+tokenizer = AutoTokenizer.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
 
-    from transformers import PretrainedConfig, T5ForConditionalGeneration
+# PyTorch 
+model_pt = AutoModelWithLMHead.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
 
-    config = PretrainedConfig.from_json_file(config_path)
-    state_dict = torch.load(ckpt_path)
+# TensorFlow
+model_tf = TFAutoModelWithLMHead.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
+```
 
-    self.t5 = T5ForConditionalGeneration.from_pretrained(pretrained_model_name_or_path=None,
-                                                         config=config,
-                                                         state_dict=state_dict)
+### Using [T5](https://huggingface.co/transformers/model_doc/t5.html) directly:
+```python
+from transformers import T5ForConditionalGeneration, TFT5ForConditionalGeneration, T5Tokenizer
 
-## Load PT custom vocab
+tokenizer = T5Tokenizer.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
 
-To load the custom vocabulary use the .model in: **assin/custom_vocab/spm_32000_unigram**
-Example loading vocabulary:
+# PyTorch 
+model_pt = T5ForConditionalGeneration.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
 
-    import sentencepiece as spm
-    from transformers import T5Tokenizer
-
-    def get_custom_vocab():
-        # Path to SentencePiece model
-        SP_MODEL_PATH = 'custom_vocab/spm_32000_unigram/spm_32000_pt.model'
-
-        # Loading on sentencepiece
-        sp = spm.SentencePieceProcessor()
-        sp.load(SP_MODEL_PATH)
-
-        # Loading o HuggingFace
-        return T5Tokenizer.from_pretrained(SP_MODEL_PATH)
+# TensorFlow
+model_tf = TFT5ForConditionalGeneration.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
+```
 
 # Folders
 
@@ -79,7 +70,7 @@ We are preparing an arXiv submission and soon will provide a citation. For now, 
       Year = {2020},
       Publisher = {GitHub},
       Journal = {GitHub repository},
-      Howpublished = {\url{https://github.com/dl4nlp-rg/PTT5}}
+      Howpublished = {\url{https://github.com/unicamp-dl/PTT5}}
     }
 
 
