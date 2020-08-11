@@ -3,16 +3,16 @@ Pre-training and validating the T5 transformer in Brazilian Portuguese data
 
 # How to use PTT5:
 
-Our pre-trained models are available for use with the  [🤗Transformers API](https://github.com/huggingface/transformers), both in PyTorch and TensorFlow.
+Our pre-trained models are available for use with the  [🤗Transformers API](https://github.com/huggingface/transformers), both in PyTorch and TensorFlow:
 
 | **Size** | **Vocab** | **Shortcut name**  |
 | ---         | ---         |  ---          |
-| Small       |  T5         | [ptt5-small-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-small-t5-vocab)                  |
-| Base        |  T5         | [ptt5-base-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-base-t5-vocab)                    |
-| Large       |  T5         | [ptt5-large-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-large-t5-vocab)                  |
-| Small       |  Portuguese | [ptt5-small-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-small-portuguese-vocab)  |
-| Base        |  Portuguese | [ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)    |
-| Large       |  Portuguese | [ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)  |
+| Small (~60M)      |  T5         | [unicamp-dl/ptt5-small-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-small-t5-vocab)                  |
+| Base (~220M)      |  T5         | [unicamp-dl/ptt5-base-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-base-t5-vocab)                    |
+| Large (~770M)       |  T5         | [unicamp-dl/ptt5-large-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-large-t5-vocab)                  |
+| Small (~60M)       |  Portuguese | [unicamp-dl/ptt5-small-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-small-portuguese-vocab)  |
+| Base (~220M)        |  Portuguese | [unicamp-dl/ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)    |
+| Large (~770M)       |  Portuguese | [unicamp-dl/ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)  |
 
 
 ## Example usage:
