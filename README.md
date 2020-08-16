@@ -27,39 +27,31 @@ Our pre-trained models are available for use with the  [🤗Transformers API](ht
 | `unicamp-dl/ptt5-base-portuguese-vocab`  | t5-base      | 220M    | Portuguese  |
 | `unicamp-dl/ptt5-large-portuguese-vocab` | t5-large     | 740M    | Portuguese  | -->
 
-
-
-
-
-
-
-
-
 ## Example usage:
-### Using [AutoModel](https://huggingface.co/transformers/model_doc/auto.html):
 ```python
-from transformers import AutoTokenizer, AutoModelWithLMHead, TFAutoModelWithLMHead
-
-tokenizer = AutoTokenizer.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
+# Tokenizer
+from transformers import AutoTokenizer # or T5Tokenizer
 
 # PyTorch 
-model_pt = AutoModelWithLMHead.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
+# bare model
+from transformers import T5Model
+from transformers import T5ForConditionalGeneration
 
-# TensorFlow
-model_tf = TFAutoModelWithLMHead.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
-```
+# Tensorflow 
+# bare model
+from transformers import TFT5Model
+# bare model + language modeling head
+from transformers import TFT5ForConditionalGeneration
 
-### Using [T5](https://huggingface.co/transformers/model_doc/t5.html) directly:
-```python
-from transformers import T5ForConditionalGeneration, TFT5ForConditionalGeneration, T5Tokenizer
+model_name = 'unicamp-dl/ptt5-base-portuguese-vocab'
 
-tokenizer = T5Tokenizer.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
+tokenizer = T5Tokenizer.from_pretrained(model_name)
 
 # PyTorch 
-model_pt = T5ForConditionalGeneration.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
-
+model_pt = T5ForConditionalGeneration.from_pretrained(model_name)
 # TensorFlow
-model_tf = TFT5ForConditionalGeneration.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
+model_tf = TFT5ForConditionalGeneration.from_pretrained(model_name)
+
 ```
 
 # Folders
