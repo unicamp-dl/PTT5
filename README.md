@@ -29,19 +29,14 @@ Our pre-trained models are available for use with the  [🤗Transformers API](ht
 
 ## Example usage:
 ```python
-# Tokenizer
+# Tokenizer 
 from transformers import AutoTokenizer # or T5Tokenizer
 
-# PyTorch 
-# bare model
-from transformers import T5Model
-from transformers import T5ForConditionalGeneration
+# PyTorch (bare model, baremodel + language modelling head)
+from transformers import T5Model, T5ForConditionalGeneration
 
-# Tensorflow 
-# bare model
-from transformers import TFT5Model
-# bare model + language modeling head
-from transformers import TFT5ForConditionalGeneration
+# Tensorflow (bare model, baremodel + language modelling head)
+from transformers import TFT5Model, TFT5ForConditionalGeneration
 
 model_name = 'unicamp-dl/ptt5-base-portuguese-vocab'
 
@@ -49,6 +44,7 @@ tokenizer = T5Tokenizer.from_pretrained(model_name)
 
 # PyTorch 
 model_pt = T5ForConditionalGeneration.from_pretrained(model_name)
+
 # TensorFlow
 model_tf = TFT5ForConditionalGeneration.from_pretrained(model_name)
 
