@@ -3,16 +3,36 @@ Pre-training and validating the T5 transformer in Brazilian Portuguese data
 
 # How to use PTT5:
 
-Our pre-trained models are available for use with the  [🤗Transformers API](https://github.com/huggingface/transformers), both in PyTorch and TensorFlow:
+## Available models
+Our pre-trained models are available for use with the  [🤗Transformers API](https://github.com/huggingface/transformers), both in PyTorch and TensorFlow.
 
-| **Size** | **Vocab** | **Shortcut name**  |
-| ---         | ---         |  ---          |
-| Small (~60M)      |  T5         | [unicamp-dl/ptt5-small-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-small-t5-vocab)                  |
-| Base (~220M)      |  T5         | [unicamp-dl/ptt5-base-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-base-t5-vocab)                    |
-| Large (~740M)       |  T5         | [unicamp-dl/ptt5-large-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-large-t5-vocab)                  |
-| Small (~60M)       |  Portuguese | [unicamp-dl/ptt5-small-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-small-portuguese-vocab)  |
-| Base (~220M)        |  Portuguese | [unicamp-dl/ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)    |
-| Large (~740M)       |  Portuguese | [unicamp-dl/ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)  |
+<!-- Com link -->
+| Model                                    | Architecture                                                   | #Params  | Vocabulary         |
+| :-:                                      | :-:                                                            | :-:      | :-:                |            
+| [unicamp-dl/ptt5-small-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-small-t5-vocab)                   | t5-small | 60M  | Google's T5 |
+| [unicamp-dl/ptt5-base-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-base-t5-vocab)                     | t5-base  | 220M | Google's T5 |
+| [unicamp-dl/ptt5-large-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-large-t5-vocab)                   | t5-large | 740M | Google's T5 |
+| [unicamp-dl/ptt5-small-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-small-portuguese-vocab)   | t5-small | 60M  | Portuguese  |
+| [unicamp-dl/ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)     | t5-base  | 220M | Portuguese  |
+| [unicamp-dl/ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)   | t5-large | 740M | Portuguese  |
+
+
+<!-- Sem link -->
+<!-- | Model                                    | Architecture | #Params | Vocabulary  |
+| :-:                                      | :-:          | :-:     | :-:         |
+| `unicamp-dl/ptt5-small-t5-vocab`         | t5-small     | 60M     | Google's T5 |
+| `unicamp-dl/ptt5-base-t5-vocab`          | t5-base      | 220M    | Google's T5 |
+| `unicamp-dl/ptt5-large-t5-vocab`         | t5-large     | 740M    | Google's T5 |
+| `unicamp-dl/ptt5-small-portuguese-vocab` | t5-small     | 60M     | Portuguese  |
+| `unicamp-dl/ptt5-base-portuguese-vocab`  | t5-base      | 220M    | Portuguese  |
+| `unicamp-dl/ptt5-large-portuguese-vocab` | t5-large     | 740M    | Portuguese  | -->
+
+
+
+
+
+
+
 
 
 ## Example usage:
