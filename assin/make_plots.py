@@ -30,7 +30,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("experiment_set")
     parser.add_argument("title")
-    parser.add_argument("y")
+    parser.add_argument("-y", default='')
     parser.add_argument("-x", default="Epoch")
     parser.add_argument("-ylim", default=None, type=float)
     parser.add_argument("-xlim", default=None, type=float)
@@ -55,9 +55,9 @@ if __name__ == "__main__":
 
             if "t5" in experiment.split('_'):
                 if "long" in experiment or "acc" in experiment:
-                    label = f"{metric_name} linear layer"
+                    label = f"{metric_name.replace('_', ' ')} linear layer"
                 else:
-                    label = f"{metric_name} string generation"
+                    label = f"{metric_name.replace('_', ' ')} string generation"
             else:
                 label = f"{mode} Portuguese vocab" if "custom" in experiment else f"{mode} T5 vocab"
 
@@ -77,4 +77,5 @@ if __name__ == "__main__":
             plt.plot(range(len(df[metric_name])), df[metric_name], label=label)
             plt.legend()
     plt.tight_layout()
+    plt.savefig(f"plots/{args.experiment_set}.eps", format="eps", dpi=1000)
     plt.show()
