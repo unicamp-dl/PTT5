@@ -11,7 +11,7 @@ Our pre-trained models are available for use with the  [🤗Transformers API](ht
 | Base (~220M)      |  T5         | [unicamp-dl/ptt5-base-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-base-t5-vocab)                    |
 | Large (~740M)       |  T5         | [unicamp-dl/ptt5-large-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-large-t5-vocab)                  |
 | Small (~60M)       |  Portuguese | [unicamp-dl/ptt5-small-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-small-portuguese-vocab)  |
-| Base (~220M)        |  Portuguese | [unicamp-dl/ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)    |
+| **Base (~220M) (Recommended)**      |  **Portuguese** | **[unicamp-dl/ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)**   |
 | Large (~740M)       |  Portuguese | [unicamp-dl/ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)  |
 
 
