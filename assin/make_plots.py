@@ -16,7 +16,8 @@ EXPERIMENT_SETS = {"small_long_gen": ("assin2_t5_small_long/version_0", "assin2_
                    "base_entail_custom_standard": ("assin2_ptt5_base_entail/version_1", "assin2_ptt5_base_entail_custom/version_1"),
                    "small_entail_long_gen": ("assin2_t5_small_entail_acc/version_0", "assin2_t5_small_entail_gen/version_0"),
                    "base_entail_long_gen": ("assin2_t5_base_entail_acc/version_0", "assin2_t5_base_entail_gen/version_0"),
-                   "large_entail_custom_standard": ("assin2_ptt5_large_entail_10p/version_0", "assin2_ptt5_large_entail_custom_vocab_10p/version_0"),
+                   "large_entail_custom_standard": ("assin2_ptt5_large_entail_10p/version_0",
+                                                    "assin2_ptt5_large_entail_custom_vocab_10p/version_0"),
                    "large_long_custom_standard": ("assin2_ptt5_large_long/version_0", "assin2_ptt5_large_long_custom_vocab/version_0")}
 
 
@@ -36,8 +37,7 @@ if __name__ == "__main__":
     parser.add_argument("-xlim", default=None, type=float)
     parser.add_argument("-val_acc", action="store_true")
 
-    parser.add_argument('-l', "--log_folder", type=str,
-                        default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs")
+    parser.add_argument('-l', "--log_folder", helpd="Where your tensorboard logs are", type=str, required=True)
 
     args = parser.parse_args()
 

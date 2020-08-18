@@ -134,7 +134,7 @@ if __name__ == "__main__":
                 print(f"Final test MSE: {mse}")
                 print(f"Final test Pearson: {pearson}")
 
-            with open("/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/final_tests_large.txt", 'w') as ftest_file:
+            with open("final_tests.txt", 'w') as ftest_file:
                 ftest_file.write(result_str)
 
     except KeyboardInterrupt:
