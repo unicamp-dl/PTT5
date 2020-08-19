@@ -75,7 +75,8 @@ def analyze_epoch_time_num_params() -> Tuple[pd.DataFrame, pd.DataFrame]:
 
     Returns:
         Tuple[pd.DataFrame, pd.DataFrame]: First DataFrame contains data from
-        each experiment, second is summarized by experiment group.
+        each experiment, second is summarized by experiment group. Group 
+        refers to one of ('embeddings-only', 'all-weights', 'large-bs-128')
     """
     dict_dfs_events = parse_logs()
     # Keep only first epoch, assuming variation is minimal
@@ -91,7 +92,7 @@ def analyze_epoch_time_num_params() -> Tuple[pd.DataFrame, pd.DataFrame]:
     df_hours['wall_time_hours'] = df_hours['wall_time'] / 3600
 
     def group_hours_exp(x):
-        """Maps experiment group from experiment name
+        """Maps experiment experiment name to experiment group
 
         """
         label = utils.get_model_size_from_dir(x) + '-'
