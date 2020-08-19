@@ -4,17 +4,17 @@ Pre-training and validating the T5 transformer in Brazilian Portuguese data
 # How to use PTT5:
 
 ## Available models
-Our pre-trained models are available for use with the  [🤗Transformers API](https://github.com/huggingface/transformers), both in PyTorch and TensorFlow.
+Our Portuguese pre-trained models are available for use with the  [🤗Transformers API](https://github.com/huggingface/transformers), both in PyTorch and TensorFlow.
 
 <!-- Com link -->
-| Model                                    | Architecture                                                   | #Params  | Vocabulary         |
+| Model                                    | Size                                                   | #Params  | Vocabulary         |
 | :-:                                      | :-:                                                            | :-:      | :-:                |
-| [unicamp-dl/ptt5-small-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-small-t5-vocab)                   | t5-small | 60M  | Google's T5 |
-| [unicamp-dl/ptt5-base-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-base-t5-vocab)                     | t5-base  | 220M | Google's T5 |
-| [unicamp-dl/ptt5-large-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-large-t5-vocab)                   | t5-large | 740M | Google's T5 |
-| [unicamp-dl/ptt5-small-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-small-portuguese-vocab)   | ptt5-small | 60M  | Portuguese  |
-| **[unicamp-dl/ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)** **(Recommended)**     | **ptt5-base**  | **220M** | **Portuguese**  |
-| [unicamp-dl/ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)   | ptt5-large | 740M | Portuguese  |
+| [unicamp-dl/ptt5-small-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-small-t5-vocab)                   | small | 60M  | Google's T5 |
+| [unicamp-dl/ptt5-base-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-base-t5-vocab)                     | base  | 220M | Google's T5 |
+| [unicamp-dl/ptt5-large-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-large-t5-vocab)                   | large | 740M | Google's T5 |
+| [unicamp-dl/ptt5-small-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-small-portuguese-vocab)   | small | 60M  | Portuguese  |
+| **[unicamp-dl/ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)** **(Recommended)**     | **base**  | **220M** | **Portuguese**  |
+| [unicamp-dl/ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)   | large | 740M | Portuguese  |
 
 
 
