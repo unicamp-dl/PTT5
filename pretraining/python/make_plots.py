@@ -76,7 +76,7 @@ plt.legend(loc='best', fontsize='xx-small')
 # plt.grid()
 plt.tight_layout()
 # plt.show()
-plt.savefig('../reports/pretraing_all_weights.eps',
+plt.savefig('../plots/pretraing_all_weights.eps',
             dpi=1000,
             format='pdf',
             bbox_inches='tight')
@@ -95,7 +95,7 @@ plt.legend(loc='best', fontsize='xx-small')
 # plt.grid()
 plt.tight_layout()
 # plt.show()
-plt.savefig('../reports/pretraing_embeddings_only.eps',
+plt.savefig('../plots/pretraing_embeddings_only.eps',
             dpi=1000,
             format='pdf',
             bbox_inches='tight')
