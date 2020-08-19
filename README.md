@@ -17,6 +17,7 @@ Our pre-trained models are available for use with the  [🤗Transformers API](ht
 | [unicamp-dl/ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)   | t5-large | 740M | Portuguese  |
 
 
+
 ## Example usage:
 ```python
 # Tokenizer 

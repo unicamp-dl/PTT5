@@ -1,3 +1,8 @@
+'''
+From https://github.com/LiyuanLucasLiu/RAdam/tree/master/radam
+Liyuan Liu , Haoming Jiang, Pengcheng He, Weizhu Chen, Xiaodong Liu, Jianfeng Gao, and Jiawei Han (2020).
+On the Variance of the Adaptive Learning Rate and Beyond. the Eighth International Conference on Learning Representations.
+'''
 import math
 import torch
 from torch.optim.optimizer import Optimizer, required
@@ -13,7 +18,7 @@ class RAdam(Optimizer):
             raise ValueError("Invalid beta parameter at index 0: {}".format(betas[0]))
         if not 0.0 <= betas[1] < 1.0:
             raise ValueError("Invalid beta parameter at index 1: {}".format(betas[1]))
-        
+
         self.degenerated_to_sgd = degenerated_to_sgd
         if isinstance(params, (list, tuple)) and len(params) > 0 and isinstance(params[0], dict):
             for param in params:
@@ -104,7 +109,7 @@ class PlainRAdam(Optimizer):
             raise ValueError("Invalid beta parameter at index 0: {}".format(betas[0]))
         if not 0.0 <= betas[1] < 1.0:
             raise ValueError("Invalid beta parameter at index 1: {}".format(betas[1]))
-                    
+
         self.degenerated_to_sgd = degenerated_to_sgd
         defaults = dict(lr=lr, betas=betas, eps=eps, weight_decay=weight_decay)
 
@@ -181,7 +186,7 @@ class AdamW(Optimizer):
             raise ValueError("Invalid beta parameter at index 0: {}".format(betas[0]))
         if not 0.0 <= betas[1] < 1.0:
             raise ValueError("Invalid beta parameter at index 1: {}".format(betas[1]))
-        
+
         defaults = dict(lr=lr, betas=betas, eps=eps,
                         weight_decay=weight_decay, warmup = warmup)
         super(AdamW, self).__init__(params, defaults)
@@ -226,14 +231,14 @@ class AdamW(Optimizer):
                 denom = exp_avg_sq.sqrt().add_(group['eps'])
                 bias_correction1 = 1 - beta1 ** state['step']
                 bias_correction2 = 1 - beta2 ** state['step']
-                
+
                 if group['warmup'] > state['step']:
                     scheduled_lr = 1e-8 + state['step'] * group['lr'] / group['warmup']
                 else:
                     scheduled_lr = group['lr']
 
                 step_size = scheduled_lr * math.sqrt(bias_correction2) / bias_correction1
-                
+
                 if group['weight_decay'] != 0:
                     p_data_fp32.add_(-group['weight_decay'] * scheduled_lr, p_data_fp32)
 

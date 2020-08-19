@@ -16,7 +16,8 @@ EXPERIMENT_SETS = {"small_long_gen": ("assin2_t5_small_long/version_0", "assin2_
                    "base_entail_custom_standard": ("assin2_ptt5_base_entail/version_1", "assin2_ptt5_base_entail_custom/version_1"),
                    "small_entail_long_gen": ("assin2_t5_small_entail_acc/version_0", "assin2_t5_small_entail_gen/version_0"),
                    "base_entail_long_gen": ("assin2_t5_base_entail_acc/version_0", "assin2_t5_base_entail_gen/version_0"),
-                   "large_entail_custom_standard": ("assin2_ptt5_large_entail_10p/version_0", "assin2_ptt5_large_entail_custom_vocab_10p/version_0"),
+                   "large_entail_custom_standard": ("assin2_ptt5_large_entail_10p/version_0",
+                                                    "assin2_ptt5_large_entail_custom_vocab_10p/version_0"),
                    "large_long_custom_standard": ("assin2_ptt5_large_long/version_0", "assin2_ptt5_large_long_custom_vocab/version_0")}
 
 
@@ -30,14 +31,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("experiment_set")
     parser.add_argument("title")
-    parser.add_argument("y")
+    parser.add_argument("-y", default='')
     parser.add_argument("-x", default="Epoch")
     parser.add_argument("-ylim", default=None, type=float)
     parser.add_argument("-xlim", default=None, type=float)
     parser.add_argument("-val_acc", action="store_true")
 
-    parser.add_argument('-l', "--log_folder", type=str,
-                        default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs")
+    parser.add_argument('-l', "--log_folder", helpd="Where your tensorboard logs are", type=str, required=True)
 
     args = parser.parse_args()
 
@@ -55,9 +55,9 @@ if __name__ == "__main__":
 
             if "t5" in experiment.split('_'):
                 if "long" in experiment or "acc" in experiment:
-                    label = f"{metric_name} linear layer"
+                    label = f"{metric_name.replace('_', ' ')} linear layer"
                 else:
-                    label = f"{metric_name} string generation"
+                    label = f"{metric_name.replace('_', ' ')} string generation"
             else:
                 label = f"{mode} Portuguese vocab" if "custom" in experiment else f"{mode} T5 vocab"
 
@@ -77,4 +77,5 @@ if __name__ == "__main__":
             plt.plot(range(len(df[metric_name])), df[metric_name], label=label)
             plt.legend()
     plt.tight_layout()
+    plt.savefig(f"plots/{args.experiment_set}.eps", format="eps", dpi=1000)
     plt.show()

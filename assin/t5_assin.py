@@ -1,6 +1,6 @@
 '''
-T5 ASSIN
-Aplicando o T5 e PTT5 sobre o ASSIN.
+Applying T5 and PTT5 over ASSIN data.
+This is the main script for fine-tuning in ASSIN2
 '''
 # Standard Libraries
 import os
@@ -20,7 +20,7 @@ from radam import RAdam
 from scipy.stats import pearsonr
 from assin_dataset import ASSIN, get_custom_vocab
 
-# PyTorch Lightning and Transformer
+# PyTorch Lightning and Transformers
 import pytorch_lightning as pl
 from transformers import T5Model, PretrainedConfig, T5ForConditionalGeneration, T5Tokenizer
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
@@ -37,9 +37,6 @@ logging.info(f"PyTorch v{torch.__version__}. Recommended >= 1.5.1.")
 logging.info(f"Imports loaded succesfully. Number of CPU cores: {cpu_count()}. CUDA available: {torch.cuda.is_available()}.")
 
 CONFIG_PATH = "T5_configs_json"
-
-# For external import use
-CHECKPOINT_PATH = "/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/checkpoints"
 
 
 class PearsonCalculator():
@@ -138,7 +135,7 @@ class T5ASSIN(pl.LightningModule):
         logging.info("Initialization done.")
 
     def get_ptt5(self):
-        ckpt_paths = glob(os.path.join(CHECKPOINT_PATH, self.hparams.model_name + "*"))
+        ckpt_paths = glob(os.path.join(self.hparams.checkpoint_path, self.hparams.model_name + "*"))
         config_paths = glob(os.path.join(CONFIG_PATH, "ptt5*" + self.size + "*"))
 
         assert len(ckpt_paths) == 1 and len(config_paths) == 1, ("Are the config/ckpts on the correct path?"
@@ -285,9 +282,6 @@ class T5ASSIN(pl.LightningModule):
 
 
 if __name__ == "__main__":
-    # # 6 GB VRAM BS, 32 precision:
-    # small- 32
-    # base- 2
     parser = argparse.ArgumentParser()
     parser.add_argument('name', type=str)
     parser.add_argument('--model_name', type=str, required=True)
@@ -306,17 +300,13 @@ if __name__ == "__main__":
     parser.add_argument('--nout', type=int, default=1)
     parser.add_argument('--patience', type=int, default=5)
     parser.add_argument('--gpu', type=int, default=1)
-    parser.add_argument('--checkpoint_path', type=str,
-                        default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/checkpoints")
-    parser.add_argument('--log_path', type=str,
-                        default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/logs")
-    parser.add_argument('--model_path', type=str,
-                        default="/home/diedre/Dropbox/aUNICAMP/phd/courses/deep_learning_nlp/PTT5_data/models")
+    parser.add_argument('--checkpoint_path', type=str, help="Where are pre-trained checkpoints from PTT5.")
+    parser.add_argument('--log_path', type=str, help="Where to save tensorboard logs.")
+    parser.add_argument('--model_path', type=str, help="Where to save models.")
     hparams = parser.parse_args()
 
     logging.info(f"Detected parameters: {hparams}")
 
-    CHECKPOINT_PATH = hparams.checkpoint_path
     log_path = hparams.log_path
     model_path = hparams.model_path
 
