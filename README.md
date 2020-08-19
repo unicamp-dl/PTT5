@@ -8,19 +8,19 @@ Our pre-trained models are available for use with the  [🤗Transformers API](ht
 
 <!-- Com link -->
 | Model                                    | Architecture                                                   | #Params  | Vocabulary         |
-| :-:                                      | :-:                                                            | :-:      | :-:                |            
+| :-:                                      | :-:                                                            | :-:      | :-:                |
 | [unicamp-dl/ptt5-small-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-small-t5-vocab)                   | t5-small | 60M  | Google's T5 |
 | [unicamp-dl/ptt5-base-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-base-t5-vocab)                     | t5-base  | 220M | Google's T5 |
 | [unicamp-dl/ptt5-large-t5-vocab](https://huggingface.co/unicamp-dl/ptt5-large-t5-vocab)                   | t5-large | 740M | Google's T5 |
-| [unicamp-dl/ptt5-small-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-small-portuguese-vocab)   | t5-small | 60M  | Portuguese  |
-| **[unicamp-dl/ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)** **(Recommended)**     | **t5-base**  | **220M** | **Portuguese**  |
-| [unicamp-dl/ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)   | t5-large | 740M | Portuguese  |
+| [unicamp-dl/ptt5-small-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-small-portuguese-vocab)   | ptt5-small | 60M  | Portuguese  |
+| **[unicamp-dl/ptt5-base-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-base-portuguese-vocab)** **(Recommended)**     | **ptt5-base**  | **220M** | **Portuguese**  |
+| [unicamp-dl/ptt5-large-portuguese-vocab](https://huggingface.co/unicamp-dl/ptt5-large-portuguese-vocab)   | ptt5-large | 740M | Portuguese  |
 
 
 
 ## Example usage:
 ```python
-# Tokenizer 
+# Tokenizer
 from transformers import AutoTokenizer # or T5Tokenizer
 
 # PyTorch (bare model, baremodel + language modeling head)
@@ -33,7 +33,7 @@ model_name = 'unicamp-dl/ptt5-base-portuguese-vocab'
 
 tokenizer = T5Tokenizer.from_pretrained(model_name)
 
-# PyTorch 
+# PyTorch
 model_pt = T5ForConditionalGeneration.from_pretrained(model_name)
 
 # TensorFlow
