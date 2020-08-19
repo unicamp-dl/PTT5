@@ -21,7 +21,7 @@ Our Portuguese pre-trained models are available for use with the  [🤗Transform
 ## Example usage:
 ```python
 # Tokenizer
-from transformers import AutoTokenizer # or T5Tokenizer
+from transformers import T5Tokenizer
 
 # PyTorch (bare model, baremodel + language modeling head)
 from transformers import T5Model, T5ForConditionalGeneration
