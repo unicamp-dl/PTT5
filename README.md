@@ -1,5 +1,5 @@
 # PTT5
-Pre-training and validating the T5 transformer in Brazilian Portuguese data
+Official implementation of [PTT5: Pretraining and validating the T5 model on Brazilian Portuguese data](https://arxiv.org/abs/2008.09144).
 
 # How to use PTT5:
 
