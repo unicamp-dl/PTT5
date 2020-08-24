@@ -60,17 +60,15 @@ Some utility code.
 Code related to the creation of the custom Portuguese vocabulary.
 
 # Citation
-We are preparing an arXiv submission and soon will provide a citation. For now, if you need to cite use:
+If you use PTT5, please cite:
 
-    @misc{ptt5_2020,
-      Author = {Carmo, Diedre and Piau, Marcos and Campiotti, Israel and Nogueira, Rodrigo and Lotufo, Roberto},
-      Title = {PTT5: Pre-training and validating the T5 transformer in Brazilian Portuguese data},
-      Year = {2020},
-      Publisher = {GitHub},
-      Journal = {GitHub repository},
-      Howpublished = {\url{https://github.com/unicamp-dl/PTT5}}
+    @article{ptt5_2020,
+      title={PTT5: Pretraining and validating the T5 model on Brazilian Portuguese data},
+      author={Carmo, Diedre and Piau, Marcos and Campiotti, Israel and Nogueira, Rodrigo and Lotufo, Roberto},
+      journal={arXiv preprint arXiv:2008.09144},
+      year={2020}
     }
 
 # Acknowledgement
 
-This work was developed as the final project for the IA376E graduate course taught by Professors Rodrigo Nogueira and Roberto Lotufo at the University of Campinas (UNICAMP).
+This work was initially developed as the final project for the IA376E graduate course taught by Professors Rodrigo Nogueira and Roberto Lotufo at the University of Campinas (UNICAMP).
