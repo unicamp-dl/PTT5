@@ -98,7 +98,7 @@ pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycurl==7.43.0.2
 pyglet==1.5.0
-Pygments==2.6.1
+Pygments==2.7.4
 PyGObject==3.30.4
 pyparsing==2.4.6
 pypng==0.0.20
