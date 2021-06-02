@@ -150,7 +150,7 @@ traitlets==4.3.3
 transformers==2.11.0
 unattended-upgrades==0.1
 uritemplate==3.0.1
-urllib3==1.25.8
+urllib3==1.26.5
 virtualenv==20.0.10
 wcwidth==0.1.8
 webencodings==0.5.1
