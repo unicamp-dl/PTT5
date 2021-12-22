@@ -3,7 +3,7 @@ appdirs==1.4.3
 astor==0.8.1
 astunparse==1.6.3
 attrs==19.3.0
-Babel==2.8.0
+Babel==2.9.1
 backcall==0.1.0
 bleach==3.3.0
 bz2file==0.98
