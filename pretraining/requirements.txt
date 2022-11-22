@@ -86,7 +86,7 @@ pandocfilters==1.4.2
 parso==0.6.2
 pexpect==4.8.0
 pickleshare==0.7.5
-Pillow==8.3.2
+Pillow==9.3.0
 portalocker==1.7.0
 prometheus-client==0.7.1
 promise==2.3
